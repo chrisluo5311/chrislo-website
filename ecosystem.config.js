@@ -33,7 +33,7 @@ module.exports = {
     {
       name: 'chrislo-web',
       script: './node_modules/.bin/serve',
-      args: ['-s', 'dist', '-l', process.env.PORT || '8080'],
+      args: ['-s', 'dist', '-l', PROD.PORT || '8080'],
       env: {
         ...PROD,
         NODE_ENV: 'production',
