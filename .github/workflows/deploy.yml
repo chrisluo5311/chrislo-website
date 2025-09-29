@@ -15,14 +15,14 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Deploy to Server 1
+      - name: Deploy to Server 
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
-
+      
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
@@ -31,9 +31,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            cd ${{ secrets.TARGET_DIR }}
-            # install deps reproducibly if lockfile exists
-            if [ -f package-lock.json ]; then npm ci; else npm install; fi
-            # run Vue dev server, bind to all interfaces so you can hit it from your browser
-            npx vue-cli-service serve --host 0.0.0.0 --port 3000
-            
+            cd ${{ secrets.TARGET_DIR }}/deploy
+            chmod +x sync.sh
+            bash ./sync.sh
