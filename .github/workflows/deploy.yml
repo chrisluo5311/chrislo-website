@@ -33,7 +33,7 @@ jobs:
           script: |
             set -e
             # 進入部署腳本目錄
-            cd ${{ secrets.TARGET_DIR }}/deploy
+            cd /home/ec2-user/${{ secrets.TARGET_DIR }}/deploy
             chmod +x sync.sh
             # 將 APP_DIR 以環境變數注入到部署腳本，避免在程式碼中曝光完整路徑
             export APP_DIR=/home/ec2-user/${{ secrets.TARGET_DIR }}
