@@ -31,7 +31,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
+            echo "export APP_DIR=/home/ec2-user/${{ secrets.TARGET_DIR }}" >> ~/.bashrc
+            source ~/.bashrc
             cd ${{ secrets.TARGET_DIR }}/deploy
-            export APP_DIR=/home/ec2-user/${{ secrets.TARGET_DIR }}
             chmod +x sync.sh
             bash ./sync.sh
