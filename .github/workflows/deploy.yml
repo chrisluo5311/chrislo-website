@@ -32,6 +32,6 @@ jobs:
           script: |
             set -e
             cd ${{ secrets.TARGET_DIR }}/deploy
-            chmod +x sync.sh
             export APP_DIR=/home/ec2-user/${{ secrets.TARGET_DIR }}
+            chmod +x sync.sh
             bash ./sync.sh
