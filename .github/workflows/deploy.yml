@@ -21,8 +21,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-          # 以 /home/ec2-user 為前綴，將秘密目錄名拼接成完整目標路徑，避免在 repo 中硬編目錄
-          TARGET: /home/ec2-user/${{ secrets.TARGET_DIR }}
+          TARGET: ${{ secrets.TARGET_DIR }}
       
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
@@ -32,9 +31,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            # 進入部署腳本目錄
-            cd /home/ec2-user/${{ secrets.TARGET_DIR }}/deploy
+            cd ${{ secrets.TARGET_DIR }}/deploy
             chmod +x sync.sh
-            # 將 APP_DIR 以環境變數注入到部署腳本，避免在程式碼中曝光完整路徑
             export APP_DIR=/home/ec2-user/${{ secrets.TARGET_DIR }}
             bash ./sync.sh
