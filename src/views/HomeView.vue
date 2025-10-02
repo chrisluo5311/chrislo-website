@@ -302,8 +302,9 @@ import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap'; // **FIX**: Import bootstrap JS module for programmatic API usage
 
 // CAROUSEL IMAGES
-const bg1 = require('@/assets/images/index/bg1.jpg');
-const bg2 = require('@/assets/images/index/bg2.jpg');
+import bg1 from '@/assets/images/index/bg1.jpg';
+import bg2 from '@/assets/images/index/bg2.jpg';
+
 
 // THEME STATE
 const theme = ref('light');
