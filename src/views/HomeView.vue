@@ -83,7 +83,7 @@
         <div class="col-md-8 text-center">
           <p class="lead">{{ introduction }}</p>
           <h4 class="mt-5">Career Objective</h4>
-          <p>{{ careerObjective }}</p>
+          <p class="mt-3 career-objective">{{ careerObjective }}</p>
         </div>
       </div>
     </div>
@@ -421,6 +421,7 @@ function startTypingLoop(titleIndex = 0) {
 function onIconError(event) {
   const img = event?.target;
   if (img && img.style) {
+    console.error('Icon failed to load:', img.src);
     img.style.display = 'none';
   }
 }
@@ -546,9 +547,13 @@ const personalInfo = ref(
     }
 );
 
-const introduction = ref('Current Computer Science student at Santa Clara University with 1 year of working experience in Java backend development with Spring Boot.');
+const introduction = ref(
+  'Hello, I’m Chris👋. I am a Java Engineer and MS Computer Science student at Santa Clara University. With 5 years of coding experience, I have worked with frameworks like AI agents, RAG, Pytorch, Keras, and TensorFlow. Previously, at JY Globe Company, I built a crypto trading platform with Spring Boot and optimized SQL performance for web application.'
+);
 
-const careerObjective = ref('Seeking a full-time job as a AI engineer to apply my skills in building intelligent AI-driven applications.');
+const careerObjective = ref(
+  'Seeking a full-time job as a AI engineer to apply my skills in building intelligent AI-driven applications.'
+);
 
 const education = ref([ 
     { 
@@ -682,6 +687,15 @@ const projects = ref([
     description: 'Relies on Spring Boot and SQLite, featuring P2P routing, gossip-based node discovery and sharding between multiple SQLite instances', 
     technologies: ['Spring Boot', 'SQLite', 'RabbitMQ', 'P2P', "Gossip Protocol", "Sharding"], 
     link: 'https://github.com/chrisluo5311/ShardingJH' 
+  },
+  { 
+    name: 'arXiv-Copilot: AI Research Assistant', 
+    icon: openaiIcon,
+    role: 'Developer', 
+    period: 'May 2025 - June 2025',
+    description: 'An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers (mainly Computer Science), using OpenAI models and FAISS vector database.', 
+    technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
+    link: 'https://github.com/chrisluo5311/arxiv-copilot' 
   },
 ]);
 
@@ -1243,6 +1257,21 @@ footer .social-icons a:hover {
 .chat-footer {
   padding: 0.5rem;
   border-top: 1px solid var(--secondary-color);
+}
+
+/* Emphasize Career Objective text */
+.career-objective {
+  font-size: 1.125rem; /* ~18px */
+}
+@media (min-width: 576px) {
+  .career-objective {
+    font-size: 1.25rem; /* ~20px on sm+ */
+  }
+}
+@media (min-width: 992px) {
+  .career-objective {
+    font-size: 1.3125rem; /* ~21px on lg+ */
+  }
 }
 
 /* --- Project card normalization for horizontal alignment --- */
