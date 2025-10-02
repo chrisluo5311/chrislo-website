@@ -173,22 +173,25 @@
       <h2 class="section-title">Projects</h2>
       <div class="row g-4">
         <div
-          v-for="(project, index) in projects"
-          :key="index"
+          v-for="project in topProjects"
+          :key="project.name"
           class="col-lg-4 col-md-6"
         >
           <a
-            class="card card-link-override"
+            class="card card-link-override h-100"
             :href="project.link"
             target="_blank"
             rel="noopener noreferrer"
             :aria-label="`Open project: ${project.name}`"
           >
-            <div class="card-body text-center d-flex flex-column">
-              <h5 class="card-title fw-bold">{{ project.name }}</h5>
-              <p class="card-subtitle mb-2 text-muted">{{ project.role }}</p>
-              <p class="card-text flex-grow-1">{{ project.description }}</p>
-              <div class="d-flex flex-wrap justify-content-center my-3">
+            <div class="card-body text-center d-flex flex-column h-100">
+              <h5 class="card-title fw-bold project-card-title">{{ project.name }}</h5>
+              <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
+                <span>{{ project.role }}</span>
+                <small v-if="project.period" class="text-muted">{{ project.period }}</small>
+              </div>
+              <p class="card-text project-card-desc">{{ project.description }}</p>
+              <div class="d-flex flex-wrap justify-content-center gap-2 mt-auto pt-2">
                 <span
                   v-for="tech in project.technologies"
                   :key="tech"
@@ -199,6 +202,54 @@
             </div>
           </a>
         </div>
+      </div>
+
+      <div class="collapse mt-3" id="moreProjects">
+        <div class="row g-4">
+          <div
+            v-for="project in restProjects"
+            :key="project.name"
+            class="col-lg-4 col-md-6"
+          >
+            <a
+              class="card card-link-override h-100"
+              :href="project.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="`Open project: ${project.name}`"
+            >
+              <div class="card-body text-center d-flex flex-column h-100">
+                <h5 class="card-title fw-bold project-card-title">{{ project.name }}</h5>
+                <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
+                  <span>{{ project.role }}</span>
+                  <small v-if="project.period" class="text-muted">{{ project.period }}</small>
+                </div>
+                <p class="card-text project-card-desc">{{ project.description }}</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-auto pt-2">
+                  <span
+                    v-for="tech in project.technologies"
+                    :key="tech"
+                    class="badge bg-info text-dark m-1"
+                    >{{ tech }}</span
+                  >
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="hasMoreProjects" class="text-center mt-3">
+        <button
+          class="btn btn-primary btn-lg"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#moreProjects"
+          aria-expanded="false"
+          aria-controls="moreProjects"
+        >
+          More
+        </button>
       </div>
     </div>
   </section>
@@ -534,27 +585,62 @@ const skills = ref([
 ]);
 
 const projects = ref([ 
-    { 
-        name: 'PepperNoodles - search for nearby restaurants', 
-        role: 'Tech Lead', 
-        description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
-        technologies: ['Spring Boot', 'MSSQL Server', 'jQuery', 'Bootstrap', 'Spring Security'], 
-        link: 'https://github.com/PepperNoodles/PepperNoodles' 
-    },
-    { 
-        name: 'Brain Tumor Detection with CNN', 
-        role: 'Team Leader', 
-        description: 'Developed a model achieving 90.24% accuracy in brain tumor detection using a CNN, TensorFlow, and Keras.', 
-        technologies: ['TensorFlow', 'Keras', 'CNN', 'OpenCV', 'Python'], 
-        link: 'https://github.com/chrisluo5311/Team_Image_Recognition' 
-    },
-    { 
-        name: 'Real-Time Trading Alert System', 
-        role: 'Backend Developer', 
-        description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
-        technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker', 'Java'], 
-        link: 'https://github.com/your-username/trading-alert-system' 
-    } 
+  { 
+    name: 'PepperNoodles - search for nearby restaurants', 
+    role: 'Tech Lead', 
+    period: 'Jun 2019 - Present',
+    description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
+    technologies: ['Spring Boot', 'MSSQL Server', 'Spring Security'], 
+    link: 'https://github.com/PepperNoodles/PepperNoodles' 
+  },
+  { 
+    name: 'Brain Tumor Detection with CNN', 
+    role: 'Team Leader', 
+    period: 'Jan 2017 - Nov 2017',
+    description: 'Developed a model achieving 90.24% accuracy in brain tumor detection using a CNN, TensorFlow, and Keras.', 
+    technologies: ['TensorFlow', 'Keras', 'CNN', 'OpenCV', 'Python'], 
+    link: 'https://github.com/chrisluo5311/Team_Image_Recognition' 
+  },
+  { 
+    name: 'Employee access control system', 
+    role: 'Developer', 
+    period: 'Dec 2023 - Dec 2023',
+    description: 'Developed a access control system with Linkit7688duo and Arduino to Control and manage personnel entering and exiting', 
+    technologies: ['Arduino', 'Linkit7688duo', 'Python'], 
+    link: 'https://github.com/chrisluo5311/EmbeddedLinkit7688duo' 
+  },
+  { 
+    name: 'Covid 19 epidemic information Line chatbot', 
+    role: 'Backend Developer', 
+    period: 'Feb 2021 - Apr 2022',
+    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
+    technologies: ['Spring Boot', 'Line', 'WebSocket', 'Docker'], 
+    link: 'https://github.com/your-username/trading-alert-system' 
+  },
+  { 
+    name: 'Real-Time Trading Alert System', 
+    role: 'Backend Developer', 
+    period: 'Feb 2021 - Apr 2022',
+    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
+    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
+    link: 'https://github.com/your-username/trading-alert-system' 
+  },
+  { 
+    name: 'Real-Time Trading Alert System', 
+    role: 'Backend Developer', 
+    period: 'Feb 2021 - Apr 2022',
+    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
+    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
+    link: 'https://github.com/your-username/trading-alert-system' 
+  },
+  { 
+    name: 'Real-Time Trading Alert System', 
+    role: 'Backend Developer', 
+    period: 'Feb 2021 - Apr 2022',
+    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
+    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
+    link: 'https://github.com/your-username/trading-alert-system' 
+  },
 ]);
 
 const posts = ref([ 
@@ -591,6 +677,11 @@ onMounted(() => {
         offset: 100 // Add offset for better accuracy
     });
 });
+
+// computed helpers for Projects collapse
+const topProjects = computed(() => projects.value.slice(0, 3));
+const restProjects = computed(() => projects.value.slice(3));
+const hasMoreProjects = computed(() => projects.value.length > 3);
 </script>
 
 <style lang="scss">
@@ -940,6 +1031,15 @@ h6 {
   transform: scale(1.2);
 }
 
+/* Project tech badges: turn yellow when hovering the card */
+#projects .card .badge.bg-info.text-dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+#projects .card:hover .badge.bg-info.text-dark {
+  background-color: #ffc107 !important; /* bootstrap warning yellow */
+  color: #212529 !important; /* dark text for contrast */
+}
+
 /* Make entire project card clickable without default anchor styles */
 .card-link-override {
   text-decoration: none;
@@ -1102,4 +1202,52 @@ footer .social-icons a:hover {
   padding: 0.5rem;
   border-top: 1px solid var(--secondary-color);
 }
+
+/* --- Project card normalization for horizontal alignment --- */
+.project-card-title {
+  /* clamp to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3.2rem; /* approx 2 lines */
+}
+
+.project-card-subtitle {
+  min-height: 1.25rem; /* keep a fixed slot for one line */
+}
+
+.project-card-desc {
+  text-align: left; 
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show up to 3 lines */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.2rem; /* approx 3 lines to align rows */
+}
+
+/* Responsive clamp tuning */
+@media (max-width: 575.98px) {
+  .project-card-title {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    min-height: 3rem;
+  }
+  .project-card-desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    min-height: 3rem; /* tighter on mobile */
+  }
+}
+
+@media (min-width: 576px) {
+  .project-card-desc {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    min-height: 4.2rem;
+  }
+}
+
 </style>
