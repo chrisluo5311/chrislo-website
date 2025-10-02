@@ -62,10 +62,10 @@
         <span class="typing-text">{{ typedText }}</span>
       </p>
       <div class="social-icons mt-4">
-        <a :href="personalInfo.socials.linkedin" target="_blank"
+        <a :href="personalInfo.socials.linkedin" target="_blank" rel="noopener noreferrer"
           ><i class="bi bi-linkedin"></i
         ></a>
-        <a :href="personalInfo.socials.github" target="_blank"
+        <a :href="personalInfo.socials.github" target="_blank" rel="noopener noreferrer"
           ><i class="bi bi-github"></i
         ></a>
         <a :href="'mailto:' + personalInfo.email"
@@ -100,8 +100,15 @@
             :key="index"
             class="timeline-item mb-5"
           >
-            <h4 class="fw-bold">{{ edu.institution }}</h4>
-            <p class="text-muted mb-1">{{ edu.degree }}</p>
+            <h4 class="fw-bold d-flex flex-wrap align-items-center gap-2">
+              {{ edu.institution }}
+              <span
+                v-if="isBootcamp(edu.institution)"
+                class="badge bg-warning text-dark badge-compact"
+                title="Bootcamp"
+              >Bootcamp</span>
+            </h4>
+            <p class="text-muted mb-1" v-for="(deg, i) in edu.degree" :key="i">{{ deg }}</p>
             <p class="text-muted mb-2">
               <i class="bi bi-geo-alt-fill"></i> {{ edu.location }}
             </p>
@@ -134,7 +141,7 @@
               job.date
             }}</span>
             <ul class="mt-3">
-              <li v-for="desc in job.description" :key="desc">{{ desc }}</li>
+              <li v-for="desc in job.description" :key="desc" v-html="highlightTech(desc)"></li>
             </ul>
           </div>
         </div>
@@ -170,7 +177,13 @@
           :key="index"
           class="col-lg-4 col-md-6"
         >
-          <div class="card">
+          <a
+            class="card card-link-override"
+            :href="project.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="`Open project: ${project.name}`"
+          >
             <div class="card-body text-center d-flex flex-column">
               <h5 class="card-title fw-bold">{{ project.name }}</h5>
               <p class="card-subtitle mb-2 text-muted">{{ project.role }}</p>
@@ -183,15 +196,8 @@
                   >{{ tech }}</span
                 >
               </div>
-              <a
-                :href="project.link"
-                target="_blank"
-                class="project-link mt-auto"
-                title="View on GitHub"
-                ><i class="bi bi-github"></i
-              ></a>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -342,6 +348,25 @@ function startTypingLoop(titleIndex = 0) {
     });
 }
 
+// Highlight key tech terms with a yellow underline effect
+function highlightTech(text) {
+  if (!text) return '';
+  const terms = ['Spring Boot', 'Spring Security', 'MySQL', 'RabbitMQ'];
+  // Escape regex special characters in terms and build a single regex (case-sensitive as requested)
+  const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'g');
+  return text.replace(regex, '<span class="hl-underline-yellow">$1</span>');
+}
+
+// Identify bootcamp-type institutions to show a small badge in Education
+function isBootcamp(name) {
+  if (!name) return false;
+  return [
+    'National Yang Ming Chiao Tung University',
+    'Institute for Information Industry'
+  ].includes(name);
+}
+
 // AI CHAT STATE
 const isChatOpen = ref(false);
 const userMessage = ref('');
@@ -438,8 +463,8 @@ const personalInfo = ref(
         phone: '((408) 387-4040)', 
         socials: 
         { 
-            linkedin: '[https://www.linkedin.com/in/ji-dung-lo-b4b350189](https://www.linkedin.com/in/ji-dung-lo-b4b350189)', 
-            github: '[https://github.com/your-github-username](https://github.com/chrisluo5311)' 
+          linkedin: 'https://www.linkedin.com/in/ji-dung-lo-b4b350189/', 
+          github: 'https://github.com/chrisluo5311' 
         } 
     }
 );
@@ -451,35 +476,28 @@ const careerObjective = ref('Seeking a full-time job as a AI engineer to apply m
 const education = ref([ 
     { 
         institution: 'Santa Clara University', 
-        degree: 'MS in Computer Science and Engineering', 
+        degree: ['MS in Computer Science and Engineering'], 
         location: 'Santa Clara, CA', 
         date: 'Expected March 2026', 
         details: 'Concentration: LLM' 
     },
     { 
         institution: 'Soochow University', 
-        degree: 'Bachelor of Arts in English Language and Literature & Business Administration', 
-        location: 'Taipei, Taiwan', 
-        date: 'Sep 2015 - Jan 2020', 
-        details: 'GPA: 3.7 / 4.0' 
-    },
-    { 
-        institution: 'Soochow University', 
-        degree: 'Bachelor of Arts in English Language and Literature & Business Administration', 
+        degree: ['BA in English Language and Literature', 'BA in Business Administration'], 
         location: 'Taipei, Taiwan', 
         date: 'Sep 2015 - Jan 2020', 
         details: 'GPA: 3.7 / 4.0' 
     },
     { 
         institution: 'National Yang Ming Chiao Tung University', 
-        degree: 'Semiconductor AI and ChatGPT Academy (108 hours)', 
+        degree: ['Semiconductor AI and ChatGPT Academy (108 hours)'], 
         location: 'Taipei, Taiwan', 
         date: 'Aug 2023 - Nov 2023', 
         details: 'Learned Deep Learning, Machine Learning, TensorFlow, Keras, OpenCV' 
     },
     { 
         institution: 'Institute for Information Industry', 
-        degree: 'Java Backend Engineering Training Program (576 hours)', 
+        degree: ['Java Backend Engineering Training Program (576 hours)'], 
         location: 'Taipei, Taiwan', 
         date: 'Dec 2020 - May 2021', 
         details: 'Learned Java, Spring Boot, MSSQL Server, RESTful API, JavaScript' 
@@ -493,9 +511,9 @@ const workExperience = ref([
         location: 'Taipei, Taiwan', 
         date: 'Sep 2021 - Apr 2022', 
         description: [
-            'Built a cryptocurrency trading application in a team of 2 with Spring Boot, featuring membership, order, and product systems.',
+            'Built a cryptocurrency trading application with Spring Boot, featuring membership, order, and product systems.',
             'Utilized Spring Security, RESTful API, and unit testing, capable of supporting 10,000+ active users and processing 50,000+ orders daily.',
-            'Improved MySQL database query performance by 150% to 200% through indexing and implemented sharding.',
+            'Improved MySQL database query performance by 150% to 200% through indexing and data sharding.',
             'Developed an ordering system capable of processing 100,000 orders per hour using RabbitMQ.'
         ]
     }
@@ -517,18 +535,18 @@ const skills = ref([
 
 const projects = ref([ 
     { 
-        name: 'Gourmet Map', 
+        name: 'PepperNoodles - search for nearby restaurants', 
         role: 'Tech Lead', 
         description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
         technologies: ['Spring Boot', 'MSSQL Server', 'jQuery', 'Bootstrap', 'Spring Security'], 
-        link: 'https://github.com/your-username/gourmet-map' 
+        link: 'https://github.com/PepperNoodles/PepperNoodles' 
     },
     { 
         name: 'Brain Tumor Detection with CNN', 
         role: 'Team Leader', 
         description: 'Developed a model achieving 90.24% accuracy in brain tumor detection using a CNN, TensorFlow, and Keras.', 
         technologies: ['TensorFlow', 'Keras', 'CNN', 'OpenCV', 'Python'], 
-        link: 'https://github.com/your-username/brain-tumor-detection' 
+        link: 'https://github.com/chrisluo5311/Team_Image_Recognition' 
     },
     { 
         name: 'Real-Time Trading Alert System', 
@@ -866,6 +884,37 @@ h6 {
   background-color: var(--primary-color) !important;
 }
 
+/* Compact badge for small labels (e.g., Bootcamp) */
+.badge-compact {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  vertical-align: middle;
+}
+
+/* Yellow underline highlight for tech terms */
+.hl-underline-yellow {
+  position: relative;
+  z-index: 0;
+}
+.hl-underline-yellow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.05em;
+  height: 0.45em;
+  background: rgba(255, 235, 59, 0.6); /* material yellow 300 with transparency */
+  z-index: -1;
+  border-radius: 2px;
+}
+
+/* Dark theme: stronger, more opaque highlight for better contrast */
+[data-theme="dark"] .hl-underline-yellow::after {
+  background: rgba(255, 18, 10, 0.9); /* deeper amber with higher opacity */
+  height: 0.55em;
+  bottom: 0.02em;
+}
+
 /* Skills Styling */
 .skill-badge {
   font-size: 0.9rem;
@@ -889,6 +938,18 @@ h6 {
 
 .project-link:hover {
   transform: scale(1.2);
+}
+
+/* Make entire project card clickable without default anchor styles */
+.card-link-override {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+.card-link-override:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Section Backgrounds */
