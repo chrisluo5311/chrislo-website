@@ -185,7 +185,10 @@
             :aria-label="`Open project: ${project.name}`"
           >
             <div class="card-body text-center d-flex flex-column h-100">
-              <h5 class="card-title fw-bold project-card-title">{{ project.name }}</h5>
+              <h5 class="card-title fw-bold project-card-title">
+                <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                {{ project.name }}
+              </h5>
               <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
                 <span>{{ project.role }}</span>
                 <small v-if="project.period" class="text-muted">{{ project.period }}</small>
@@ -219,7 +222,10 @@
               :aria-label="`Open project: ${project.name}`"
             >
               <div class="card-body text-center d-flex flex-column h-100">
-                <h5 class="card-title fw-bold project-card-title">{{ project.name }}</h5>
+                <h5 class="card-title fw-bold project-card-title">
+                  <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                  {{ project.name }}
+                </h5>
                 <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
                   <span>{{ project.role }}</span>
                   <small v-if="project.period" class="text-muted">{{ project.period }}</small>
@@ -356,7 +362,8 @@
 <script setup>
 /* eslint-disable */
 import { ref, onMounted, computed, nextTick } from 'vue';
-import * as bootstrap from 'bootstrap'; // **FIX**: Import bootstrap JS module for programmatic API usage
+import * as bootstrap from 'bootstrap';
+import springbootIcon from '@/assets/images/project/springboot.png';
 
 // THEME STATE
 const theme = ref('light');
@@ -397,6 +404,14 @@ function startTypingLoop(titleIndex = 0) {
             startTypingLoop((titleIndex + 1) % titlesToType.length);
         });
     });
+}
+
+// Hide broken icon images gracefully
+function onIconError(event) {
+  const img = event?.target;
+  if (img && img.style) {
+    img.style.display = 'none';
+  }
 }
 
 // Highlight key tech terms with a yellow underline effect
@@ -587,6 +602,7 @@ const skills = ref([
 const projects = ref([ 
   { 
     name: 'PepperNoodles - search for nearby restaurants', 
+    icon: springbootIcon,
     role: 'Tech Lead', 
     period: 'Jun 2019 - Present',
     description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
@@ -610,12 +626,12 @@ const projects = ref([
     link: 'https://github.com/chrisluo5311/EmbeddedLinkit7688duo' 
   },
   { 
-    name: 'Covid 19 epidemic information Line chatbot', 
-    role: 'Backend Developer', 
-    period: 'Feb 2021 - Apr 2022',
-    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
-    technologies: ['Spring Boot', 'Line', 'WebSocket', 'Docker'], 
-    link: 'https://github.com/your-username/trading-alert-system' 
+    name: ' Line chatbot - Covid 19 information', 
+    role: 'Developer', 
+    period: 'Dec 2021 - Feb 2022',
+    description: 'This project crawls and parses data such as daily new confirmed cases, remaining mask information, QR code scanning, global epidemic statistics, and vaccine registration statistics, and provides this information to users', 
+    technologies: ['Spring Boot', 'Line', 'WebSocket', 'PostgreSQL'], 
+    link: 'https://github.com/chrisluo5311/LineBot' 
   },
   { 
     name: 'Real-Time Trading Alert System', 
@@ -1212,6 +1228,17 @@ footer .social-icons a:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   min-height: 3.2rem; /* approx 2 lines */
+  border-bottom: 1px solid #060606;
+}
+
+/* Small icon before project name; you provide the image file via project.icon */
+.project-lang-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: text-bottom; /* align with text baseline nicely */
+  flex: 0 0 auto;
 }
 
 .project-card-subtitle {
