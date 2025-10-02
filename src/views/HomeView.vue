@@ -46,7 +46,17 @@
 
   <!-- Home/Hero Section -->
   <section id="home">
-    <div class="container text-center">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <div class="carousel-bg" :style="{ backgroundImage: `url(${bg1})` }"></div>
+        </div>
+        <div class="carousel-item" data-bs-interval="10000">
+          <div class="carousel-bg" :style="{ backgroundImage: `url(${bg2})` }"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container text-center hero-content">
       <h1 class="hero-title">{{ personalInfo.name }}</h1>
       <p class="hero-subtitle">
         <span class="typing-text">{{ typedText }}</span>
@@ -291,6 +301,10 @@
 import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap'; // **FIX**: Import bootstrap JS module for programmatic API usage
 
+// CAROUSEL IMAGES
+const bg1 = require('@/assets/images/index/bg1.jpg');
+const bg2 = require('@/assets/images/index/bg2.jpg');
+
 // THEME STATE
 const theme = ref('light');
 const themeIcon = computed(() => theme.value === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill');
@@ -423,28 +437,28 @@ async function scrollToBottom() {
 // RESUME DATA (now as reactive constants)
 const personalInfo = ref(
     { 
-        name: 'Ji Dung Lo', 
+        name: 'JI DUNG LO', 
         email: 'chrislo5311@gmail.com', 
-        phone: '(650) 426-8911', 
+        phone: '((408) 387-4040)', 
         socials: 
         { 
             linkedin: '[https://www.linkedin.com/in/ji-dung-lo-b4b350189](https://www.linkedin.com/in/ji-dung-lo-b4b350189)', 
-            github: '[https://github.com/your-github-username](https://github.com/your-github-username)' 
+            github: '[https://github.com/your-github-username](https://github.com/chrisluo5311)' 
         } 
     }
 );
 
-const introduction = ref('Current Computer Science student at Santa Clara University with 1 year of experience in Java backend development with Spring Boot.');
+const introduction = ref('Current Computer Science student at Santa Clara University with 1 year of working experience in Java backend development with Spring Boot.');
 
-const careerObjective = ref('Seeking a full-time summer internship as a software engineer to apply my skills in building robust and scalable backend systems.');
+const careerObjective = ref('Seeking a full-time job as a AI engineer to apply my skills in building intelligent AI-driven applications.');
 
 const education = ref([ 
     { 
         institution: 'Santa Clara University', 
         degree: 'MS in Computer Science and Engineering', 
         location: 'Santa Clara, CA', 
-        date: 'Expected June 2026', 
-        details: 'Concentration: Machine Learning' 
+        date: 'Expected March 2026', 
+        details: 'Concentration: LLM' 
     },
     { 
         institution: 'Soochow University', 
@@ -674,19 +688,58 @@ h6 {
 
 /* Hero Section */
 #home {
-  background: linear-gradient(
-      var(--hero-overlay-color),
-      var(--hero-overlay-color)
-    ),
-    url("https://placehold.co/1920x1080/eef2f3/a9b5c2?text=Code+Background");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  position: relative;
   color: var(--text-dark);
   height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+#heroCarousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item {
+  height: 100%;
+}
+
+.carousel-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.carousel-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3); /* 淡淡的白色遮罩 (30% 透明度) */
+  z-index: 1;
+}
+
+[data-theme="dark"] .carousel-bg::before {
+  background: rgba(33, 37, 41, 0.3); /* 深色主題用淡淡的深色遮罩 */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .hero-title {
@@ -696,13 +749,13 @@ h6 {
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: var(--primary-color);
+  color: #edf8f3;
   font-weight: 600;
   height: 2.5rem; /* Reserve space for typing text to prevent layout shift */
 }
 
 .typing-text {
-  border-right: 0.15em solid var(--primary-color);
+  border-right: 0.15em solid #ffffff;
   animation: blink-caret 0.75s step-end infinite;
 }
 
@@ -712,19 +765,47 @@ h6 {
     border-color: transparent;
   }
   50% {
-    border-color: var(--primary-color);
+    border-color: #ffffff;
   }
 }
 
 .social-icons a {
   font-size: 1.8rem;
   margin: 0 10px;
-  color: var(--secondary-color);
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.social-icons a:hover {
-  color: var(--primary-color);
+/* LinkedIn - 藍色 */
+.social-icons a:has(.bi-linkedin) {
+  color: #0077b5;
+}
+
+.social-icons a:has(.bi-linkedin):hover {
+  color: #00a0dc;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 4px 8px rgba(0, 119, 181, 0.4));
+}
+
+/* GitHub - 黑色 */
+.social-icons a:has(.bi-github) {
+  color: #333333;
+}
+
+.social-icons a:has(.bi-github):hover {
+  color: #6e5494;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 4px 8px rgba(51, 51, 51, 0.4));
+}
+
+/* Email - 紅色 */
+.social-icons a:has(.bi-envelope-fill) {
+  color: #ea4335;
+}
+
+.social-icons a:has(.bi-envelope-fill):hover {
+  color: #ff6b6b;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 4px 8px rgba(234, 67, 53, 0.4));
 }
 
 /* Card Styling */

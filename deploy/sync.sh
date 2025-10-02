@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# 安全選項：-e（遇錯即退）、-u（未定義變數視為錯誤）、-o pipefail（管線任一指令失敗即視為失敗）
 set -euo pipefail
 
 # --- Node 環境（nvm） ---
@@ -7,9 +8,7 @@ export NVM_DIR="$HOME/.nvm"
 
 echo "[deploy] starting deployment process"
 
-# --- 專案路徑（改成你的實際路徑） ---
-APP_DIR="/home/ec2-user/mywebsite"
-cd "$APP_DIR"
+cd "../"
 
 # --- 安裝依賴：有 lock 就 npm ci，沒有就 npm install ---
 echo "[deploy] installing dependencies"
