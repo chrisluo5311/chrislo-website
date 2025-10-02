@@ -363,7 +363,18 @@
 /* eslint-disable */
 import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap';
+
+// Import project icons
 import springbootIcon from '@/assets/images/project/springboot.png';
+import arduinoIcon from '@/assets/images/project/arduino.png';
+import awsIcon from '@/assets/images/project/aws.png';
+import bootstrapIcon from '@/assets/images/project/bootstrap.png';
+import lineIcon from '@/assets/images/project/line.png';
+import openaiIcon from '@/assets/images/project/openai.png';
+import pythonIcon from '@/assets/images/project/python.png';
+import tensorflowIcon from '@/assets/images/project/tensorflow.png';
+import yoloIcon from '@/assets/images/project/yolo.svg';
+import matlabIcon from '@/assets/images/project/matlab.png';
 
 // THEME STATE
 const theme = ref('light');
@@ -611,6 +622,7 @@ const projects = ref([
   },
   { 
     name: 'Brain Tumor Detection with CNN', 
+    icon: tensorflowIcon,
     role: 'Team Leader', 
     period: 'Jan 2017 - Nov 2017',
     description: 'Developed a model achieving 90.24% accuracy in brain tumor detection using a CNN, TensorFlow, and Keras.', 
@@ -619,6 +631,7 @@ const projects = ref([
   },
   { 
     name: 'Employee access control system', 
+    icon: arduinoIcon,
     role: 'Developer', 
     period: 'Dec 2023 - Dec 2023',
     description: 'Developed a access control system with Linkit7688duo and Arduino to Control and manage personnel entering and exiting', 
@@ -627,35 +640,48 @@ const projects = ref([
   },
   { 
     name: ' Line chatbot - Covid 19 information', 
+    icon: lineIcon,
     role: 'Developer', 
     period: 'Dec 2021 - Feb 2022',
-    description: 'This project crawls and parses data such as daily new confirmed cases, remaining mask information, QR code scanning, global epidemic statistics, and vaccine registration statistics, and provides this information to users', 
+    description: 'Crawls and parses data such as daily confirmed cases, remaining masks, QR code scanning, global epidemic statistics, and vaccine registration statistics.', 
     technologies: ['Spring Boot', 'Line', 'WebSocket', 'PostgreSQL'], 
     link: 'https://github.com/chrisluo5311/LineBot' 
   },
   { 
-    name: 'Real-Time Trading Alert System', 
-    role: 'Backend Developer', 
-    period: 'Feb 2021 - Apr 2022',
-    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
-    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
-    link: 'https://github.com/your-username/trading-alert-system' 
+    name: 'Automated Detection and Blurring of Sensitive Information', 
+    icon: yoloIcon,
+    role: 'Developer', 
+    period: 'Nov 2024 - Dec 2024',
+    description: 'Fine-tunes YOLOv8 to detect and blur sensitive content in public imagery, focusing on faces and vehicle license plates.', 
+    technologies: ['YOLOv8', 'Python', 'OpenCV'], 
+    link: 'https://github.com/chrisluo5311/YOLOv8ForSensitiveInformation' 
   },
   { 
-    name: 'Real-Time Trading Alert System', 
-    role: 'Backend Developer', 
-    period: 'Feb 2021 - Apr 2022',
-    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
-    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
-    link: 'https://github.com/your-username/trading-alert-system' 
+    name: 'Subpixel Motion Estimation Without Interpolation', 
+    icon: matlabIcon,
+    role: 'Developer', 
+    period: 'Feb 2025 - March 2025',
+    description: 'Reproduces a hybrid subpixel motion estimation for motion deblurring that combines coarse block matching with Full search and Log search.', 
+    technologies: ['MATLAB', 'Image Compression'], 
+    link: 'https://github.com/chrisluo5311/Subpixel-Motion-Estimation' 
   },
   { 
-    name: 'Real-Time Trading Alert System', 
-    role: 'Backend Developer', 
-    period: 'Feb 2021 - Apr 2022',
-    description: 'Developed a microservice to send real-time cryptocurrency price alerts using WebSockets and RabbitMQ, containerized with Docker.', 
-    technologies: ['Spring Boot', 'RabbitMQ', 'WebSocket', 'Docker'], 
-    link: 'https://github.com/your-username/trading-alert-system' 
+    name: 'Movie Recommendation System', 
+    icon: pythonIcon,
+    role: 'Developer', 
+    period: 'Apr 2025 - May 2025',
+    description: 'Developed different algorithms for movie recommendations, such user-based and item-based collaborative filtering, and ensemble methods.', 
+    technologies: ['Python', 'Recommendation Systems'], 
+    link: 'https://github.com/chrisluo5311/MyNLP_And_LLM/tree/master/web_search%26information_retrieval/project2' 
+  },
+  { 
+    name: 'Distributed Sharding Database', 
+    icon: springbootIcon,
+    role: 'Developer', 
+    period: 'May 2025 - June 2025',
+    description: 'Relies on Spring Boot and SQLite, featuring P2P routing, gossip-based node discovery and sharding between multiple SQLite instances', 
+    technologies: ['Spring Boot', 'SQLite', 'RabbitMQ', 'P2P', "Gossip Protocol", "Sharding"], 
+    link: 'https://github.com/chrisluo5311/ShardingJH' 
   },
 ]);
 
