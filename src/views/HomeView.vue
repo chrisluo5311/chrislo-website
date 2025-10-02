@@ -49,10 +49,10 @@
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url(${bg1})` }"></div>
+          <div class="carousel-bg" :style="{ backgroundImage: `url('https://images.unsplash.com/photo-1446034295857-c39f8844fad4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')` }"></div>
         </div>
         <div class="carousel-item" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url(${bg2})` }"></div>
+          <div class="carousel-bg" :style="{ backgroundImage: `url('https://images.unsplash.com/photo-1470114756101-d58df39917b7?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')` }"></div>
         </div>
       </div>
     </div>
@@ -300,11 +300,6 @@
 /* eslint-disable */
 import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap'; // **FIX**: Import bootstrap JS module for programmatic API usage
-
-// CAROUSEL IMAGES
-import bg1 from '@/assets/images/index/bg1.jpg';
-import bg2 from '@/assets/images/index/bg2.jpg';
-
 
 // THEME STATE
 const theme = ref('light');
