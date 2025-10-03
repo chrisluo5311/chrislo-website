@@ -1,15 +1,12 @@
 module.exports = {
   apps: [
-    /**
-     * DEV 模式
-     */
+    // dev
     {
       name: 'chrislo-web-dev',
       script: './node_modules/.bin/vue-cli-service',
-      args: 'serve',
+      args: 'serve --port 3000 --host 0.0.0.0',
       env: {
         NODE_ENV: 'development',
-        HOST: '0.0.0.0',    // 對外可訪問
       },
       watch: false,
       autorestart: true,
@@ -18,9 +15,7 @@ module.exports = {
       out_file: './logs/dev.out.log',
     },
 
-    /**
-     * PROD 模式：靜態檔案服務 dist/
-     */
+    // prod
     {
       name: 'chrislo-web',
       script: './node_modules/.bin/serve',

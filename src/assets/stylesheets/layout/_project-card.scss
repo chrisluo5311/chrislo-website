@@ -1,0 +1,90 @@
+/* Make entire project card clickable without default anchor styles */
+.card-link-override {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+.card-link-override:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Project Links */
+.project-link {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover {
+  transform: scale(1.2);
+}
+
+/* Project tech badges: turn yellow when hovering the card */
+#projects .card .badge.bg-info.text-dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+#projects .card:hover .badge.bg-info.text-dark {
+  background-color: #ffc107 !important; /* bootstrap warning yellow */
+  color: #212529 !important; /* dark text for contrast */
+}
+
+/* --- Project card normalization for horizontal alignment --- */
+.project-card-title {
+  display: grid;
+  grid-template-columns: 20px 1fr; /* fixed 20px column for icon, rest for text */
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  min-height: 3.2rem; /* reserve space for two lines of text */
+  border-bottom: 1px solid #060606;
+}
+
+/* Small icon before project name; you provide the image file via project.icon */
+.project-lang-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Only clamp the text, not the whole title grid */
+.project-title-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-card-subtitle {
+  min-height: 1.25rem; /* keep a fixed slot for one line */
+}
+
+.project-card-desc {
+  text-align: left; 
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show up to 3 lines */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.2rem; /* approx 3 lines to align rows */
+}
+
+/* Responsive clamp tuning */
+@media (max-width: 575.98px) {
+  .project-card-title { min-height: 3rem; }
+  .project-card-desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    min-height: 3rem; /* tighter on mobile */
+  }
+}
+
+@media (min-width: 576px) {
+  .project-card-desc {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    min-height: 4.2rem;
+  }
+}

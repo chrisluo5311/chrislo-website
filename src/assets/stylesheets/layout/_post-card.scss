@@ -1,0 +1,15 @@
+/* --- Posts images: fixed height + crop overflow --- */
+#posts .card-img-top {
+  width: 100%;
+  height: 200px; /* base height */
+  object-fit: cover; /* crop exceeding area */
+  display: block; /* remove inline gap */
+}
+
+@media (min-width: 768px) {
+  #posts .card-img-top { height: 220px; }
+}
+
+@media (min-width: 1200px) {
+  #posts .card-img-top { height: 240px; }
+}

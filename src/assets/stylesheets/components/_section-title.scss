@@ -1,0 +1,19 @@
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  color: var(--text-dark);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+  bottom: 0;
+  left: calc(50% - 30px);
+}

@@ -8,7 +8,8 @@ export NVM_DIR="$HOME/.nvm"
 
 echo "[deploy] starting deployment process"
 
-cd "../"
+# 以腳本自身位置為基準，切到專案根目錄
+cd "$(dirname "$0")/.."
 
 # --- 安裝依賴：有 lock 就 npm ci，沒有就 npm install ---
 echo "[deploy] installing dependencies"

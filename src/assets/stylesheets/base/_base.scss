@@ -1,0 +1,10 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  padding-top: 70px; // Offset for fixed navbar
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 600; }

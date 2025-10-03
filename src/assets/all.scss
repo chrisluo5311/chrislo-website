@@ -5,5 +5,27 @@
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/bootstrap";
+// @import "./helpers/utilities";
 
-// Then add additional custom code here
+// Base
+@import "./stylesheets/base/base";
+@import "./stylesheets/base/root";
+
+// layout
+@import "./stylesheets/layout/navbar";
+@import "./stylesheets/layout/sections";
+@import "./stylesheets/layout/post-card";
+@import "./stylesheets/layout/project-card";
+@import "./stylesheets/layout/footer";
+
+// components
+@import "./stylesheets/components/section-title";
+@import "./stylesheets/components/hero";
+@import "./stylesheets/components/badge";
+@import "./stylesheets/components/social-icon";
+@import "./stylesheets/components/card";
+@import "./stylesheets/components/chat";
+@import "./stylesheets/components/yellow-underline";
+
+// pages
+@import "./stylesheets/pages/home";

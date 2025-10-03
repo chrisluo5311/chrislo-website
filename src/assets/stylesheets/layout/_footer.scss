@@ -1,0 +1,14 @@
+/* Footer */
+footer {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  padding: 40px 0;
+}
+
+footer .social-icons a {
+  color: var(--text-light);
+}
+
+footer .social-icons a:hover {
+  color: var(--primary-color);
+}
