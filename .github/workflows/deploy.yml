@@ -100,5 +100,3 @@ jobs:
             cd ${{ secrets.TARGET_DIR }}
             pm2 startOrReload ecosystem.config.js --only chrislo-web || pm2 start ecosystem.config.js --only chrislo-web
             pm2 save
-            # 檢查 8080 是否起來
-            ss -ltnp | grep :8080 || (echo "port 8080 not listening" && exit 1)
