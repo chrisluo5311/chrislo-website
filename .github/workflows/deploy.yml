@@ -53,20 +53,44 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
         run: npx vue-cli-service build --report --report-json
       
-      # 僅上傳 dist/ 到 EC2 的 web 根目錄
-      - name: Upload dist to EC2
+      # --- Deploy to EC2 ---
+      - name: Prepare target dirs on EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            mkdir -p ~/upload_tmp/dist
+            mkdir -p ${{ secrets.TARGET_DIR }}/dist
+      
+      - name: Upload dist to EC2 (to tmp)
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "dist/*"
-          target: "${{ secrets.TARGET_DIR }}/dist"
+          source: "dist/**"
+          target: "/home/${{ secrets.USERNAME }}/upload_tmp/dist"
           strip_components: 1
+          overwrite: true
+          debug: true
       
-      # 重啟 PM2（若是純前端靜態檔，其實只要 Nginx 即可，不一定要 PM2）
-      - name: Restart PM2
-        uses: appleboy/ssh-action@master
+      - name: Sync to web root
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            if [ -w "${{ secrets.TARGET_DIR }}/dist" ]; then
+              rsync -a --delete ~/upload_tmp/dist/ ${{ secrets.TARGET_DIR }}/dist/
+            else
+              sudo rsync -a --delete ~/upload_tmp/dist/ ${{ secrets.TARGET_DIR }}/dist/
+            fi
+      
+      - name: Restart PM2 (serve/SSR on :8080)
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
@@ -74,5 +98,7 @@ jobs:
           command_timeout: 10m
           script: |
             cd ${{ secrets.TARGET_DIR }}
-            pm2 startOrReload ecosystem.config.js --only chrislo-web || true
-            pm2 save || true
+            pm2 startOrReload ecosystem.config.js --only chrislo-web || pm2 start ecosystem.config.js --only chrislo-web
+            pm2 save
+            # 檢查 8080 是否起來
+            ss -ltnp | grep :8080 || (echo "port 8080 not listening" && exit 1)
