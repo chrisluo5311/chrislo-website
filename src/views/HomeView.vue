@@ -30,15 +30,7 @@
             <a class="nav-link" href="#projects">Projects</a>
           </li>
           <li class="nav-item"><a class="nav-link" href="#posts">Posts</a></li>
-          <li class="nav-item ms-lg-3">
-            <button
-              @click="toggleTheme"
-              id="theme-toggler"
-              class="btn btn-outline-primary d-flex align-items-center p-2"
-            >
-              <i :class="themeIcon"></i>
-            </button>
-          </li>
+          
         </ul>
       </div>
     </div>
@@ -187,7 +179,7 @@
             <div class="card-body text-center d-flex flex-column h-100">
               <h5 class="card-title fw-bold project-card-title">
                 <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
-                {{ project.name }}
+                <span class="project-title-text">{{ project.name }}</span>
               </h5>
               <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
                 <span>{{ project.role }}</span>
@@ -224,7 +216,7 @@
               <div class="card-body text-center d-flex flex-column h-100">
                 <h5 class="card-title fw-bold project-card-title">
                   <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
-                  {{ project.name }}
+                  <span class="project-title-text">{{ project.name }}</span>
                 </h5>
                 <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
                   <span>{{ project.role }}</span>
@@ -376,14 +368,10 @@ import tensorflowIcon from '@/assets/images/project/tensorflow.png';
 import yoloIcon from '@/assets/images/project/yolo.svg';
 import matlabIcon from '@/assets/images/project/matlab.png';
 
-// THEME STATE
-const theme = ref('light');
-const themeIcon = computed(() => theme.value === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill');
+// post images
+import distributedImage from '@/assets/images/posts/db.jpg';
 
-function toggleTheme() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme.value);
-}
+// (Dark mode removed)
 
 // TYPING ANIMATION STATE
 const typedText = ref('');
@@ -701,7 +689,7 @@ const projects = ref([
 
 const posts = ref([ 
     { 
-        image: 'https://placehold.co/600x400/4dabf7/ffffff?text=AI+Development',
+        image: distributedImage,
         title: 'AI 專案開發心得',
         snippet: '分享我在開發腦瘤檢測模型時，從資料處理、模型訓練到結果評估的完整心路歷程與技術挑戰。',
         lastUpdated: '2025年9月26日',
@@ -725,13 +713,12 @@ const posts = ref([
 
 // LIFECYCLE HOOK
 onMounted(() => {
-    document.documentElement.setAttribute('data-theme', theme.value);
-    startTypingLoop();
-    // **FIX**: Initialize ScrollSpy using the imported bootstrap object.
-    new bootstrap.ScrollSpy(document.body, {
-        target: '#navbar-main',
-        offset: 100 // Add offset for better accuracy
-    });
+  startTypingLoop();
+  // Initialize ScrollSpy using the imported bootstrap object.
+  new bootstrap.ScrollSpy(document.body, {
+    target: '#navbar-main',
+    offset: 100 // Add offset for better accuracy
+  });
 });
 
 // computed helpers for Projects collapse
@@ -753,16 +740,7 @@ const hasMoreProjects = computed(() => projects.value.length > 3);
   --hero-overlay-color: rgba(255, 255, 255, 0.9);
 }
 
-[data-theme="dark"] {
-  --primary-color: #4dabf7;
-  --secondary-color: #adb5bd;
-  --background-light: #1a1d20;
-  --background-dark: #212529;
-  --text-light: #f8f9fa;
-  --text-dark: #e9ecef;
-  --card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
-  --hero-overlay-color: rgba(33, 37, 41, 0.9);
-}
+/* Dark mode removed */
 
 body {
   font-family: "Poppins", sans-serif;
@@ -784,6 +762,22 @@ h6 {
 
 .section {
   padding: 80px 0;
+  /* Background pattern for all sections except Home (Hero) */
+  background-image: url('@/assets/images/index/lightpaperfibers.png');
+  background-repeat: repeat;
+  background-size: auto; /* native tile size */
+}
+
+/* Subtle divider between consecutive sections, slightly inset from edges */
+.section + .section { position: relative; }
+.section + .section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5rem;
+  right: 5rem;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
@@ -810,42 +804,35 @@ h6 {
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
+  /* Apply background pattern to navbar */
+  background-image: url('@/assets/images/index/lightpaperfibers.png');
+  background-repeat: repeat;
+  background-size: auto;
 }
 
-[data-theme="light"] .navbar {
-  background-color: #ffffff;
-}
+/* Light navbar override removed */
 
-[data-theme="dark"] .navbar {
-  background-color: var(--background-dark) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
+/* Dark navbar override removed */
 
 .navbar-brand {
   font-weight: 700;
 }
 
-[data-theme="dark"] .navbar-brand {
-  color: var(--text-light);
-}
+/* Dark navbar brand override removed */
 
 .nav-link {
   font-weight: 600;
   color: var(--text-dark);
 }
 
-[data-theme="dark"] .nav-link {
-  color: var(--text-dark);
-}
+/* Dark nav-link override removed */
 
 .nav-link.active,
 .nav-link:hover {
   color: var(--primary-color);
 }
 
-#theme-toggler {
-  font-size: 1.1rem;
-}
+/* Theme toggler removed */
 
 /* Hero Section */
 #home {
@@ -889,9 +876,7 @@ h6 {
   z-index: 1;
 }
 
-[data-theme="dark"] .carousel-bg::before {
-  background: rgba(33, 37, 41, 0.3); /* 深色主題用淡淡的深色遮罩 */
-}
+/* Dark hero overlay removed */
 
 .hero-content {
   position: relative;
@@ -979,28 +964,16 @@ h6 {
   background-color: #ffffff; /* Changed: Explicitly set to white for light theme */
 }
 
-[data-theme="light"] .bg-white .card {
-  background-color: var(
-    --background-light
-  ); /* Use light gray for cards on white sections */
-}
+/* Light card override removed */
 
-[data-theme="dark"] .card {
-  background-color: #343a40; /* A lighter dark shade for better contrast */
-  color: var(--text-dark);
-  box-shadow: none; /* Use a border instead for dark mode */
-  border: 1px solid #495057; /* Updated border for better visibility */
-}
+/* Dark card override removed */
 
 .card:hover {
   transform: translateY(-10px); /* A more noticeable lift effect */
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12); /* A more refined hover shadow */
 }
 
-[data-theme="dark"] .card:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 20px rgba(77, 171, 247, 0.15); /* A subtle glow effect on hover */
-}
+/* Dark card hover removed */
 
 .card-header {
   background-color: var(--primary-color);
@@ -1056,11 +1029,7 @@ h6 {
 }
 
 /* Dark theme: stronger, more opaque highlight for better contrast */
-[data-theme="dark"] .hl-underline-yellow::after {
-  background: rgba(255, 18, 10, 0.9); /* deeper amber with higher opacity */
-  height: 0.55em;
-  bottom: 0.02em;
-}
+/* Dark highlight override removed */
 
 /* Skills Styling */
 .skill-badge {
@@ -1113,9 +1082,7 @@ h6 {
   background-color: #fff !important;
 }
 
-[data-theme="dark"] .bg-white {
-  background-color: var(--background-dark) !important;
-}
+/* Dark bg-white override removed */
 
 /* Footer */
 footer {
@@ -1124,9 +1091,7 @@ footer {
   padding: 40px 0;
 }
 
-[data-theme="dark"] footer {
-  background-color: #111315;
-}
+/* Dark footer override removed */
 
 footer .social-icons a {
   color: var(--text-light);
@@ -1136,9 +1101,7 @@ footer .social-icons a:hover {
   color: var(--primary-color);
 }
 
-[data-theme="dark"] .text-muted {
-  color: #9a9a9a !important;
-}
+/* Dark text-muted override removed */
 
 /* AI Chat Styles */
 .chat-fab {
@@ -1276,13 +1239,12 @@ footer .social-icons a:hover {
 
 /* --- Project card normalization for horizontal alignment --- */
 .project-card-title {
-  /* clamp to 2 lines */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 3.2rem; /* approx 2 lines */
+  display: grid;
+  grid-template-columns: 20px 1fr; /* fixed 20px column for icon, rest for text */
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  min-height: 3.2rem; /* reserve space for two lines of text */
   border-bottom: 1px solid #060606;
 }
 
@@ -1291,9 +1253,15 @@ footer .social-icons a:hover {
   width: 20px;
   height: 20px;
   object-fit: contain;
-  margin-right: 8px;
-  vertical-align: text-bottom; /* align with text baseline nicely */
-  flex: 0 0 auto;
+}
+
+/* Only clamp the text, not the whole title grid */
+.project-title-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-card-subtitle {
@@ -1312,11 +1280,7 @@ footer .social-icons a:hover {
 
 /* Responsive clamp tuning */
 @media (max-width: 575.98px) {
-  .project-card-title {
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    min-height: 3rem;
-  }
+  .project-card-title { min-height: 3rem; }
   .project-card-desc {
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -1330,6 +1294,22 @@ footer .social-icons a:hover {
     line-clamp: 3;
     min-height: 4.2rem;
   }
+}
+
+/* --- Posts images: fixed height + crop overflow --- */
+#posts .card-img-top {
+  width: 100%;
+  height: 200px; /* base height */
+  object-fit: cover; /* crop exceeding area */
+  display: block; /* remove inline gap */
+}
+
+@media (min-width: 768px) {
+  #posts .card-img-top { height: 220px; }
+}
+
+@media (min-width: 1200px) {
+  #posts .card-img-top { height: 240px; }
 }
 
 </style>
