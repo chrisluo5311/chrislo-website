@@ -26,9 +26,9 @@ npm run build
 echo "[deploy] starting/reloading application via pm2"
 # 第一次沒在跑 -> start；之後 -> reload
 if pm2 describe chrislo-web >/dev/null 2>&1; then
-  pm2 reload ecosystem.config.js 
+  pm2 reload ecosystem.config.js --only chrislo-web
 else
-  pm2 start ecosystem.config.js  
+  pm2 start ecosystem.config.js  --only chrislo-web
 fi
 
 pm2 save

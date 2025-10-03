@@ -23,7 +23,7 @@ jobs:
           git lfs install
           git lfs pull
       
-      # 防呆：如果有人把 pointer 誤 commit 進來，直接讓 CI fail
+      # 防呆：如果把 pointer 誤 commit 進來，直接讓 CI fail
       - name: Fail build if any LFS pointer appears in repo
         run: |
           if grep -R --include="*.{png,svg,jpg,jpeg,gif,webp}" -n "version https://git-lfs.github.com/spec/v1" . ; then
