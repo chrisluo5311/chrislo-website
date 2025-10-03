@@ -4,7 +4,7 @@ module.exports = {
     {
       name: 'chrislo-web',
       script: './node_modules/.bin/serve',
-      args: ['-s', 'dist', '-l', '8080'],
+      args: ['-s', 'dist', '-l', 'tcp://127.0.0.1:8080'],
       env: {
         NODE_ENV: 'production',
       },
