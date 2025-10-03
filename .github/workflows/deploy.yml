@@ -6,6 +6,14 @@ on:
     branches:
       - master
 
+# 連續 push 多次，只會留下最新那次部署在跑，舊的會被自動取消。
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   deploy:
     name: Deploy to EC2 on master branch push
@@ -30,23 +38,41 @@ jobs:
             echo "ERROR: Found LFS pointer file(s). Real binary not present."
             exit 1
           fi
+          
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-      - name: Deploy to Server 
-        uses: easingthemes/ssh-deploy@main
+      - name: Install deps
+        run: npm ci --no-audit --no-fund --progress=false
+
+      - name: Build
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+          NODE_OPTIONS: --max_old_space_size=4096
+        run: npx vue-cli-service build --report --report-json
       
-      - name: Executing remote ssh commands using ssh key
+      # 僅上傳 dist/ 到 EC2 的 web 根目錄
+      - name: Upload dist to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "dist/*"
+          target: "${{ secrets.TARGET_DIR }}/dist"
+          strip_components: 1
+      
+      # 重啟 PM2（若是純前端靜態檔，其實只要 Nginx 即可，不一定要 PM2）
+      - name: Restart PM2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 10m
           script: |
-            set -e
-            cd ${{ secrets.TARGET_DIR }}/deploy
-            chmod +x sync.sh
-            bash ./sync.sh
+            cd ${{ secrets.TARGET_DIR }}
+            pm2 startOrReload ecosystem.config.js --only chrislo-web || true
+            pm2 save || true
