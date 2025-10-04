@@ -344,12 +344,12 @@
   </footer>
 
   <!-- Gemini AI Chat -->
-  <div class="chat-fab" @click="toggleChat">✨</div>
-  <div class="chat-modal" :class="{ active: isChatOpen }">
-    <div class="chat-header">
-      <span>AI 助理問答 ✨</span>
-      <button type="button" class="btn-close" @click="toggleChat"></button>
-    </div>
+  <div class="chat-widget">
+    <div class="chat-modal" :class="{ active: isChatOpen }">
+      <div class="chat-header">
+        <span>AI Assistant</span>
+        <button type="button" class="btn-close" @click="toggleChat"></button>
+      </div>
     <div class="chat-body" ref="chatBody">
       <div
         v-for="message in chatMessages"
@@ -373,7 +373,7 @@
           type="text"
           class="form-control"
           v-model="userMessage"
-          placeholder="詢問關於履歷的問題..."
+          placeholder="Ask questions about my resume."
           :disabled="isLoading"
         />
         <button
@@ -384,6 +384,24 @@
           <i class="bi bi-send-fill"></i>
         </button>
       </form>
+    </div>
+    </div>
+    <div
+      class="chat-fab"
+      role="button"
+      tabindex="0"
+      aria-label="Open AI Assistant"
+      @click="toggleChat"
+      @keyup.enter="toggleChat"
+      @keyup.space.prevent="toggleChat"
+      @mouseenter="setChatFabVisualState(true)"
+      @mouseleave="setChatFabVisualState(false)"
+      @focus="setChatFabVisualState(true)"
+      @blur="setChatFabVisualState(false)"
+      @touchstart="setChatFabVisualState(true)"
+      @touchend="setChatFabVisualState(false)"
+    >
+      <img :src="chatFabImage" alt="AI Assistant" class="chat-fab__image" />
     </div>
   </div>
 </template>
@@ -412,6 +430,8 @@ import pythonIcon from '@/assets/images/project/python.png';
 import tensorflowIcon from '@/assets/images/project/tensorflow.png';
 import yoloIcon from '@/assets/images/project/yolo.svg';
 import matlabIcon from '@/assets/images/project/matlab.png';
+import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
+import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
 
 // post images
 import l2regImage from '@/assets/images/posts/l2-reg.jpg';
@@ -491,6 +511,7 @@ const userMessage = ref('');
 const chatMessages = ref([]);
 const isLoading = ref(false);
 const chatBody = ref(null);
+const chatFabImage = ref(chatBotIdleImage);
 
 // ... (toggleChat and other functions remain the same)
 function toggleChat() {
@@ -499,10 +520,14 @@ function toggleChat() {
         chatMessages.value.push({
             id: Date.now(),
             sender: 'ai',
-            text: '您好！我是 Ji Dung Lo 的 AI 履歷助理。您可以問我任何關於他履歷上的問題。'
+            text: 'Hello, I am your AI assistant. You can ask me questions about my resume!'
         });
     }
 }
+
+const setChatFabVisualState = (isActive) => {
+  chatFabImage.value = isActive ? chatBotHoverImage : chatBotIdleImage;
+};
 
 async function sendMessage() {
     const messageText = userMessage.value.trim();
