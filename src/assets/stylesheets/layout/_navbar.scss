@@ -11,9 +11,48 @@
 .nav-link {
   font-weight: 600;
   color: var(--text-dark);
+  padding: 0.2rem 0.75rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--egg-yellow), rgba(255, 228, 138, 0));
+  opacity: 0;
+  transform: scaleX(0.25);
+  transform-origin: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
 
 .nav-link.active,
 .nav-link:hover {
-  color: var(--primary-color);
+  color: var(--egg-yellow);
+  background-color: rgba(255, 228, 138, 0.1);
+  backdrop-filter: blur(3px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 228, 138, 0.25);
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 228, 138, 0.35);
 }
