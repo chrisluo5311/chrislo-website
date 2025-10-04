@@ -37,7 +37,7 @@
   </nav>
 
   <!-- Home/Hero Section -->
-  <section id="home">
+  <section id="home" v-reveal="{ animation: 'zoom-in', duration: 700 }">
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
@@ -68,7 +68,7 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="section">
+  <section id="about" class="section" v-reveal>
     <div class="container">
       <h2 class="section-title">About Me</h2>
       <div class="row justify-content-center">
@@ -82,7 +82,7 @@
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="section bg-white">
+  <section id="education" class="section bg-white" v-reveal>
     <div class="container">
       <h2 class="section-title">Education</h2>
       <div class="row">
@@ -91,6 +91,7 @@
             v-for="(edu, index) in education"
             :key="index"
             class="timeline-item mb-5"
+            v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
           >
             <h4 class="fw-bold d-flex flex-wrap align-items-center gap-2">
               {{ edu.institution }}
@@ -115,7 +116,7 @@
   </section>
 
   <!-- Work Experience Section -->
-  <section id="experience" class="section">
+  <section id="experience" class="section" v-reveal>
     <div class="container">
       <h2 class="section-title">Work Experience</h2>
       <div class="row">
@@ -124,6 +125,7 @@
             v-for="(job, index) in workExperience"
             :key="index"
             class="timeline-item mb-5"
+            v-reveal="{ animation: 'fade-up', duration: 600 }"
           >
             <h4 class="fw-bold">{{ job.title }} @ {{ job.company }}</h4>
             <p class="text-muted mb-2">
@@ -142,12 +144,12 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="section bg-white">
+  <section id="skills" class="section bg-white" v-reveal>
     <div class="container">
       <h2 class="section-title">Skills</h2>
       <div v-for="(category, index) in skills" :key="index" class="mb-4">
         <h3 class="text-center mb-3">{{ category.title }}</h3>
-        <div class="d-flex flex-wrap justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center" v-reveal="{ animation: 'fade-up', stagger: 60 }">
           <span
             v-for="skill in category.items"
             :key="skill"
@@ -160,7 +162,7 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="section">
+  <section id="projects" class="section" v-reveal>
     <div class="container">
       <h2 class="section-title">Projects</h2>
       <div class="row g-4">
@@ -168,6 +170,7 @@
           v-for="project in topProjects"
           :key="project.name"
           class="col-lg-4 col-md-6"
+          v-reveal="{ animation: 'fade-up', duration: 650 }"
         >
           <a
             class="card card-link-override h-100"
@@ -200,7 +203,7 @@
       </div>
 
       <div class="collapse mt-3" id="moreProjects">
-        <div class="row g-4">
+        <div class="row g-4" v-reveal="{ animation: 'fade-up', stagger: 80 }">
           <div
             v-for="project in restProjects"
             :key="project.name"
@@ -237,9 +240,9 @@
         </div>
       </div>
 
-      <div v-if="hasMoreProjects" class="text-center mt-3">
+      <div v-if="hasMoreProjects" class="text-center mt-5">
         <button
-          class="btn btn-primary btn-lg"
+          class="btn btn-outline-egg btn-lg rounded-pill px-4 px-lg-5"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#moreProjects"
@@ -253,7 +256,7 @@
   </section>
 
   <!-- Posts Section -->
-  <section id="posts" class="section bg-white">
+  <section id="posts" class="section bg-white" v-reveal>
     <div class="container">
       <h2 class="section-title">Posts</h2>
       <div class="row g-4">
@@ -261,6 +264,7 @@
           v-for="(post, index) in posts"
           :key="index"
           class="col-md-6 col-lg-4"
+          v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
         >
           <div class="card h-100">
             <img :src="post.image" class="card-img-top" :alt="post.title" />
@@ -272,18 +276,51 @@
                   >最後更新：{{ post.lastUpdated }}</small
                 >
               </p>
-              <a
-                :href="post.link"
-                target="_blank"
+              <button
+                type="button"
                 class="btn btn-primary mt-auto align-self-start"
-                >閱讀更多</a
+                @click="openPost(post)"
               >
+                閱讀更多
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Post Modal -->
+  <div
+    class="modal fade"
+    id="postModal"
+    tabindex="-1"
+    aria-labelledby="postModalLabel"
+    aria-hidden="true"
+    ref="postModal"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="postModalLabel">{{ selectedPost?.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img
+            v-if="selectedPost?.image"
+            :src="selectedPost.image"
+            :alt="selectedPost.title"
+            class="img-fluid rounded mb-3 post-modal-image"
+          />
+          <p v-for="(para, i) in (selectedPost?.content || [])" :key="i" class="mb-3">{{ para }}</p>
+        </div>
+        <div class="modal-footer">
+          <small class="text-muted me-auto" v-if="selectedPost?.lastUpdated">最後更新：{{ selectedPost.lastUpdated }}</small>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -374,6 +411,7 @@ import matlabIcon from '@/assets/images/project/matlab.png';
 
 // post images
 import distributedImage from '@/assets/images/posts/db.jpg';
+import l2regImage from '@/assets/images/posts/l2-reg.jpg';
 
 // (Dark mode removed)
 
@@ -602,7 +640,7 @@ const skills = ref([
         items: ['MSSQL Server', 'MySQL'] 
     },
     { 
-        title: 'Frameworks/Tools', 
+        title: 'Frameworks / Tools', 
         items: ['Spring Boot', 'OpenCV', 'PyTorch', 'Linux', 'Docker', 'Git'] 
     } 
 ]);
@@ -693,25 +731,38 @@ const projects = ref([
 
 const posts = ref([ 
     { 
-        image: distributedImage,
-        title: 'AI 專案開發心得',
-        snippet: '分享我在開發腦瘤檢測模型時，從資料處理、模型訓練到結果評估的完整心路歷程與技術挑戰。',
-        lastUpdated: '2025年9月26日',
-        link: '#' 
+        image: l2regImage,
+        title: 'Did you “ADD“ or “SUBTRACK“ the L2 Regularization ?',
+        snippet: 'Whether L2 regularization is added or subtracted depends on how the objective function is defined',
+        lastUpdated: '2025年5月9日',
+        link: '#',
+        content: [
+          ''
+        ]
     },
     { 
         image: 'https://placehold.co/600x400/6c757d/ffffff?text=Backend+System',
         title: '建構高併發後端系統的五個關鍵',
         snippet: '從我在 JY Globe Company 的經驗出發，探討如何使用 RabbitMQ 與資料庫分片技術來打造能處理大量訂單的後端服務。',
         lastUpdated: '2025年9月18日',
-        link: '#' 
+        link: '#',
+        content: [
+          '我歸納出高併發系統的五個關鍵：非同步解耦、水平擴展、資料分片、監控告警與壓力測試。',
+          '以 RabbitMQ 實作異步處理，降低訂單高峰對主流程的影響；資料庫採用分片與索引優化，顯著提升查詢效能。',
+          '文末提供我使用的壓測方法與基準指標，協助你評估系統瓶頸。'
+        ]
     },
     { 
         image: 'https://placehold.co/600x400/0d6efd/ffffff?text=Career+Path',
         title: '從語言系到軟體工程師的轉職之路',
         snippet: '這是一篇關於我如何從英文系背景，透過資策會的密集訓練，成功轉職為 Java 後端工程師的經驗分享。',
         lastUpdated: '2025年9月5日',
-        link: '#' 
+        link: '#',
+        content: [
+          '我分享了從動機、學習規劃到面試準備的完整歷程。',
+          '透過專案實作與公開程式碼累積作品集，並持續參與社群與比賽提升曝光。',
+          '也整理了常見面試題型與我準備的方向，幫助有相同目標的你少走彎路。'
+        ]
     } 
 ]);
 
@@ -729,4 +780,28 @@ onMounted(() => {
 const topProjects = computed(() => projects.value.slice(0, 3));
 const restProjects = computed(() => projects.value.slice(3));
 const hasMoreProjects = computed(() => projects.value.length > 3);
+
+// POSTS MODAL STATE & ACTIONS
+const selectedPost = ref(null);
+const postModal = ref(null);
+let postModalInstance = null;
+
+function openPost(post) {
+  selectedPost.value = post;
+  // Ensure modal instance
+  if (!postModalInstance && postModal.value) {
+    postModalInstance = new bootstrap.Modal(postModal.value, { backdrop: true });
+  }
+  // If not yet mounted, wait nextTick
+  if (!postModalInstance) {
+    nextTick(() => {
+      if (!postModalInstance && postModal.value) {
+        postModalInstance = new bootstrap.Modal(postModal.value, { backdrop: true });
+      }
+      postModalInstance && postModalInstance.show();
+    });
+  } else {
+    postModalInstance.show();
+  }
+}
 </script>

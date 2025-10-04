@@ -13,3 +13,19 @@
 @media (min-width: 1200px) {
   #posts .card-img-top { height: 240px; }
 }
+
+/* --- Post modal image: use explicit height so object-fit: cover can crop --- */
+.post-modal-image {
+  width: 100%;
+  height: 23vh; /* use height (not max-height) to enforce cropping */
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .post-modal-image { height: 30vh; }
+}
+
+@media (min-width: 1200px) {
+  .post-modal-image { height: 35vh; }
+}

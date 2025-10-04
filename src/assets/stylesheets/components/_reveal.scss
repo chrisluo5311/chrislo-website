@@ -1,0 +1,35 @@
+/* Base state */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible state */
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variants */
+.reveal-fade-up { transform: translate3d(0, 24px, 0); }
+.reveal-fade-down { transform: translate3d(0, -24px, 0); }
+.reveal-fade-left { transform: translate3d(24px, 0, 0); }
+.reveal-fade-right { transform: translate3d(-24px, 0, 0); }
+
+/* Gentle scale variant */
+.reveal-zoom-in { transform: scale(0.96); }
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible,
+  .reveal[class*='reveal-'] {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

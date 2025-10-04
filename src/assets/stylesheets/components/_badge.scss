@@ -1,8 +1,8 @@
 /* Skill Badge Styling */
 .skill-badge {
-  font-size: 0.9rem;
+  font-size: 1rem; /* bigger font */
   font-weight: 500;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em; /* slightly larger padding */
   margin: 5px;
   transition: all 0.3s ease;
 }
@@ -10,4 +10,7 @@
 .skill-badge:hover {
   transform: scale(1.1);
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  background-color: $yellow !important; /* override Bootstrap bg-secondary */
+  color: $black !important; /* black text on yellow bg */
+  border-color: $yellow !important;
 }

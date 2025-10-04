@@ -1,0 +1,28 @@
+/* Custom egg yellow outline button that turns solid on hover */
+
+// brand color (egg yellow)
+$egg-yellow: #ffd36e; // soft egg-yolk yellow
+$egg-yellow-text: #212529; // dark text for contrast
+
+.btn-outline-egg {
+  @extend .btn;
+  @extend .btn-outline-warning; // base behavior from Bootstrap warning outline
+  /* default: black text + black border */
+  --bs-btn-color: #{$egg-yellow-text};
+  --bs-btn-border-color: #{$egg-yellow-text};
+  /* hover/active: solid egg yellow with black text */
+  --bs-btn-hover-color: #{$egg-yellow-text};
+  --bs-btn-hover-bg: #{$egg-yellow};
+  --bs-btn-hover-border-color: #{$egg-yellow};
+  --bs-btn-active-color: #{$egg-yellow-text};
+  --bs-btn-active-bg: #{$egg-yellow};
+  --bs-btn-active-border-color: #{$egg-yellow};
+  /* disabled keeps black outline */
+  --bs-btn-disabled-color: #{$egg-yellow-text};
+  --bs-btn-disabled-border-color: #{$egg-yellow-text};
+}
+
+// optional: slightly thicker border for visual
+.btn-outline-egg {
+  border-width: 2px;
+}
