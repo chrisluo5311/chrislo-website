@@ -312,7 +312,7 @@
             :alt="selectedPost.title"
             class="img-fluid rounded mb-3 post-modal-image"
           />
-          <p v-for="(para, i) in (selectedPost?.content || [])" :key="i" class="mb-3">{{ para }}</p>
+          <div v-html="renderedMarkdown" class="markdown-content"></div>
         </div>
         <div class="modal-footer">
           <small class="text-muted me-auto" v-if="selectedPost?.lastUpdated">最後更新：{{ selectedPost.lastUpdated }}</small>
@@ -392,6 +392,10 @@
 /* eslint-disable */
 import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap';
+import { marked } from 'marked';
+import markedKatex from 'marked-katex-extension';
+import DOMPurify from 'dompurify';
+import 'katex/dist/katex.min.css';
 
 // Import carousel background
 import carouselBg1 from "@/assets/images/index/bg1.jpg";
@@ -410,8 +414,14 @@ import yoloIcon from '@/assets/images/project/yolo.svg';
 import matlabIcon from '@/assets/images/project/matlab.png';
 
 // post images
-import distributedImage from '@/assets/images/posts/db.jpg';
 import l2regImage from '@/assets/images/posts/l2-reg.jpg';
+import hierarchicalSoftMaxImage from '@/assets/images/posts/hierarchical-softmax.jpg';
+import rnnImage from '@/assets/images/posts/RNN.jpg';
+
+// Import markdown articles
+import l2RegArticle from '@/assets/articles/l2-regularization.md';
+import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.md';
+import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
 
 // (Dark mode removed)
 
@@ -732,39 +742,35 @@ const projects = ref([
 const posts = ref([ 
     { 
         image: l2regImage,
-        title: 'Did you “ADD“ or “SUBTRACK“ the L2 Regularization ?',
+        title: '"+" or "-" the L2 Regularization ?',
         snippet: 'Whether L2 regularization is added or subtracted depends on how the objective function is defined',
         lastUpdated: '2025年5月9日',
         link: '#',
-        content: [
-          ''
-        ]
+        markdown: l2RegArticle
     },
     { 
-        image: 'https://placehold.co/600x400/6c757d/ffffff?text=Backend+System',
-        title: '建構高併發後端系統的五個關鍵',
-        snippet: '從我在 JY Globe Company 的經驗出發，探討如何使用 RabbitMQ 與資料庫分片技術來打造能處理大量訂單的後端服務。',
-        lastUpdated: '2025年9月18日',
+        image: hierarchicalSoftMaxImage,
+        title: 'What is Hierarchical Softmax?',
+        snippet: 'Hierarchical Softmax is an efficient alternative to the standard softmax function used in neural network output layers, especially when dealing with very large vocabularies',
+        lastUpdated: '2025年4月2日',
         link: '#',
-        content: [
-          '我歸納出高併發系統的五個關鍵：非同步解耦、水平擴展、資料分片、監控告警與壓力測試。',
-          '以 RabbitMQ 實作異步處理，降低訂單高峰對主流程的影響；資料庫採用分片與索引優化，顯著提升查詢效能。',
-          '文末提供我使用的壓測方法與基準指標，協助你評估系統瓶頸。'
-        ]
+        markdown: hierarchicalSoftMaxArticle
     },
     { 
-        image: 'https://placehold.co/600x400/0d6efd/ffffff?text=Career+Path',
-        title: '從語言系到軟體工程師的轉職之路',
-        snippet: '這是一篇關於我如何從英文系背景，透過資策會的密集訓練，成功轉職為 Java 後端工程師的經驗分享。',
-        lastUpdated: '2025年9月5日',
+        image: rnnImage,
+        title: 'RNN language model',
+        snippet: 'RNNs update a hidden state at each step, combining the previous state and the current word embedding.',
+        lastUpdated: '2025年6月7日',
         link: '#',
-        content: [
-          '我分享了從動機、學習規劃到面試準備的完整歷程。',
-          '透過專案實作與公開程式碼累積作品集，並持續參與社群與比賽提升曝光。',
-          '也整理了常見面試題型與我準備的方向，幫助有相同目標的你少走彎路。'
-        ]
+        markdown: rnnLanguageModelArticle
     } 
 ]);
+
+// Configure marked with KaTeX extension
+marked.use(markedKatex({
+  throwOnError: false,
+  displayMode: true
+}));
 
 // LIFECYCLE HOOK
 onMounted(() => {
@@ -785,6 +791,13 @@ const hasMoreProjects = computed(() => projects.value.length > 3);
 const selectedPost = ref(null);
 const postModal = ref(null);
 let postModalInstance = null;
+
+// Computed property to render markdown content
+const renderedMarkdown = computed(() => {
+  if (!selectedPost.value?.markdown) return '';
+  const rawHtml = marked(selectedPost.value.markdown);
+  return DOMPurify.sanitize(rawHtml);
+});
 
 function openPost(post) {
   selectedPost.value = post;
