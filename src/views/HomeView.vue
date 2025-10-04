@@ -539,57 +539,58 @@ async function sendMessage() {
     await scrollToBottom();
 
     try {
-        const aiResponse = await callGeminiAPI(messageText);
+        const aiResponse = await callOllamaAPI(messageText);
         chatMessages.value.push({ id: Date.now() + 1, sender: 'ai', text: aiResponse });
     } catch (error) {
-        console.error('Error calling Gemini API:', error);
-        chatMessages.value.push({ id: Date.now() + 1, sender: 'ai', text: '抱歉，目前無法連接到 AI 服務，請稍後再試。' });
+        console.error('Error calling Ollama API:', error);
+        chatMessages.value.push({ id: Date.now() + 1, sender: 'ai', text: 'Sorry, we are unable to connect to the AI service right now. Please try again later.' });
     } finally {
         isLoading.value = false;
         await scrollToBottom();
     }
 }
 
-async function callGeminiAPI(userQuery) {
-    const apiKey = "";
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+async function callOllamaAPI(userQuery) {
+  const resumeData = { 
+    personalInfo: personalInfo.value, 
+    introduction: introduction.value, 
+    careerObjective: careerObjective.value, 
+    education: education.value, 
+    workExperience: workExperience.value, 
+    skills: skills.value, 
+    projects: projects.value 
+  };
 
-    // **FIX**: Access .value for ref objects when creating the payload
-    const resumeData = { 
-        personalInfo: personalInfo.value, 
-        introduction: introduction.value, 
-        careerObjective: careerObjective.value, 
-        education: education.value, 
-        workExperience: workExperience.value, 
-        skills: skills.value, 
-        projects: projects.value 
-    };
-    const systemPrompt = `You are a helpful and professional AI assistant for Ji Dung Lo's resume... Respond in Traditional Chinese.`;
-    const payload = {
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ parts: [{ text: `Here is the resume data: ${JSON.stringify(resumeData)}` }, { text: `Now, please answer the following question: "${userQuery}"` }] }]
-    };
+  const apiUrl = "/api/ask"; // 由 Nginx 反代到 FastAPI
 
-    let response;
-    for (let i = 0; i < 5; i++) {
-        try {
-            response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (response.ok) break;
-        } catch (error) {
-            if (i === 4) throw error;
-            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
-        }
+  let response;
+  for (let i = 0; i < 5; i++) {
+    try {
+      response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: userQuery, resumeData })
+      });
+      if (response.ok) break;
+    } catch (err) {
+      if (i === 4) throw err;
+      await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
     }
-    if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
-    const result = await response.json();
-    const candidate = result.candidates?.[0];
-    if (candidate && candidate.content?.parts?.[0]?.text) {
-        let text = candidate.content.parts[0].text;
-        text = text.replace(/\n/g, '<br>').replace(/\* (.*?)(<br>|$)/g, '<li>$1</li>').replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
-        return text;
-    }
-    return "抱歉，我無法生成回覆。";
+  }
+
+  if (!response.ok) throw new Error(`API request failed: ${response.status}`);
+  const result = await response.json();
+  let text = result?.answer || "Sorry, I can't generate a reply.";
+
+  // 你的原始轉 HTML 邏輯
+  text = text
+    .replace(/\n/g, '<br>')
+    .replace(/\* (.*?)(<br>|$)/g, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+
+  return text;
 }
+
 
 async function scrollToBottom() {
     await nextTick();
