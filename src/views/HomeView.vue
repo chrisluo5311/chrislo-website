@@ -347,7 +347,7 @@
   <div class="chat-widget">
     <div class="chat-modal" :class="{ active: isChatOpen }">
       <div class="chat-header">
-        <span>AI Assistant</span>
+        <span>Mr. LO</span>
         <button type="button" class="btn-close" @click="toggleChat"></button>
       </div>
     <div class="chat-body" ref="chatBody">
@@ -422,8 +422,6 @@ import carouselBg2 from "@/assets/images/index/bg2.jpg";
 // Import project icons
 import springbootIcon from '@/assets/images/project/springboot.png';
 import arduinoIcon from '@/assets/images/project/arduino.png';
-import awsIcon from '@/assets/images/project/aws.png';
-import bootstrapIcon from '@/assets/images/project/bootstrap.png';
 import lineIcon from '@/assets/images/project/line.png';
 import openaiIcon from '@/assets/images/project/openai.png';
 import pythonIcon from '@/assets/images/project/python.png';
@@ -442,8 +440,6 @@ import rnnImage from '@/assets/images/posts/RNN.jpg';
 import l2RegArticle from '@/assets/articles/l2-regularization.md';
 import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.md';
 import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
-
-// (Dark mode removed)
 
 // TYPING ANIMATION STATE
 const typedText = ref('');
@@ -520,7 +516,7 @@ function toggleChat() {
         chatMessages.value.push({
             id: Date.now(),
             sender: 'ai',
-            text: 'Hello, I am your AI assistant. You can ask me questions about my resume!'
+            text: 'Hello, I\'m Mr. LO. You can ask me questions about my resume!'
         });
     }
 }
