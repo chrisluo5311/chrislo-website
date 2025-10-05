@@ -548,8 +548,11 @@ async function sendMessage() {
 
 async function callOllamaAPI(userQuery) {
   const resumeData = { 
+    introduction: introduction.value, 
     careerObjective: careerObjective.value, 
+    education: education.value, 
     workExperience: workExperience.value, 
+    skills: skills.value, 
     projects: projects.value 
   };
 
@@ -558,14 +561,12 @@ async function callOllamaAPI(userQuery) {
   let response;
   for (let i = 0; i < 5; i++) {
     try {
+      const body = JSON.stringify({ question: userQuery, resumeData: resumeData });
+      console.log('Ollama API request body:', body);
       response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          { question: userQuery, 
-            resumeData: "", 
-          }
-        )
+        body: body
       });
       console.log('Ollama API response:', response);
       if (response.ok) break;
