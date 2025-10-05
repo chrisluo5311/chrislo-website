@@ -547,13 +547,18 @@ async function sendMessage() {
 }
 
 async function callOllamaAPI(userQuery) {
+  const resumeProjects = projects.value.map(({ name, description }) => ({
+    name,
+    description
+  }));
+
   const resumeData = { 
     introduction: introduction.value, 
     careerObjective: careerObjective.value, 
     education: education.value, 
     workExperience: workExperience.value, 
     skills: skills.value, 
-    projects: projects.value 
+    projects: resumeProjects 
   };
 
   const apiUrl = "/api/ask"; // 由 Nginx 反代到 FastAPI
