@@ -563,7 +563,7 @@ async function callOllamaAPI(userQuery) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
           { question: userQuery, 
-            resumeData: resumeData 
+            resumeData: "", 
           }
         )
       });
