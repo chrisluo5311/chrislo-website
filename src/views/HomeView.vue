@@ -566,14 +566,11 @@ async function callOllamaAPI(userQuery) {
   let response;
   for (let i = 0; i < 5; i++) {
     try {
-      const body = JSON.stringify({ question: userQuery, resumeData: resumeData });
-      console.log('Ollama API request body:', body);
       response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: body
+        body: JSON.stringify({ question: userQuery, resumeData: resumeData })
       });
-      console.log('Ollama API response:', response);
       if (response.ok) break;
     } catch (err) {
       if (i === 4) throw err;
