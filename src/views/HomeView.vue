@@ -1,71 +1,7 @@
 <template>
-  <nav id="navbar-main" class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#home">{{ personalInfo.name }}</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="#education">Education</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#experience">Experience</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#skills">Skills</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#projects">Projects</a>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="#posts">Posts</a></li>
-          
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Home/Hero Section -->
-  <section id="home" v-reveal="{ animation: 'zoom-in', duration: 700 }">
-    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url('${carouselBg1}')` }"></div>
-        </div>
-        <div class="carousel-item" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url('${carouselBg2}')` }"></div>
-        </div>
-      </div>
-    </div>
-    <div class="container text-center hero-content">
-      <h1 class="hero-title">{{ personalInfo.name }}</h1>
-      <p class="hero-subtitle">
-        <span class="typing-text">{{ typedText }}</span>
-      </p>
-      <div class="social-icons mt-4">
-        <a :href="personalInfo.socials.linkedin" target="_blank" rel="noopener noreferrer"
-          ><i class="bi bi-linkedin"></i
-        ></a>
-        <a :href="personalInfo.socials.github" target="_blank" rel="noopener noreferrer"
-          ><i class="bi bi-github"></i
-        ></a>
-        <a :href="'mailto:' + personalInfo.email"
-          ><i class="bi bi-envelope-fill"></i
-        ></a>
-      </div>
-    </div>
-  </section>
+  <NavBar />
+  
+  <HeroSection />
 
   <!-- About Section -->
   <section id="about" class="section" v-reveal>
@@ -149,13 +85,21 @@
       <h2 class="section-title">Skills</h2>
       <div v-for="(category, index) in skills" :key="index" class="mb-4">
         <h3 class="text-center mb-3">{{ category.title }}</h3>
-        <div class="d-flex flex-wrap justify-content-center" v-reveal="{ animation: 'fade-up', stagger: 60 }">
-          <span
-            v-for="skill in category.items"
-            :key="skill"
-            class="badge bg-secondary skill-badge"
-            >{{ skill }}</span
-          >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-2"></div>
+            <div class="col-lg-6 col-md-8 col-12">
+              <div class="d-flex flex-wrap justify-content-center" v-reveal="{ animation: 'fade-up', stagger: 60 }">
+                <span
+                  v-for="skill in category.items"
+                  :key="skill"
+                  class="badge bg-secondary skill-badge"
+                  >{{ skill }}</span
+                >
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-2"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -169,7 +113,7 @@
         <div
           v-for="project in topProjects"
           :key="project.name"
-          class="col-lg-4 col-md-6"
+          class="col-lg-4 col-md-6 mb-2"
           v-reveal="{ animation: 'fade-up', duration: 650 }"
         >
           <a
@@ -207,7 +151,7 @@
           <div
             v-for="project in restProjects"
             :key="project.name"
-            class="col-lg-4 col-md-6"
+            class="col-lg-4 col-md-6 mb-2"
           >
             <a
               class="card card-link-override h-100"
@@ -240,7 +184,7 @@
         </div>
       </div>
 
-      <div v-if="hasMoreProjects" class="text-center mt-5">
+      <div v-if="hasMoreProjects" class="text-center mt-4">
         <button
           class="btn btn-outline-egg btn-lg rounded-pill px-4 px-lg-5"
           type="button"
@@ -261,8 +205,8 @@
       <h2 class="section-title">Posts</h2>
       <div class="row g-4">
         <div
-          v-for="(post, index) in posts"
-          :key="index"
+          v-for="post in posts"
+          :key="post.title"
           class="col-md-6 col-lg-4"
           v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
         >
@@ -273,19 +217,28 @@
               <p class="card-text flex-grow-1">{{ post.snippet }}</p>
               <p class="card-text">
                 <small class="text-muted"
-                  >最後更新：{{ post.lastUpdated }}</small
+                  >Last Updated：{{ post.lastUpdated }}</small
                 >
-              </p>
+              </p>  
               <button
                 type="button"
-                class="btn btn-primary mt-auto align-self-start"
+                class="btn btn-read-more mt-auto align-self-start"
                 @click="openPost(post)"
               >
-                閱讀更多
+                Read More
               </button>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <RouterLink
+          class="btn btn-outline-egg btn-lg rounded-pill px-4 px-lg-5"
+          :to="{ name: 'posts' }"
+        >
+          More
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -315,33 +268,14 @@
           <div v-html="renderedMarkdown" class="markdown-content"></div>
         </div>
         <div class="modal-footer">
-          <small class="text-muted me-auto" v-if="selectedPost?.lastUpdated">最後更新：{{ selectedPost.lastUpdated }}</small>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+          <small class="text-muted me-auto" v-if="selectedPost?.lastUpdated">Last Updated: {{ selectedPost.lastUpdated }}</small>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container text-center">
-      <div class="social-icons mb-3">
-        <a :href="personalInfo.socials.linkedin" target="_blank"
-          ><i class="bi bi-linkedin"></i
-        ></a>
-        <a :href="personalInfo.socials.github" target="_blank"
-          ><i class="bi bi-github"></i
-        ></a>
-        <a :href="'mailto:' + personalInfo.email"
-          ><i class="bi bi-envelope-fill"></i
-        ></a>
-      </div>
-      <p>
-        &copy; {{ new Date().getFullYear() }} {{ personalInfo.name }}. All
-        Rights Reserved.
-      </p>
-    </div>
-  </footer>
+  <FooterComponent />
 
   <!-- Gemini AI Chat -->
   <div class="chat-widget">
@@ -410,14 +344,13 @@
 /* eslint-disable */
 import { ref, onMounted, computed, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap';
-import { marked } from 'marked';
-import markedKatex from 'marked-katex-extension';
-import DOMPurify from 'dompurify';
-import 'katex/dist/katex.min.css';
+import postsData from '@/data/posts';
+import { renderMarkdown } from '@/utils/markdown';
 
-// Import carousel background
-import carouselBg1 from "@/assets/images/index/bg1.jpg";
-import carouselBg2 from "@/assets/images/index/bg2.jpg";
+// Import shared components
+import NavBar from '@/components/NavBar.vue';
+import HeroSection from '@/components/HeroSection.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 // Import project icons
 import springbootIcon from '@/assets/images/project/springboot.png';
@@ -430,48 +363,7 @@ import yoloIcon from '@/assets/images/project/yolo.svg';
 import matlabIcon from '@/assets/images/project/matlab.png';
 import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
 import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
-
-// post images
-import l2regImage from '@/assets/images/posts/l2-reg.jpg';
-import hierarchicalSoftMaxImage from '@/assets/images/posts/hierarchical-softmax.jpg';
-import rnnImage from '@/assets/images/posts/RNN.jpg';
-
-// Import markdown articles
-import l2RegArticle from '@/assets/articles/l2-regularization.md';
-import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.md';
-import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
-
-// TYPING ANIMATION STATE
-const typedText = ref('');
-const titlesToType = ['Backend Java Engineer', 'I love AI Agent', 'I work on interesting projects'];
-
-function typeWriter(text, i, callback) {
-    if (i < text.length) {
-        typedText.value += text.charAt(i);
-        setTimeout(() => typeWriter(text, i + 1, callback), 100);
-    } else {
-        setTimeout(callback, 2000);
-    }
-}
-
-function deleteWriter(callback) {
-    let text = typedText.value;
-    if (text.length > 0) {
-        typedText.value = text.substring(0, text.length - 1);
-        setTimeout(() => deleteWriter(callback), 50);
-    } else {
-        setTimeout(callback, 500);
-    }
-}
-
-function startTypingLoop(titleIndex = 0) {
-    const currentTitle = titlesToType[titleIndex];
-    typeWriter(currentTitle, 0, () => {
-        deleteWriter(() => {
-            startTypingLoop((titleIndex + 1) % titlesToType.length);
-        });
-    });
-}
+import bootstrapImage from '@/assets/images/project/bootstrap.png';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -660,7 +552,7 @@ const workExperience = ref([
         date: 'Sep 2021 - Apr 2022', 
         description: [
             'Built a cryptocurrency trading application with Spring Boot, featuring membership, order, and product systems.',
-            'Utilized Spring Security, RESTful API, and unit testing, capable of supporting 10,000+ active users and processing 50,000+ orders daily.',
+            'Utilized Spring Security, RESTful API, and unit testing, capable of supporting 100,000+ active users and processing 50,000+ orders daily.',
             'Improved MySQL database query performance by 150% to 200% through indexing and data sharding.',
             'Developed an ordering system capable of processing 100,000 orders per hour using RabbitMQ.'
         ]
@@ -673,11 +565,12 @@ const skills = ref([
     },
     { 
         title: 'Database', 
-        items: ['MSSQL Server', 'MySQL'] 
+        items: ['MSSQL Server', 'MySQL','PostgreSQL', 'SQLite'] 
     },
     { 
         title: 'Frameworks / Tools', 
-        items: ['Spring Boot', 'OpenCV', 'PyTorch', 'Linux', 'Docker', 'Git'] 
+        items: ['Spring Boot', 'Flask', 'Node.js', 'Redis', 'RabbitMQ',
+                'AWS EC2', 'PyTorch','OpenCV', 'Docker', 'Git'] 
     } 
 ]);
 
@@ -718,6 +611,15 @@ const projects = ref([
     technologies: ['Spring Boot', 'Line', 'WebSocket', 'PostgreSQL'], 
     link: 'https://github.com/chrisluo5311/LineBot' 
   },
+  {
+    name: 'FurBaby - Responsive Web App',
+    icon: bootstrapImage,
+    role: 'Developer',
+    period: 'Aug 2024 - Aug 2024',
+    description: 'A responsive web app built with Bootstrap 5, Sass, HTML, CSS, and JavaScript, ensuring seamless display across devices.',
+    technologies: ['Bootstrap 5', 'Sass', 'HTML', 'CSS', 'JavaScript'],
+    link: 'https://github.com/chrisluo5311/FurBaby?tab=readme-ov-file'
+  },
   { 
     name: 'Automated Detection and Blurring of Sensitive Information', 
     icon: yoloIcon,
@@ -733,7 +635,7 @@ const projects = ref([
     role: 'Developer', 
     period: 'Feb 2025 - March 2025',
     description: 'Reproduces a hybrid subpixel motion estimation for motion deblurring that combines coarse block matching with Full search and Log search.', 
-    technologies: ['MATLAB', 'Image Compression'], 
+    technologies: ['MATLAB', 'Full Search', 'Log Search'], 
     link: 'https://github.com/chrisluo5311/Subpixel-Motion-Estimation' 
   },
   { 
@@ -765,42 +667,10 @@ const projects = ref([
   },
 ]);
 
-const posts = ref([ 
-    { 
-        image: l2regImage,
-        title: '"+" or "-" the L2 Regularization ?',
-        snippet: 'Whether L2 regularization is added or subtracted depends on how the objective function is defined',
-        lastUpdated: '2025年5月9日',
-        link: '#',
-        markdown: l2RegArticle
-    },
-    { 
-        image: hierarchicalSoftMaxImage,
-        title: 'What is Hierarchical Softmax?',
-        snippet: 'Hierarchical Softmax is an efficient alternative to the standard softmax function used in neural network output layers, especially when dealing with very large vocabularies',
-        lastUpdated: '2025年4月2日',
-        link: '#',
-        markdown: hierarchicalSoftMaxArticle
-    },
-    { 
-        image: rnnImage,
-        title: 'RNN language model',
-        snippet: 'RNNs update a hidden state at each step, combining the previous state and the current word embedding.',
-        lastUpdated: '2025年6月7日',
-        link: '#',
-        markdown: rnnLanguageModelArticle
-    } 
-]);
-
-// Configure marked with KaTeX extension
-marked.use(markedKatex({
-  throwOnError: false,
-  displayMode: true
-}));
+const posts = computed(() => postsData.slice(0, 3));
 
 // LIFECYCLE HOOK
 onMounted(() => {
-  startTypingLoop();
   // Initialize ScrollSpy using the imported bootstrap object.
   new bootstrap.ScrollSpy(document.body, {
     target: '#navbar-main',
@@ -821,8 +691,7 @@ let postModalInstance = null;
 // Computed property to render markdown content
 const renderedMarkdown = computed(() => {
   if (!selectedPost.value?.markdown) return '';
-  const rawHtml = marked(selectedPost.value.markdown);
-  return DOMPurify.sanitize(rawHtml);
+  return renderMarkdown(selectedPost.value.markdown);
 });
 
 function openPost(post) {
