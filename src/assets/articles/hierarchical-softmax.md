@@ -37,7 +37,3 @@ Each decision is a binary logistic regression (sigmoid).
 - **Memory-efficient**: Only need to store log-sized paths for each word.
 
 - Frequently used in **Word2Vec**’s **Skip-gram** and **CBOW** models (as in Mikolov et al., 2013).
-
----
-
-
