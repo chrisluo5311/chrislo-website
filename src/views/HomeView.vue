@@ -569,7 +569,7 @@ const skills = ref([
     },
     { 
         title: 'Frameworks / Tools', 
-        items: ['Spring Boot', 'Flask', 'Node.js', 'Redis', 'RabbitMQ',
+        items: ['Spring Boot', 'Flask', 'Vue.js', 'Redis', 'RabbitMQ',
                 'AWS EC2', 'PyTorch','OpenCV', 'Docker', 'Git'] 
     } 
 ]);

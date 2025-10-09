@@ -11,6 +11,9 @@
       </div>
     </div>
     <div class="container text-center hero-content">
+      <div class="hero-avatar">
+        <img :src="avatarImg" :alt="personalInfo.name" />
+      </div>
       <h1 class="hero-title">{{ personalInfo.name }}</h1>
       <p class="hero-subtitle">
         <span class="typing-text">{{ typedText }}</span>
@@ -34,6 +37,7 @@
 import { ref, onMounted } from 'vue';
 import carouselBg1 from "@/assets/images/index/bg1.jpg";
 import carouselBg2 from "@/assets/images/index/bg2.jpg";
+import avatarImg from "@/assets/images/index/avatar.png";
 
 const personalInfo = ref({
   name: 'JI DUNG LO',
