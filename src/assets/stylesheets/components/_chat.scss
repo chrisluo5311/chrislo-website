@@ -154,7 +154,8 @@
   align-self: flex-end;
   border-bottom-right-radius: 0;
 }
-.chat-message.ai {
+.chat-message.ai,
+.chat-message.assistant {
   background-color: rgb(8, 162, 98);
   color: var(--text-light);
   align-self: flex-start;
