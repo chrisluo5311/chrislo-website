@@ -342,7 +342,7 @@
 
 <script setup>
 /* eslint-disable */
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, computed, nextTick, watch } from 'vue';
 import * as bootstrap from 'bootstrap';
 import postsData from '@/data/posts';
 import { renderMarkdown } from '@/utils/markdown';
@@ -364,6 +364,8 @@ import matlabIcon from '@/assets/images/project/matlab.png';
 import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
 import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
 import bootstrapImage from '@/assets/images/project/bootstrap.png';
+
+watch(chatMessages, () => persistHistory(), { deep: true });
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -393,6 +395,40 @@ function isBootcamp(name) {
   ].includes(name);
 }
 
+// --- Chat history persistence ---
+const HISTORY_KEY = 'chatHistory.v1';
+const MAX_TURNS = 12; // keep ~12 user/ai pairs (~24 msgs)
+
+function persistHistory() {
+  try { sessionStorage.setItem(HISTORY_KEY, JSON.stringify(chatMessages.value)); } catch (_) {}
+}
+
+function loadHistory() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]');
+    if (Array.isArray(saved)) chatMessages.value = saved;
+  } catch (_) {}
+}
+
+// Map UI messages -> API history (user/assistant only, plain text)
+function toAPIHistory() {
+  const plain = chatMessages.value
+    .filter(m => m.sender === 'user' || m.sender === 'assistant')
+    .slice(-MAX_TURNS * 2) // cap on client
+    .map(m => ({
+      role: m.sender === 'user' ? 'user' : 'assistant',
+      content: stripHtml(m.text),
+    }));
+  return plain;
+}
+
+// Strip any HTML before sending to server
+function stripHtml(html) {
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  return d.textContent || d.innerText || '';
+}
+
 // AI CHAT STATE
 const isChatOpen = ref(false);
 const userMessage = ref('');
@@ -407,8 +443,8 @@ function toggleChat() {
     if (isChatOpen.value && chatMessages.value.length === 0) {
         chatMessages.value.push({
             id: Date.now(),
-            sender: 'ai',
-            text: 'Hello, I\'m Mr. LO. You can ask me questions about my resume!'
+            sender: 'assistant',
+            text: 'Hello, I\'m Chris. You can ask me questions about my resume!'
         });
     }
 }
@@ -427,41 +463,40 @@ async function sendMessage() {
     await scrollToBottom();
 
     try {
-        const aiResponse = await callOllamaAPI(messageText);
-        chatMessages.value.push({ id: Date.now() + 1, sender: 'ai', text: aiResponse });
+        const aiResponse = await callAIAPI(messageText, toAPIHistory());
+        chatMessages.value.push({ id: Date.now() + 1, sender: 'assistant', text: aiResponse });
     } catch (error) {
-        console.error('Error calling Ollama API:', error);
-        chatMessages.value.push({ id: Date.now() + 1, sender: 'ai', text: 'Sorry, we are unable to connect to the AI service right now. Please try again later.' });
+        console.error('Error calling AI API:', error);
+        chatMessages.value.push({ id: Date.now() + 1, sender: 'assistant', text: 'Sorry, we are unable to connect to the AI service right now. Please try again later.' });
     } finally {
         isLoading.value = false;
         await scrollToBottom();
     }
 }
 
-async function callOllamaAPI(userQuery) {
-  const resumeProjects = projects.value.map(({ name, description }) => ({
-    name,
-    description
-  }));
-
+async function callAIAPI(userQuery, history) {
+  const apiUrl = "/api/chat";
   const resumeData = { 
     introduction: introduction.value, 
-    careerObjective: careerObjective.value, 
-    education: education.value, 
-    workExperience: workExperience.value, 
-    skills: skills.value, 
-    projects: resumeProjects 
   };
-
-  const apiUrl = "/api/ask"; // 由 Nginx 反代到 FastAPI
-
+  
   let response;
   for (let i = 0; i < 5; i++) {
     try {
       response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: userQuery, resumeData: resumeData })
+        body: JSON.stringify(
+          { 
+            message: userQuery, 
+            history: [
+              {
+                role: "system",
+                content: `Intro:\n${JSON.stringify(resumeData)}`
+              },
+              ...history
+            ]
+          })
       });
       if (response.ok) break;
     } catch (err) {
@@ -475,12 +510,25 @@ async function callOllamaAPI(userQuery) {
   let text = result?.answer || "Sorry, I can't generate a reply.";
 
   // 你的原始轉 HTML 邏輯
-  text = text
-    .replace(/\n/g, '<br>')
-    .replace(/\* (.*?)(<br>|$)/g, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+  text = renderBasicHtml(text);
 
   return text;
+}
+
+function renderBasicHtml(text) {
+  // Escape
+  const esc = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Minimal formatting: line breaks + bullets
+  const withLines = esc.replace(/\n/g, '<br>');
+  const bullets = withLines
+    .replace(/^\* (.*)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)(?![\s\S]*<\/ul>)/, '<ul>$1</ul>');
+
+  return bullets;
 }
 
 
@@ -676,6 +724,7 @@ onMounted(() => {
     target: '#navbar-main',
     offset: 100 // Add offset for better accuracy
   });
+  loadHistory();
 });
 
 // computed helpers for Projects collapse
