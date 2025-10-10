@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+  # 允許手動觸發（當遠端資料夾被清掉或想重跑時很方便）
+  workflow_dispatch:
 
 # 連續 push 多次，只會留下最新那次部署在跑，舊的會被自動取消。
 concurrency:
@@ -88,8 +90,36 @@ jobs:
             else
               sudo rsync -a --delete ~/upload_tmp/dist/ ${{ secrets.TARGET_DIR }}/dist/
             fi
+
+      - name: Ensure serve is installed on EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            if ! command -v serve >/dev/null 2>&1; then
+              echo "serve not found. Installing globally..."
+              sudo npm i -g serve
+            else
+              echo "serve is already installed."
+            fi
+
+      - name: Ensure PM2 is installed on EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            if ! command -v pm2 >/dev/null 2>&1; then
+              echo "pm2 not found. Installing globally..."
+              sudo npm i -g pm2
+            else
+              echo "pm2 is already installed."
+            fi
       
-      - name: Restart PM2 (serve/SSR on :8080)
+      - name: Restart PM2 (serve static on :8080)
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST_DNS }}
@@ -97,6 +127,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           command_timeout: 10m
           script: |
-            cd ${{ secrets.TARGET_DIR }}
-            pm2 startOrReload ecosystem.config.js --only chrislo-web || pm2 start ecosystem.config.js --only chrislo-web
+            # 以 inline 指令啟動，不再依賴 ecosystem.config.js 存在
+            # 若已存在同名 process，先刪除再重啟
+            pm2 delete chrislo-web || true
+            pm2 start "serve -s ${{ secrets.TARGET_DIR }}/dist -l tcp://127.0.0.1:8080" --name chrislo-web
             pm2 save
