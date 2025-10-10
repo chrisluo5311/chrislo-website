@@ -365,8 +365,6 @@ import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
 import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
 import bootstrapImage from '@/assets/images/project/bootstrap.png';
 
-watch(chatMessages, () => persistHistory(), { deep: true });
-
 // Hide broken icon images gracefully
 function onIconError(event) {
   const img = event?.target;
@@ -436,6 +434,9 @@ const chatMessages = ref([]);
 const isLoading = ref(false);
 const chatBody = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
+
+// Persist chat history whenever messages change
+watch(chatMessages, persistHistory, { deep: true });
 
 // ... (toggleChat and other functions remain the same)
 function toggleChat() {
