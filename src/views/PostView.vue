@@ -78,6 +78,7 @@
                   @click="openPost(post)"
                 >
                   Read More
+                  <i class="bi bi-arrow-right"></i>
                 </button>
               </div>
             </div>

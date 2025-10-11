@@ -226,6 +226,7 @@
                 @click="openPost(post)"
               >
                 Read More
+                <i class="bi bi-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -281,16 +282,16 @@
   <div class="chat-widget">
     <div class="chat-modal" :class="{ active: isChatOpen }">
       <div class="chat-header">
-        <span>Mr. LO</span>
+        <span>AI Assistant</span>
         <button type="button" class="btn-close" @click="toggleChat"></button>
       </div>
-    <div class="chat-body" ref="chatBody">
-      <div
-        v-for="message in chatMessages"
-        :key="message.id"
-        class="chat-message"
-        :class="message.sender"
-      >
+      <div class="chat-body" ref="chatBody">
+        <div
+          v-for="message in chatMessages"
+          :key="message.id"
+          class="chat-message"
+          :class="message.sender"
+        >
         <span v-html="message.text"></span>
       </div>
       <div v-if="isLoading" class="chat-message loading">
@@ -325,6 +326,7 @@
       role="button"
       tabindex="0"
       aria-label="Open AI Assistant"
+      :aria-expanded="isChatOpen"
       @click="toggleChat"
       @keyup.enter="toggleChat"
       @keyup.space.prevent="toggleChat"

@@ -17,9 +17,15 @@
       </p>
       <div class="hero-cta">
         <a class="btn primary" :href="projectReport" target="_blank" rel="noopener">
+          <i class="bi bi-file-earmark-pdf"></i>
           Read the Full Report (PDF)
         </a>
+        <a class="btn btn-github" href="https://github.com/chrisluo5311/ShardingJH" target="_blank" rel="noopener">
+          <i class="bi bi-github"></i>
+          View on GitHub
+        </a>
         <a class="btn" href="https://youtu.be/kl9JrnHCmfs" target="_blank" rel="noopener">
+          <i class="bi bi-youtube"></i>
           Watch Demo Video
         </a>
       </div>

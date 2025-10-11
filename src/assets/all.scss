@@ -18,6 +18,11 @@
 @import "./stylesheets/layout/project-card";
 @import "./stylesheets/layout/footer";
 
+// pages
+@import "./stylesheets/pages/home";
+@import "./stylesheets/pages/post";
+@import "./stylesheets/pages/distributedshardingdb";
+
 // components
 @import "./stylesheets/components/section-title";
 @import "./stylesheets/components/hero";
@@ -30,7 +35,4 @@
 @import "./stylesheets/components/reveal";
 @import "./stylesheets/components/markdown";
 
-// pages
-@import "./stylesheets/pages/home";
-@import "./stylesheets/pages/post";
-@import "./stylesheets/pages/distributedshardingdb";
+
