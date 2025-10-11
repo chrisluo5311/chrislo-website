@@ -13,6 +13,12 @@ const routes = [
     name: 'posts',
     component: PostView
   },
+  {
+    path: '/projects/distributed-sharding-db',
+    name: 'DistributedShardingDB',
+    component: () => import('@/views/DistributedShardingDB.vue'),
+    meta: { title: 'Distributed Sharding DB' }
+  },
   { 
     // temporary fallback
     path: '/:pathMatch(.*)*', 

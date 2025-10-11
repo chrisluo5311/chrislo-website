@@ -30,8 +30,38 @@
           <li class="nav-item">
             <a class="nav-link" href="#" @click.prevent="handleNavigation('skills')">Skills</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('projects')">Projects</a>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              @click.prevent
+            >
+              Projects
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Explore Highlights</li>
+              <li>
+                <button class="dropdown-item dropdown-item-rich" type="button" @click="handleNavigation('projects')">
+                  <span class="dropdown-item-title">Projects Overview</span>
+                  <small class="dropdown-item-subtitle">Back to Projects</small>
+                </button>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <router-link
+                  class="dropdown-item dropdown-item-rich"
+                  to="/projects/distributed-sharding-db"
+                  exact-active-class="active"
+                  @click="closeNavbar"
+                >
+                  <span class="dropdown-item-title">Distributed Database</span>
+                  <small class="dropdown-item-subtitle">Distributed database design and optimization</small>
+                </router-link>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" @click.prevent="handleNavigation('posts')">Posts</a>
@@ -59,28 +89,38 @@ const personalInfo = ref({
   }
 });
 
+const closeNavbar = () => {
+  const navbarCollapse = document.getElementById('navbarNav');
+  if (navbarCollapse?.classList.contains('show')) {
+    navbarCollapse.classList.remove('show');
+  }
+};
+
 const handleNavigation = async (section) => {
   // 如果點擊 Posts
   if (section === 'posts') {
-    // 如果當前不在 posts 頁面，則導航到 posts 頁面
+    // 如果當前不在 posts 頁面,則導航到 posts 頁面
     if (route.name !== 'posts') {
       await router.push({ name: 'posts' });
     }
-    // 如果已經在 posts 頁面，則不做任何事（留在原地）
+    // 如果已經在 posts 頁面,則不做任何事(留在原地)
+    closeNavbar();
     return;
   }
 
-  // 對於其他 section（home, about, education 等）
-  // 如果當前在 posts 頁面，先導航回 home 頁面
-  if (route.name === 'posts') {
+  // 對於其他 section(home, about, education 等)
+  // 如果當前不在 home 頁面,先導航回 home 頁面
+  if (route.name !== 'home') {
     await router.push({ name: 'home' });
     // 等待路由切換完成後再滾動到對應的 section
     setTimeout(() => {
       scrollToSection(section);
+      closeNavbar();
     }, 100);
   } else {
-    // 如果已經在 home 頁面，直接滾動到對應的 section
+    // 如果已經在 home 頁面,直接滾動到對應的 section
     scrollToSection(section);
+    closeNavbar();
   }
 };
 
