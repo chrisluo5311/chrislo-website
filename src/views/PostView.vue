@@ -63,9 +63,9 @@
                   <span class="badge bg-category">{{ post.category }}</span>
                 </div>
                 <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text flex-grow-1">{{ post.snippet }}</p>
+                <p class="card-text snippet-text flex-grow-1">{{ post.snippet }}</p>
                 <div class="tags-container mb-3">
-                  <span v-for="tag in post.tags.slice(0, 3)" :key="tag" class="badge bg-tag">
+                  <span v-for="tag in post.tags" :key="tag" class="badge bg-tag">
                     {{ tag }}
                   </span>
                 </div>

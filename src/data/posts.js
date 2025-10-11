@@ -1,10 +1,14 @@
 import l2regImage from '@/assets/images/posts/l2-reg.jpg';
 import hierarchicalSoftMaxImage from '@/assets/images/posts/hierarchical-softmax.jpg';
 import rnnImage from '@/assets/images/posts/RNN.jpg';
+import rearterImage from '@/assets/images/posts/ReARTeR.png';
+import llmVerificationImage from '@/assets/images/posts/llm_verification.jpg';
 
 import l2RegArticle from '@/assets/articles/l2-regularization.md';
 import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.md';
 import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
+import rearterArticle from '@/assets/articles/ReARTeR.md';
+import llmVerificationArticle from '@/assets/articles/llm_verification.md';
 
 const posts = [
   {
@@ -16,7 +20,7 @@ const posts = [
     link: '#',
     markdown: l2RegArticle,
     category: 'Machine Learning',
-    tags: ['Machine Learning', 'Deep Learning', 'Regularization', 'Optimization']
+    tags: ['Machine Learning', 'Deep Learning', 'Regularization']
   },
   {
     image: hierarchicalSoftMaxImage,
@@ -26,8 +30,8 @@ const posts = [
     lastUpdated: 'April 2, 2025',
     link: '#',
     markdown: hierarchicalSoftMaxArticle,
-    category: 'AI',
-    tags: ['AI', 'NLP', 'Neural Networks', 'Deep Learning']
+    category: 'Deep Learning',
+    tags: ['Softmax', 'Deep Learning']
   },
   {
     image: rnnImage,
@@ -37,9 +41,31 @@ const posts = [
     lastUpdated: 'June 7, 2025',
     link: '#',
     markdown: rnnLanguageModelArticle,
-    category: 'AI',
-    tags: ['AI', 'RNN', 'NLP', 'Language Model', 'Deep Learning']
-  }
+    category: 'Deep Learning',
+    tags: ['RNN', 'Deep Learning']
+  },
+  {
+    image: rearterImage,
+    title: 'Thesis Review - ReARTeR',
+    snippet:
+      'ReARTeR combines Trustworthy Process Rewarding (TPR) and Step-Level Offline Reinforcement Learning to enhance reasoning ability and interpretability.',
+    lastUpdated: 'October 6, 2025',
+    link: '#',
+    markdown: rearterArticle,
+    category: 'AI Agents',
+    tags: ['Reinforcement Learning', 'Reasoning', 'ProcessRewardModel', 'Thesis Review']
+  },
+  {
+    image: llmVerificationImage,
+    title: 'Thesis Review - LLM Agent Verification',
+    snippet:
+      'Build a robust system to detect and verify misinformation using a multi-tool collaborative framework centered on LLM agents.',
+    lastUpdated: 'October 10, 2025',
+    link: '#',
+    markdown: llmVerificationArticle,
+    category: 'AI Agents',
+    tags: ['Workflow', 'Verification', 'Multi-tool', 'Thesis Review']
+  },
 ];
 
 export default posts;
