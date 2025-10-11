@@ -7,5 +7,11 @@ module.exports = defineConfig({
       .rule('markdown')
       .test(/\.md$/)
       .type('asset/source')
+    
+    // 配置處理 .pdf 文件
+    config.module
+      .rule('pdf')
+      .test(/\.pdf$/)
+      .type('asset/resource')
   }
 })
