@@ -324,6 +324,7 @@
         <input
           type="text"
           class="form-control"
+          ref="chatInput"
           v-model="userMessage"
           placeholder="Ask questions about my resume."
           :disabled="isLoading"
@@ -454,6 +455,7 @@ const userMessage = ref('');
 const chatMessages = ref([]);
 const isLoading = ref(false);
 const chatBody = ref(null);
+const chatInput = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
 const chatWidget = ref(null);
 
@@ -494,6 +496,8 @@ async function sendMessage() {
     } finally {
         isLoading.value = false;
         await scrollToBottom();
+      await nextTick();
+      chatInput.value?.focus();
     }
 }
 
