@@ -361,7 +361,7 @@
 
 <script setup>
 /* eslint-disable */
-import { ref, onMounted, computed, nextTick, watch } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, nextTick, watch } from 'vue';
 import * as bootstrap from 'bootstrap';
 import postsData from '@/data/posts';
 import { renderMarkdown } from '@/utils/markdown';
@@ -455,6 +455,7 @@ const chatMessages = ref([]);
 const isLoading = ref(false);
 const chatBody = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
+const chatWidget = ref(null);
 
 // Persist chat history whenever messages change
 watch(chatMessages, persistHistory, { deep: true });
@@ -651,16 +652,34 @@ const skills = ref([
 
 const projects = ref([ 
   { 
-    name: 'PepperNoodles - search for nearby restaurants', 
+    name: 'Distributed Sharding Database', 
     icon: springbootIcon,
-    role: 'Tech Lead', 
-    period: 'Jun 2019 - Present',
-    description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
-    technologies: ['Spring Boot', 'MSSQL Server', 'Spring Security'], 
-    link: 'https://github.com/PepperNoodles/PepperNoodles' 
+    role: 'Developer', 
+    period: 'May 2025 - June 2025',
+    description: 'Relies on Spring Boot and SQLite, featuring P2P routing, gossip-based node discovery and sharding between multiple SQLite instances', 
+    technologies: ['Spring Boot', 'SQLite', 'RabbitMQ', 'P2P', "Gossip Protocol", "Sharding"], 
+    link: 'https://github.com/chrisluo5311/ShardingJH' 
   },
   { 
-    name: 'Brain Tumor Detection with CNN', 
+    name: 'arXiv-Copilot: AI Research Assistant', 
+    icon: openaiIcon,
+    role: 'Developer', 
+    period: 'May 2025 - June 2025',
+    description: 'An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers (mainly Computer Science), using OpenAI models and FAISS vector database.', 
+    technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
+    link: 'https://github.com/chrisluo5311/arxiv-copilot' 
+  },
+  { 
+    name: 'Automated Detection and Blurring of Sensitive Information', 
+    icon: yoloIcon,
+    role: 'Developer', 
+    period: 'Nov 2024 - Dec 2024',
+    description: 'Fine-tunes YOLOv8 to detect and blur sensitive content in public imagery, focusing on faces and vehicle license plates.', 
+    technologies: ['YOLOv8', 'Python', 'OpenCV'], 
+    link: 'https://github.com/chrisluo5311/YOLOv8ForSensitiveInformation' 
+  },
+  { 
+    name: 'Brain Tumor Detection', 
     icon: tensorflowIcon,
     role: 'Team Leader', 
     period: 'Jan 2017 - Nov 2017',
@@ -669,13 +688,22 @@ const projects = ref([
     link: 'https://github.com/chrisluo5311/Team_Image_Recognition' 
   },
   { 
-    name: 'Employee access control system', 
-    icon: arduinoIcon,
+    name: 'VisionFlow AI', 
+    icon: aws,
     role: 'Developer', 
-    period: 'Dec 2023 - Dec 2023',
-    description: 'Developed a access control system with Linkit7688duo and Arduino to Control and manage personnel entering and exiting', 
-    technologies: ['Arduino', 'Linkit7688duo', 'Python'], 
-    link: 'https://github.com/chrisluo5311/EmbeddedLinkit7688duo' 
+    period: 'Nov 2024 - Nov 2024',
+    description: 'This project is a prototype web app built with React and Flask that integrates AWS Bedrock for multimodal AI (LLM + image analysis) and geospatial APIs to deliver location-based alerts.', 
+    technologies: ['AWS Bedrock', 'AWS EC2', 'React', 'Flask','Geospatial APIs'], 
+    link: 'https://github.com/AmirAnva/SCU-AWS-INREX-2024-track1' 
+  },
+  { 
+    name: 'Resume Assistant', 
+    icon: geminiIcon,
+    role: 'Developer', 
+    period: 'Oct 2025 - Oct 2025',
+    description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
+    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
+    link: 'https://github.com/chrisluo5311/ResumeAssistant' 
   },
   { 
     name: ' Line chatbot - Covid 19 information', 
@@ -686,6 +714,15 @@ const projects = ref([
     technologies: ['Spring Boot', 'Line', 'WebSocket', 'PostgreSQL'], 
     link: 'https://github.com/chrisluo5311/LineBot' 
   },
+  { 
+    name: 'PepperNoodles - search for nearby restaurants', 
+    icon: springbootIcon,
+    role: 'Tech Lead', 
+    period: 'Jun 2019 - Present',
+    description: 'A food map web application to search for the nearest restaurants, featuring a membership system and a secure e-commerce system.', 
+    technologies: ['Spring Boot', 'MSSQL Server', 'Spring Security'], 
+    link: 'https://github.com/PepperNoodles/PepperNoodles' 
+  },
   {
     name: 'FurBaby - Responsive Web App',
     icon: bootstrapImage,
@@ -694,15 +731,6 @@ const projects = ref([
     description: 'A responsive web app built with Bootstrap 5, Sass, HTML, CSS, and JavaScript, ensuring seamless display across devices.',
     technologies: ['Bootstrap 5', 'Sass', 'HTML', 'CSS', 'JavaScript'],
     link: 'https://github.com/chrisluo5311/FurBaby?tab=readme-ov-file'
-  },
-  { 
-    name: 'Automated Detection and Blurring of Sensitive Information', 
-    icon: yoloIcon,
-    role: 'Developer', 
-    period: 'Nov 2024 - Dec 2024',
-    description: 'Fine-tunes YOLOv8 to detect and blur sensitive content in public imagery, focusing on faces and vehicle license plates.', 
-    technologies: ['YOLOv8', 'Python', 'OpenCV'], 
-    link: 'https://github.com/chrisluo5311/YOLOv8ForSensitiveInformation' 
   },
   { 
     name: 'Subpixel Motion Estimation Without Interpolation', 
@@ -723,33 +751,6 @@ const projects = ref([
     link: 'https://github.com/chrisluo5311/MyNLP_And_LLM/tree/master/web_search%26information_retrieval/project2' 
   },
   { 
-    name: 'Distributed Sharding Database', 
-    icon: springbootIcon,
-    role: 'Developer', 
-    period: 'May 2025 - June 2025',
-    description: 'Relies on Spring Boot and SQLite, featuring P2P routing, gossip-based node discovery and sharding between multiple SQLite instances', 
-    technologies: ['Spring Boot', 'SQLite', 'RabbitMQ', 'P2P', "Gossip Protocol", "Sharding"], 
-    link: 'https://github.com/chrisluo5311/ShardingJH' 
-  },
-  { 
-    name: 'arXiv-Copilot: AI Research Assistant', 
-    icon: openaiIcon,
-    role: 'Developer', 
-    period: 'May 2025 - June 2025',
-    description: 'An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers (mainly Computer Science), using OpenAI models and FAISS vector database.', 
-    technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
-    link: 'https://github.com/chrisluo5311/arxiv-copilot' 
-  },
-  { 
-    name: 'Resume Assistant', 
-    icon: geminiIcon,
-    role: 'Developer', 
-    period: 'Oct 2025 - Oct 2025',
-    description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
-    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
-    link: 'https://github.com/chrisluo5311/ResumeAssistant' 
-  },
-  { 
     name: 'ChrisLuo Website', 
     icon: aws,
     role: 'Developer', 
@@ -758,9 +759,28 @@ const projects = ref([
     technologies: ['AWS EC2', 'Gemini', 'FastAPI', 'Nginx', 'SSL'], 
     link: 'https://github.com/chrisluo5311/chrislo-website' 
   },
+  { 
+    name: 'Employee access control system', 
+    icon: arduinoIcon,
+    role: 'Developer', 
+    period: 'Dec 2023 - Dec 2023',
+    description: 'Developed a access control system with Linkit7688duo and Arduino to Control and manage personnel entering and exiting', 
+    technologies: ['Arduino', 'Linkit7688duo', 'Python'], 
+    link: 'https://github.com/chrisluo5311/EmbeddedLinkit7688duo' 
+  },
 ]);
 
 const posts = computed(() => postsData.slice(0, 3));
+
+// Handle click outside chat widget
+function handleClickOutside(event) {
+  if (!isChatOpen.value) return;
+  
+  const chatWidgetElement = document.querySelector('.chat-widget');
+  if (chatWidgetElement && !chatWidgetElement.contains(event.target)) {
+    isChatOpen.value = false;
+  }
+}
 
 // LIFECYCLE HOOK
 onMounted(() => {
@@ -770,6 +790,14 @@ onMounted(() => {
     offset: 100 // Add offset for better accuracy
   });
   loadHistory();
+  
+  // Add click outside listener for chat widget
+  document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  // Clean up click outside listener
+  document.removeEventListener('click', handleClickOutside);
 });
 
 // computed helpers for Projects collapse
