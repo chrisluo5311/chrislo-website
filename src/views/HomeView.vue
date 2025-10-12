@@ -665,7 +665,7 @@ const projects = ref([
     icon: openaiIcon,
     role: 'Developer', 
     period: 'May 2025 - June 2025',
-    description: 'An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers (mainly Computer Science), using OpenAI models and FAISS vector database.', 
+    description: 'Interactive tool for searching, downloading, parsing, and Q&A with arXiv papers, using OpenAI models and FAISS vector database.', 
     technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
     link: 'https://github.com/chrisluo5311/arxiv-copilot' 
   },
@@ -692,8 +692,8 @@ const projects = ref([
     icon: aws,
     role: 'Developer', 
     period: 'Nov 2024 - Nov 2024',
-    description: 'This project is a prototype web app built with React and Flask that integrates AWS Bedrock for multimodal AI (LLM + image analysis) and geospatial APIs to deliver location-based alerts.', 
-    technologies: ['AWS Bedrock', 'AWS EC2', 'React', 'Flask','Geospatial APIs'], 
+    description: 'Built with React and Flask that integrates AWS Bedrock for multimodal AI (LLM + image analysis) and geospatial APIs to deliver location-based alerts.', 
+    technologies: ['AWS Bedrock', 'AWS x INREX HACKERTHON', 'React', 'Flask','Geospatial APIs'], 
     link: 'https://github.com/AmirAnva/SCU-AWS-INREX-2024-track1' 
   },
   { 
