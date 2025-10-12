@@ -70,8 +70,8 @@
             <a 
               class="nav-link" 
               :href="resumePdf" 
-              download="ChrisLo_Resume.pdf"
               aria-label="Download Resume"
+              @click.prevent="downloadResume"
             >
               <i class="bi bi-download me-1"></i>Resume
             </a>
@@ -106,6 +106,27 @@ const closeNavbar = () => {
   const navbarCollapse = document.getElementById('navbarNav');
   if (navbarCollapse?.classList.contains('show')) {
     navbarCollapse.classList.remove('show');
+  }
+};
+
+const downloadResume = async () => {
+  try {
+    const response = await fetch(resumePdf);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch resume: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'ChrisLo_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Unable to download resume', error);
   }
 };
 
