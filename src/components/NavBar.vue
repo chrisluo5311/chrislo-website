@@ -32,14 +32,14 @@
           </li>
           <li class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle"
+              class="nav-link"
               href="#"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
               @click.prevent
             >
-              Projects
+              Projects <i :class="isDropdownOpen ? 'bi bi-caret-up-fill' : 'bi bi-caret-down-fill'" style="font-size: 0.7rem; margin-left: 0.15rem;"></i>
             </a>
             <ul class="dropdown-menu">
               <li class="dropdown-header">Explore Highlights</li>
@@ -83,12 +83,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import resumePdf from '@/assets/pdfs/ChrisLo_Resume.pdf';
 
 const router = useRouter();
 const route = useRoute();
+
+const isDropdownOpen = ref(false);
 
 const personalInfo = ref({
   name: 'JI DUNG LO',
@@ -147,4 +149,17 @@ const scrollToSection = (section) => {
     });
   }
 };
+
+// 監聽 Bootstrap dropdown 事件
+onMounted(() => {
+  const dropdownElement = document.querySelector('.nav-item.dropdown');
+  if (dropdownElement) {
+    dropdownElement.addEventListener('shown.bs.dropdown', () => {
+      isDropdownOpen.value = true;
+    });
+    dropdownElement.addEventListener('hidden.bs.dropdown', () => {
+      isDropdownOpen.value = false;
+    });
+  }
+});
 </script>
