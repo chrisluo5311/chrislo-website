@@ -66,6 +66,16 @@
           <li class="nav-item">
             <a class="nav-link" href="#" @click.prevent="handleNavigation('posts')">Posts</a>
           </li>
+          <li class="nav-item">
+            <a 
+              class="nav-link" 
+              :href="resumePdf" 
+              download="ChrisLo_Resume.pdf"
+              aria-label="Download Resume"
+            >
+              <i class="bi bi-download me-1"></i>Resume
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -75,6 +85,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import resumePdf from '@/assets/pdfs/ChrisLo_Resume.pdf';
 
 const router = useRouter();
 const route = useRoute();
