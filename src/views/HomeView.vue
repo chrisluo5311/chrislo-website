@@ -44,7 +44,24 @@
             <span class="badge rounded-pill bg-primary date-badge">{{
               edu.date
             }}</span>
-            <p v-if="edu.details" class="mt-3">{{ edu.details }}</p>
+            <p v-if="edu.details && !edu.courses" class="mt-3">{{ edu.details }}</p>
+            <div v-if="edu.courses" class="mt-3">
+              <p v-if="edu.details" class="mb-2">{{ edu.details }}</p>
+              <table class="table table-sm table-bordered" style="max-width: 500px; font-size: 0.9rem;">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Course</th>
+                    <th scope="col" style="width: 80px;">Grade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(course, idx) in edu.courses" :key="idx">
+                    <td>{{ course.name }}</td>
+                    <td class="text-center">{{ course.grade }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -359,6 +376,7 @@ import springbootIcon from '@/assets/images/project/springboot.png';
 import arduinoIcon from '@/assets/images/project/arduino.png';
 import lineIcon from '@/assets/images/project/line.png';
 import openaiIcon from '@/assets/images/project/openai.png';
+import geminiIcon from '@/assets/images/project/gemini.png';
 import pythonIcon from '@/assets/images/project/python.png';
 import tensorflowIcon from '@/assets/images/project/tensorflow.png';
 import yoloIcon from '@/assets/images/project/yolo.svg';
@@ -366,6 +384,7 @@ import matlabIcon from '@/assets/images/project/matlab.png';
 import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
 import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
 import bootstrapImage from '@/assets/images/project/bootstrap.png';
+import aws from '@/assets/images/project/aws.png';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -570,7 +589,12 @@ const education = ref([
         degree: ['MS in Computer Science and Engineering'], 
         location: 'Santa Clara, CA', 
         date: 'Expected March 2026', 
-        details: 'Concentration: LLM' 
+        details: 'Concentration: LLM',
+        courses: [
+            { name: 'Machine Learning', grade: 'A' },
+            { name: 'Information Retrieval and Recommendation System', grade: 'A' },
+            { name: 'Natural Language Processing', grade: 'A' }
+        ]
     },
     { 
         institution: 'Soochow University', 
@@ -715,6 +739,24 @@ const projects = ref([
     description: 'An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers (mainly Computer Science), using OpenAI models and FAISS vector database.', 
     technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
     link: 'https://github.com/chrisluo5311/arxiv-copilot' 
+  },
+  { 
+    name: 'Resume Assistant', 
+    icon: geminiIcon,
+    role: 'Developer', 
+    period: 'Oct 2025 - Oct 2025',
+    description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
+    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
+    link: 'https://github.com/chrisluo5311/ResumeAssistant' 
+  },
+  { 
+    name: 'ChrisLuo Website', 
+    icon: aws,
+    role: 'Developer', 
+    period: 'Sep 2025 - Oct 2025',
+    description: 'Personal website built with Vue.js and an AI Resume Assistant backed by Python backend. The full stack is deployed on AWS EC2, with Nginx reverse proxy and SSL (Certbot) for HTTPS support.', 
+    technologies: ['AWS EC2', 'Gemini', 'FastAPI', 'Nginx', 'SSL'], 
+    link: 'https://github.com/chrisluo5311/chrislo-website' 
   },
 ]);
 
