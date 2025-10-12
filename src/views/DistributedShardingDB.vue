@@ -1,14 +1,15 @@
 <template>
   <div>
     <NavBar />
-    
-    <!-- Sticky Back to Home Button -->
-    <RouterLink class="btn-back-home" to="/" title="Back to Home">
-      <i class="bi bi-house-fill"></i>
-      <span class="btn-text">Back to Home</span>
-    </RouterLink>
-    
-    <section class="page-wrap">
+
+    <main class="distributed-sharding-main">
+      <!-- Sticky Back to Home Button -->
+      <RouterLink class="btn-back-home" to="/" title="Back to Home">
+        <i class="bi bi-house-fill"></i>
+        <span class="btn-text">Back to Home</span>
+      </RouterLink>
+      
+      <section class="page-wrap">
       <!-- Hero -->
       <header class="hero">
       <h1>Distributed Sharding Database System (ShardingJH)</h1>
@@ -363,24 +364,25 @@
         <li>AWS EC2</li>
       </ul>
     </section>
-  </section>
+    </section>
 
-  <!-- Image Modal -->
-  <div 
-    v-if="showImageModal" 
-    class="image-modal"
-    @click="closeImageModal"
-  >
-    <div class="image-modal-content">
-      <button class="modal-close-btn" @click="closeImageModal" aria-label="Close">
-        <i class="bi bi-x-lg"></i>
-      </button>
-      <img :src="modalImageSrc" :alt="modalImageCaption">
-      <p v-if="modalImageCaption" class="modal-caption">{{ modalImageCaption }}</p>
+    <!-- Image Modal -->
+    <div 
+      v-if="showImageModal" 
+      class="image-modal"
+      @click="closeImageModal"
+    >
+      <div class="image-modal-content">
+        <button class="modal-close-btn" @click="closeImageModal" aria-label="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <img :src="modalImageSrc" :alt="modalImageCaption">
+        <p v-if="modalImageCaption" class="modal-caption">{{ modalImageCaption }}</p>
+      </div>
     </div>
-  </div>
+    </main>
 
-  <FooterComponent />
+    <FooterComponent />
   </div>
 </template>
 
