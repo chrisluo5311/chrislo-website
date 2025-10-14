@@ -314,11 +314,10 @@
               <h5>Consistency</h5>
               <span class="eval-pill">RabbitMQ Sync</span>
             </div>
-            <p class="eval-body">
-              <ul>
-                <li>Product: updates converge across nodes in <strong>≤ ~0.3 s</strong> via RabbitMQ.</li>
-                <li>Orders: MVCC enforced single-writer success per version, proving correctness under concurrency.</li>
-              </ul>
+            <p class="eval-body"> 
+              <i class="bi bi-dot"></i>Product: Updates converge across nodes in <strong>≤ ~0.3 s</strong> via RabbitMQ.
+              <br>
+              <i class="bi bi-dot"></i>Orders: MVCC enforced single-writer success per version, proving correctness under concurrency.
             </p>
           </div>
         </div>

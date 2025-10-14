@@ -386,6 +386,7 @@ import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
 import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
 import bootstrapImage from '@/assets/images/project/bootstrap.png';
 import aws from '@/assets/images/project/aws.png';
+import nvidiaIcon from '@/assets/images/project/nvidia.png';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -692,6 +693,15 @@ const projects = ref([
     link: 'https://github.com/chrisluo5311/Team_Image_Recognition' 
   },
   { 
+    name: 'Resume Assistant', 
+    icon: geminiIcon,
+    role: 'Developer', 
+    period: 'Oct 2025 - Oct 2025',
+    description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
+    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
+    link: 'https://github.com/chrisluo5311/ResumeAssistant' 
+  },
+  { 
     name: 'VisionFlow AI', 
     icon: aws,
     role: 'Developer', 
@@ -700,14 +710,14 @@ const projects = ref([
     technologies: ['AWS Bedrock', 'AWS x INREX HACKERTHON', 'React', 'Flask','Geospatial APIs'], 
     link: 'https://github.com/AmirAnva/SCU-AWS-INREX-2024-track1' 
   },
-  { 
-    name: 'Resume Assistant', 
-    icon: geminiIcon,
+  {
+    name: 'Leonardo AI', 
+    icon: nvidiaIcon,
     role: 'Developer', 
     period: 'Oct 2025 - Oct 2025',
-    description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
-    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
-    link: 'https://github.com/chrisluo5311/ResumeAssistant' 
+    description: 'A multi-agent AI system by Nvidia that simulates crowd intelligence predictions using real search capabilities.', 
+    technologies: ['NVIDIA','nemotron-nano-9b', 'nemotron-super-49b', 'AI Agent', 'NewsAPI'], 
+    link: 'https://github.com/chrisluo5311/NVIDIA_HACKATHON' 
   },
   { 
     name: ' Line chatbot - Covid 19 information', 

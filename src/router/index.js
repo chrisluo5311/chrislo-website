@@ -19,6 +19,12 @@ const routes = [
     component: () => import('@/views/DistributedShardingDB.vue'),
     meta: { title: 'Distributed Sharding DB' }
   },
+  {
+    path: '/projects/arxiv-copilot',
+    name: 'ArxivCopilot',
+    component: () => import('@/views/ArxivCopilot.vue'),
+    meta: { title: 'arXiv Copilot' }
+  },
   { 
     // temporary fallback
     path: '/:pathMatch(.*)*', 

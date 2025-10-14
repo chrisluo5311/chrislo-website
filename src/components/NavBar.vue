@@ -61,6 +61,17 @@
                   <small class="dropdown-item-subtitle">Distributed database design and optimization</small>
                 </router-link>
               </li>
+              <li>
+                <router-link
+                  class="dropdown-item dropdown-item-rich arxiv-copilot-item"
+                  to="/projects/arxiv-copilot"
+                  exact-active-class="active"
+                  @click="closeNavbar"
+                >
+                  <span class="dropdown-item-title">arXiv Copilot</span>
+                  <small class="dropdown-item-subtitle">RAG chatbot for research assistance</small>
+                </router-link>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

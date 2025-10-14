@@ -176,6 +176,10 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+.navbar .dropdown-item.arxiv-copilot-item {
+  margin-top: 0.55rem;
+}
+
 .navbar .dropdown-item:focus {
   outline: none;
 }

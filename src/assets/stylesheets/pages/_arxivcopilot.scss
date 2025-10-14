@@ -1,10 +1,54 @@
-.distributed-sharding-main {
+.arxiv-copilot-main {
   background-image: url('~@/assets/images/index/lightpaperfibers.png');
   background-repeat: repeat;
   background-size: 512px auto;
   background-color: #f8f8f6;
   margin-top: -70px;
   padding: 70px 0 4rem;
+}
+
+// Back to Home Button
+.btn-back-home {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--egg-yellow);
+  color: var(--dark);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  &:hover {
+    background-color: var(--egg-yellow-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    color: var(--dark);
+  }
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  .btn-text {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1.2rem;
+    
+    .btn-text {
+      display: none;
+    }
+  }
 }
 
 .page-wrap {
@@ -87,13 +131,13 @@
   }
 }
 
-.metrics {
+.arxiv-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   margin: 2.5rem 0;
 
-  .card {
+  .arxiv-card {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 1rem;
@@ -128,7 +172,7 @@
       }
     }
 
-    .label {
+    .arxiv-label {
       color: #4a5568;
       font-size: 0.95rem;
       line-height: 1.5;
@@ -137,7 +181,7 @@
   }
 }
 
-.metric {
+.arxiv-metric {
   font-size: 2rem;
   font-weight: 800;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -148,7 +192,7 @@
   letter-spacing: -0.02em;
 }
 
-.grid.two {
+.arxiv-grid.arxiv-two {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 1.25rem;
@@ -157,10 +201,10 @@
 }
 
 // Project Overview section 特殊樣式
-.project-overview-section {
+.arxiv-project-overview-section {
   align-items: center; // 讓文字與圖片垂直置中對齊
   
-  .img-card {
+  .arxiv-img-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -182,20 +226,20 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
-.img-card {
+.arxiv-img-card {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 0.75rem;
   padding: 0.5rem;
 }
-.img-card img {
+.arxiv-img-card img {
   width: 100%;
   border-radius: 0.5rem;
   display: block;
 }
 
 // 可點擊的圖片樣式
-.clickable-img {
+.arxiv-clickable-img {
   cursor: pointer;
   transition: all 0.3s ease;
   
@@ -232,23 +276,23 @@
   border-radius: 0.5rem;
 }
 
-// Architecture section - 兩欄佈局
-.architecture-section {
+// Features section - 兩欄佈局
+.arxiv-features-section {
   align-items: center;
   margin: 3rem 0 2.5rem;
 }
 
-.architecture-left {
+.features-left {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.architecture-left p {
+.features-left p {
   margin: 0.25rem 0;
 }
 
-.architecture-left ul {
+.features-left ul {
   margin: 0.1rem 0 0.2rem 1.25rem;
 }
 
@@ -284,7 +328,7 @@
   }
 }
 
-.architecture-component {
+.features-component {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -316,11 +360,11 @@
   border: 1px solid #eee;
 }
 
-.sharding-section {
+.arxiv-implementation-section {
   margin: 3rem 0;
   align-items: flex-start;
 
-  .sharding-column {
+  .arxiv-implementation-column {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -328,7 +372,7 @@
     height: 100%;
   }
 
-  .sharding-copy {
+  .arxiv-implementation-copy {
     min-height: 180px;
     display: flex;
     flex-direction: column;
@@ -336,7 +380,7 @@
     flex: 1;
   }
 
-  .sharding-figure {
+  .arxiv-implementation-figure {
     margin-top: auto;
     display: flex;
     flex-direction: column;
@@ -345,154 +389,210 @@
     padding: 1rem;
   }
 
-  .sharding-image {
+  .arxiv-implementation-image {
     width: 100%;
     height: 160px;
     object-fit: contain;
   }
 }
 
-.algos {
+// Simplified Tech Grid Cards
+.arxiv-technologies-section {
   margin: 3.5rem 0 3rem;
-
-  .algo-grid {
-    align-items: stretch;
-  }
-
-  .algo-card {
-    position: relative;
-    background: linear-gradient(140deg, rgba(245, 245, 246, 0.96), rgba(232, 233, 236, 0.92));
-    border: 1px solid rgba(82, 84, 92, 0.16);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    height: 100%;
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    backdrop-filter: blur(3px);
-  }
-
-  .algo-title {
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .algo-title h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1b2838;
-  }
-
-  .algo-body {
-    flex: 1;
-    margin: 0;
-    line-height: 1.7;
-    color: #36455a;
-    text-align: justify;
-  }
-
-  .algo-title i {
-    font-size: 1.5rem;
-    color: #5e7eff;
-    background: rgba(94, 126, 255, 0.12);
-    border-radius: 0.75rem;
-    padding: 0.55rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-  }
 }
 
-.distributed-sharding-main .eval-card {
-  position: relative;
-  background: linear-gradient(150deg, rgba(244, 244, 245, 0.96), rgba(231, 232, 234, 0.94)) !important;
-  border: 1px solid rgba(82, 84, 92, 0.16) !important;
-  border-radius: 1rem !important;
-  padding: 1.75rem 1.5rem !important;
+.arxiv-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.arxiv-tech-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: border-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  isolation: isolate;
-  overflow: hidden;
+  height: 100%;
+  
+  &:hover {
+    border-color: #667eea;
+  }
 }
 
-.eval-icon {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.85rem;
-  background: rgba(94, 126, 255, 0.18);
-  display: inline-flex;
+.arxiv-tech-header {
+  margin-bottom: 1.5rem;
+}
+
+.arxiv-tech-icon-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #667eea;
+  border-radius: 0.75rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: #4560ff;
-  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  
+  i {
+    font-size: 1rem;
+    color: #fff;
+  }
 }
 
-.eval-title {
+.arxiv-tech-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a202c;
+  letter-spacing: -0.02em;
+}
+
+.arxiv-tech-body {
+  margin-bottom: 1.5rem;
+  flex: 1;
+  min-height: 120px;
+  
+  p {
+    margin: 0;
+    line-height: 1.6;
+    color: #4a5568;
+    font-size: 0.95rem;
+  }
+}
+
+.arxiv-tech-footer {
+  margin-top: auto;
+}
+
+.arxiv-tech-tag {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: #f7fafc;
+  color: #667eea;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// Evaluation Cards - Same style as tech cards
+.eval-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.arxiv-copilot-main .arxiv-eval-card {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.eval-title h5 {
+.arxiv-eval-header {
+  margin-bottom: 0.5rem;
+}
+
+.arxiv-eval-header h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #142242;
+  color: #1a202c;
+  letter-spacing: -0.02em;
 }
 
-.eval-pill {
-  align-self: flex-start;
-  background: rgba(69, 96, 255, 0.12);
-  color: #2a3c7c;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-  border-radius: 999px;
-  font-weight: 600;
+.arxiv-eval-body {
+  p {
+    margin: 0;
+    line-height: 1.5;
+    color: #4a5568;
+    font-size: 1rem;
+  }
 }
 
-.eval-body {
-  margin: 0;
-  color: #2f446c;
-  line-height: 1.65;
-  text-align: justify;
-}
-
-.evaluation-section {
+.arxiv-evaluation-section {
   margin: 3.5rem 0 3rem;
+}
 
-  .eval-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: clamp(1.5rem, 2.5vw, 2.1rem);
-    margin-top: 2rem;
-    padding: 0;
-    align-items: stretch;
+.arxiv-eval-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+  
+  &:last-child {
+    margin-bottom: 0;
   }
-
-  .eval-grid > [class*='col-'] {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .eval-grid > [class*='col-'] > .eval-card {
+  
+  .arxiv-eval-card {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-  }   
-
-
-  figure {
-    margin-top: 2.25rem;
+  }
+  
+  .arxiv-img-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      display: block;
+      transition: all 0.3s ease;
+    }
+    
+    &:hover img {
+      opacity: 0.9;
+    }
+    
+    figcaption {
+      margin-top: 0.75rem;
+      text-align: center;
+      color: #4a5568;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
   }
 }
-.chips {
+
+.arxiv-eval-item-reverse {
+  grid-template-columns: 1fr 1fr;
+  
+  .arxiv-img-card {
+    order: 1;
+  }
+  
+  .arxiv-eval-card {
+    order: 2;
+  }
+}
+.arxiv-chips {
   display: flex;
   gap: 0.65rem;
   flex-wrap: wrap;
@@ -500,7 +600,7 @@
   padding: 0;
   justify-content: flex-start;
 }
-.chips li {
+.arxiv-chips li {
   display: inline-flex;
   align-items: center;
   background: linear-gradient(135deg, #f4f4f5, #e8e9ec);
@@ -515,8 +615,8 @@
   cursor: default;
 }
 
-.chips li:hover,
-.chips li:focus-visible {
+.arxiv-chips li:hover,
+.arxiv-chips li:focus-visible {
   background: linear-gradient(135deg, #ffe066, #ffe9a6);
   color: #3e2a00;
   border-color: rgba(255, 204, 0, 0.38);
@@ -633,7 +733,7 @@
     --bs-gutter-x: 1rem;
   }
 
-  .architecture-section {
+  .features-section {
     grid-template-columns: 1fr; // 手機版改為單欄
   }
   
@@ -645,7 +745,7 @@
     }
   }
   
-  .architecture-component {
+  .features-component {
     margin-top: 1rem;
     
     img {
@@ -653,13 +753,13 @@
     }
   }
 
-  .sharding-section {
+  .implementation-section {
     margin: 2.5rem 0;
-    .sharding-copy {
+    .implementation-copy {
       min-height: 0;
     }
 
-    .sharding-image {
+    .implementation-image {
       height: 140px;
     }
   }
@@ -687,20 +787,10 @@
   .evaluation-section {
     margin: 3rem 0 2.5rem;
 
-    .eval-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.75rem;
-      margin-top: 1.5rem;
-    }
-
     figure {
       margin-top: 1.75rem;
     }
 
-    .eval-card {
-      padding: 1.5rem 1.25rem;
-      gap: 0.85rem;
-    }
 
     .eval-icon {
       width: 2.6rem;
@@ -746,5 +836,70 @@
   
   .image-modal-content img {
     max-height: 70vh;
+  }
+  
+  // Tech Grid Mobile
+  .tech-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .tech-card {
+    padding: 1.5rem;
+  }
+  
+  .tech-icon-wrapper {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.8rem;
+    
+    i {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .tech-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .tech-body p {
+    font-size: 0.9rem;
+  }
+  
+  // Evaluation Items Mobile
+  .eval-item {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    
+    
+    .img-card {
+      padding: 0.75rem;
+      
+      img {
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+  
+  .eval-item-reverse {
+    grid-template-columns: 1fr;
+    
+    .img-card {
+      order: 1;
+    }
+    
+    .eval-card {
+      order: 2;
+    }
+  }
+  
+  .eval-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .eval-body p {
+    font-size: 0.95rem;
   }
 }
