@@ -586,7 +586,7 @@ const introduction = ref(
 );
 
 const careerObjective = ref(
-  'Seeking a full-time job as a AI engineer to apply my skills in building intelligent AI-driven applications.'
+  'Seeking a full-time job as an AI Engineer or Software role to develop scalable and efficient AI-driven applications.'
 );
 
 const education = ref([ 
