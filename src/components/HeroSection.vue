@@ -37,7 +37,7 @@
 import { ref, onMounted } from 'vue';
 import carouselBg1 from "@/assets/images/index/bg1.jpg";
 import carouselBg2 from "@/assets/images/index/bg2.jpg";
-import avatarImg from "@/assets/images/index/avatar.png";
+import avatarImg from "@/assets/images/index/avatar.jpg";
 
 const personalInfo = ref({
   name: 'JI DUNG LO',
