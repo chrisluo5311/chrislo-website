@@ -203,3 +203,46 @@
     opacity: 1;
   }
 }
+
+// 手機版樣式修正
+@media (max-width: 991.98px) {
+  .nav-item.dropdown {
+    position: relative;
+  }
+  
+  .navbar .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    min-width: 16rem;
+    max-width: calc(100vw - 2rem);
+    margin-left: 0;
+    margin-right: 0;
+    animation: dropdownFadeMobile 0.22s ease;
+    position: absolute;
+    top: 100%;
+  }
+  
+  .navbar .dropdown-menu::before {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+  
+  .navbar .dropdown-menu::after {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+}
+
+@keyframes dropdownFadeMobile {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
