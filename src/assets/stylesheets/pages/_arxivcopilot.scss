@@ -64,6 +64,43 @@
   text-align: center;
   margin-bottom: 2rem;
 }
+
+// Section dividers - Override global section dividers for ArxivCopilot
+.arxiv-metrics,
+.arxiv-project-overview-section,
+.arxiv-features-section,
+.arxiv-implementation-section,
+.arxiv-technologies-section,
+.arxiv-evaluation-section {
+  position: relative;
+  
+  // Override global section divider
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.08) 20%, rgba(0, 0, 0, 0.08) 80%, transparent 100%);
+  }
+  
+  &:first-of-type::before {
+    display: none; // Hide divider for the first section
+  }
+}
+
+// Disable global section dividers for ArxivCopilot sections
+.arxiv-copilot-main {
+  .section + .section::before {
+    display: none;
+  }
+  
+  // Disable DistributedShardingDB section dividers for ArxivCopilot
+  .page-wrap section:not(:last-child)::after {
+    display: none;
+  }
+}
 .hero h1 {
   font-size: clamp(1.8rem, 3vw, 3rem);
   margin: 0 0 0.5rem;
@@ -136,6 +173,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   margin: 2.5rem 0;
+  padding-top: 2rem;
 
   .arxiv-card {
     background: #ffffff;
@@ -198,6 +236,7 @@
   gap: 1.25rem;
   align-items: start;
   margin: 2rem 0;
+  padding-top: 2rem;
 }
 
 // Project Overview section 特殊樣式
@@ -280,6 +319,7 @@
 .arxiv-features-section {
   align-items: center;
   margin: 3rem 0 2.5rem;
+  padding-top: 2rem;
 }
 
 .features-left {
@@ -363,6 +403,7 @@
 .arxiv-implementation-section {
   margin: 3rem 0;
   align-items: flex-start;
+  padding-top: 2rem;
 
   .arxiv-implementation-column {
     display: flex;
@@ -399,6 +440,7 @@
 // Simplified Tech Grid Cards
 .arxiv-technologies-section {
   margin: 3.5rem 0 3rem;
+  padding-top: 2rem;
 }
 
 .arxiv-tech-grid {
@@ -522,6 +564,7 @@
 
 .arxiv-evaluation-section {
   margin: 3.5rem 0 3rem;
+  padding-top: 2rem;
 }
 
 .arxiv-eval-item {
@@ -729,6 +772,45 @@
   .gallery {
     grid-template-columns: 1fr;
   }
+  
+  // Fix arxiv-metrics for mobile - one card per row
+  .arxiv-metrics {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  // Fix arxiv-grid arxiv-two for mobile - one column per row
+  .arxiv-grid.arxiv-two {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  // Fix arxiv-eval-item for mobile - text above, image below
+  .arxiv-eval-item {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    
+    .arxiv-eval-card {
+      order: 1; // Text content first
+    }
+    
+    .arxiv-img-card {
+      order: 2; // Image second
+    }
+  }
+  
+  .arxiv-eval-item-reverse {
+    grid-template-columns: 1fr;
+    
+    .arxiv-eval-card {
+      order: 1; // Text content first (even for reverse items)
+    }
+    
+    .arxiv-img-card {
+      order: 2; // Image second (even for reverse items)
+    }
+  }
   .algos .algo-grid {
     --bs-gutter-x: 1rem;
   }
@@ -901,5 +983,18 @@
   
   .eval-body p {
     font-size: 0.95rem;
+  }
+  
+  // Adjust section dividers for mobile
+  .arxiv-metrics,
+  .arxiv-project-overview-section,
+  .arxiv-features-section,
+  .arxiv-implementation-section,
+  .arxiv-technologies-section,
+  .arxiv-evaluation-section {
+    &::before {
+      left: 1rem;
+      right: 1rem;
+    }
   }
 }
