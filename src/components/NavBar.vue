@@ -84,7 +84,7 @@
               aria-label="Download Resume"
               @click.prevent="downloadResume"
             >
-              <i class="bi bi-download me-1"></i>Resume
+              Resume<i class="bi bi-download ms-1"></i>
             </a>
           </li>
         </ul>
