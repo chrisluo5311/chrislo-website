@@ -35,16 +35,16 @@
     <!-- Highlight metrics -->
     <section class="arxiv-metrics">
       <div class="arxiv-card">
-        <div class="arxiv-metric">RAG</div>
-        <div class="arxiv-label">Retrieval-Augmented Generation for accurate paper Q&A</div>
-      </div>
-      <div class="arxiv-card">
         <div class="arxiv-metric">LlamaParse</div>
-        <div class="arxiv-label">Advanced PDF parsing with automatic chunking and embedding</div>
+        <div class="arxiv-label">Extracts text, figures, and tables from PDFs and breaks into chunks (~300 words) with an overlap stride of 100 words</div>
       </div>
       <div class="arxiv-card">
-        <div class="arxiv-metric">Streamlit</div>
-        <div class="arxiv-label">Interactive web interface with chatbot and file Q&A modes</div>
+        <div class="arxiv-metric">FAISS</div>
+        <div class="arxiv-label">Encodes with Sentence-BERT and stores in FAISS for top-k cosine similarity search</div>
+      </div>
+      <div class="arxiv-card">
+        <div class="arxiv-metric">SPIQA</div>
+        <div class="arxiv-label">Benchmarking on SPIQA dataset (666 questions across 118 CS papers) with emphasis on figure/chart/table reasoning</div>
       </div>
     </section>
 
