@@ -17,7 +17,7 @@
         Horizontally scalable, fault-aware, and eventually consistent system across EC2 nodes.
       </p>
       <div class="hero-cta">
-        <a class="btn primary" :href="projectReport" target="_blank" rel="noopener">
+        <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/Distributed_Database_Final_Project.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
           Read the Full Report (PDF)
         </a>
@@ -413,7 +413,6 @@ export default {
       productSeqImage,
       hashImage,
       rangeImage,
-      projectReport: require('@/assets/pdfs/Distributed_Database_Final_Project.pdf'),
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: ''

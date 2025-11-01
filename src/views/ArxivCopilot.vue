@@ -17,7 +17,7 @@
         An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers using Retrieval-Augmented Generation.
       </p>
       <div class="hero-cta">
-        <a class="btn primary" :href="projectReport" target="_blank" rel="noopener">
+        <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/arXiv_Copilot.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
           Read the Full Report (PDF)
         </a>
@@ -399,7 +399,6 @@ export default {
       multiModalCotImage,
       textOnlyImage,
       arXivRagImage,
-      projectReport: 'https://github.com/chrisluo5311/arxiv-copilot/blob/master/arXiv%20Copilot%20-%20A%20RAG%20chatbot%20for%20Research%20Assistance.pdf',
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: ''
