@@ -637,8 +637,7 @@ const skills = ref([
     },
     { 
         title: 'Frameworks / Tools', 
-        items: ['Spring Boot', 'Flask', 'Vue.js', 'Redis', 'RabbitMQ',
-                'AWS EC2', 'PyTorch','OpenCV', 'Docker', 'Git'] 
+        items: ['Spring Boot', 'Flask', 'Vue.js', 'AWS EC2', 'AWS Lambda', 'AWS S3', 'Redis', 'RabbitMQ', 'PyTorch','OpenCV', 'Docker', 'Git'] 
     } 
 ]);
 
@@ -685,7 +684,7 @@ const projects = ref([
     role: 'Developer', 
     period: 'Oct 2025 - Oct 2025',
     description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
-    technologies: ['Python', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
+    technologies: ['AWS Lambda', 'AWS S3', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
     link: 'https://github.com/chrisluo5311/ResumeAssistant' 
   },
   { 
@@ -757,7 +756,7 @@ const projects = ref([
     role: 'Developer', 
     period: 'Sep 2025 - Oct 2025',
     description: 'Personal website built with Vue.js and an AI Resume Assistant backed by Python backend. The full stack is deployed on AWS EC2, with Nginx reverse proxy and SSL (Certbot) for HTTPS support.', 
-    technologies: ['AWS EC2', 'Gemini', 'FastAPI', 'Nginx', 'SSL'], 
+    technologies: ['AWS EC2', 'AWS Lambda', 'AWS S3', 'Gemini', 'FastAPI', 'Nginx', 'SSL'], 
     link: 'https://github.com/chrisluo5311/chrislo-website' 
   },
   { 

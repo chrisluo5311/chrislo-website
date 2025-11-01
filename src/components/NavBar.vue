@@ -96,7 +96,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import resumePdf from '@/assets/pdfs/ChrisLo_Resume.pdf';
 
 const router = useRouter();
 const route = useRoute();
@@ -122,7 +121,8 @@ const closeNavbar = () => {
 
 const downloadResume = async () => {
   try {
-    const response = await fetch(resumePdf);
+    const resumeUrl = "https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/ChrisLo_Resume.pdf"
+    const response = await fetch(resumeUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch resume: ${response.status}`);
     }
