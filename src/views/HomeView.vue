@@ -503,7 +503,7 @@ async function sendMessage() {
 }
 
 async function callAIAPI(userQuery, history) {
-  const apiUrl = "/api/chat";
+  const apiUrl = "https://6s5wa2e3canefhhejch75ds4pi0eocpr.lambda-url.us-east-2.on.aws/api/chat";
   const resumeData = { 
     introduction: introduction.value, 
   };
@@ -568,19 +568,6 @@ async function scrollToBottom() {
 }
 
 // RESUME DATA (now as reactive constants)
-const personalInfo = ref(
-    { 
-        name: 'JI DUNG LO', 
-        email: 'chrislo5311@gmail.com', 
-        phone: '((408) 387-4040)', 
-        socials: 
-        { 
-          linkedin: 'https://www.linkedin.com/in/ji-dung-lo-b4b350189/', 
-          github: 'https://github.com/chrisluo5311' 
-        } 
-    }
-);
-
 const introduction = ref(
   'Hello, I’m Chris👋. I am a Java Engineer and MS Computer Science student at Santa Clara University. With 5 years of coding experience, I have worked with frameworks like AI agents, RAG, Pytorch, Keras, and TensorFlow. Previously, at JY Globe Company, I built a crypto trading platform with Spring Boot and optimized SQL performance for web application.'
 );
