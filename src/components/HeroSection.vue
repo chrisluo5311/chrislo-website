@@ -3,16 +3,16 @@
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url('${carouselBg1}')` }"></div>
+          <div class="carousel-bg" :style="{ backgroundImage: 'url(https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg1.jpg)' }"></div>
         </div>
         <div class="carousel-item" data-bs-interval="10000">
-          <div class="carousel-bg" :style="{ backgroundImage: `url('${carouselBg2}')` }"></div>
+          <div class="carousel-bg" :style="{ backgroundImage: `url(https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg2.jpg)` }"></div>
         </div>
       </div>
     </div>
     <div class="container text-center hero-content">
       <div class="hero-avatar">
-        <img :src="avatarImg" :alt="personalInfo.name" />
+        <img src="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/avatar.jpg" :alt="personalInfo.name" />
       </div>
       <h1 class="hero-title">{{ personalInfo.name }}</h1>
       <p class="hero-subtitle">
@@ -35,9 +35,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import carouselBg1 from "@/assets/images/index/bg1.jpg";
-import carouselBg2 from "@/assets/images/index/bg2.jpg";
-import avatarImg from "@/assets/images/index/avatar.jpg";
 
 const personalInfo = ref({
   name: 'JI DUNG LO',
