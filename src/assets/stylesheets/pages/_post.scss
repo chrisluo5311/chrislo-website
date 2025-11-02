@@ -86,7 +86,7 @@
 
 // 自訂 hero banner 的背景（使用背景圖片 + 淡灰遮罩）
 .bg-dark {
-  background-image: url('@/assets/images/postview/post-hero-bg2.png') !important;
+  background-image: url('https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/postview/post-hero-bg2.png') !important;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -375,16 +375,6 @@
 import NavBar from '@/components/NavBar.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 
-// Import images - keeping only the required ones
-import pdfPipelineImage from '@/assets/images/arXiv/pdf_pipeline.png';
-import vectorSearchImage from '@/assets/images/arXiv/vectorsearch.png';
-
-// Evaluation images - using placeholder images for now
-import arXivRagImage from '@/assets/images/arXiv/arXiv_rag.jpg';
-import multiModalImage from '@/assets/images/arXiv/multi_modal.jpg';
-import multiModalCotImage from '@/assets/images/arXiv/multi_modal_CoT.jpg';
-import textOnlyImage from '@/assets/images/arXiv/text_only.jpg';
-
 export default {
   name: "ArxivCopilot",
   components: {
@@ -393,12 +383,12 @@ export default {
   },
   data() {
     return {
-      pdfPipelineImage,
-      vectorSearchImage,
-      multiModalImage,
-      multiModalCotImage,
-      textOnlyImage,
-      arXivRagImage,
+      pdfPipelineImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/pdf_pipeline.png',
+      vectorSearchImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/vectorsearch.png',
+      multiModalImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/multi_modal.jpg',
+      multiModalCotImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/multi_modal_CoT.jpg',
+      textOnlyImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/text_only.jpg',
+      arXivRagImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/arXiv_rag.jpg',
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: ''

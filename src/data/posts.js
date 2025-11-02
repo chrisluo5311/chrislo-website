@@ -1,9 +1,3 @@
-import l2regImage from '@/assets/images/posts/l2-reg.jpg';
-import hierarchicalSoftMaxImage from '@/assets/images/posts/hierarchical-softmax.jpg';
-import rnnImage from '@/assets/images/posts/RNN.jpg';
-import rearterImage from '@/assets/images/posts/ReARTeR.png';
-import llmVerificationImage from '@/assets/images/posts/llm_verification.jpg';
-
 import l2RegArticle from '@/assets/articles/l2-regularization.md';
 import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.md';
 import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
@@ -12,7 +6,7 @@ import llmVerificationArticle from '@/assets/articles/llm_verification.md';
 
 const posts = [
   {
-    image: l2regImage,
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/l2-reg.jpg',
     title: '"+" or "-" the L2 Regularization ?',
     snippet:
       'Whether L2 regularization is added or subtracted depends on how the objective function is defined',
@@ -23,7 +17,7 @@ const posts = [
     tags: ['Machine Learning', 'Deep Learning', 'Regularization']
   },
   {
-    image: hierarchicalSoftMaxImage,
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/hierarchical-softmax.jpg',
     title: 'What is Hierarchical Softmax?',
     snippet:
       'Hierarchical Softmax is an efficient alternative to the standard softmax function used in neural network output layers, especially when dealing with very large vocabularies',
@@ -34,7 +28,7 @@ const posts = [
     tags: ['Softmax', 'Deep Learning']
   },
   {
-    image: rnnImage,
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/RNN.jpg',
     title: 'RNN language model',
     snippet:
       'RNNs update a hidden state at each step, combining the previous state and the current word embedding.',
@@ -45,7 +39,7 @@ const posts = [
     tags: ['RNN', 'Deep Learning']
   },
   {
-    image: rearterImage,
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/ReARTeR.png',
     title: 'Thesis Review - ReARTeR',
     snippet:
       'ReARTeR combines Trustworthy Process Rewarding (TPR) and Step-Level Offline Reinforcement Learning to enhance reasoning ability and interpretability.',
@@ -56,7 +50,7 @@ const posts = [
     tags: ['Reinforcement Learning', 'Reasoning', 'ProcessRewardModel', 'Thesis Review']
   },
   {
-    image: llmVerificationImage,
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/llm_verification.jpg',
     title: 'Thesis Review - LLM Agent Verification',
     snippet:
       'Build a robust system to detect and verify misinformation using a multi-tool collaborative framework centered on LLM agents.',

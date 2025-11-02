@@ -372,21 +372,21 @@ import NavBar from '@/components/NavBar.vue';
 import HeroSection from '@/components/HeroSection.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 
-// Import project icons
-import springbootIcon from '@/assets/images/project/springboot.png';
-import arduinoIcon from '@/assets/images/project/arduino.png';
-import lineIcon from '@/assets/images/project/line.png';
-import openaiIcon from '@/assets/images/project/openai.png';
-import geminiIcon from '@/assets/images/project/gemini.png';
-import pythonIcon from '@/assets/images/project/python.png';
-import tensorflowIcon from '@/assets/images/project/tensorflow.png';
-import yoloIcon from '@/assets/images/project/yolo.svg';
-import matlabIcon from '@/assets/images/project/matlab.png';
-import chatBotIdleImage from '@/assets/images/chatbot/rb1.png';
-import chatBotHoverImage from '@/assets/images/chatbot/rb2.png';
-import bootstrapImage from '@/assets/images/project/bootstrap.png';
-import aws from '@/assets/images/project/aws.png';
-import nvidiaIcon from '@/assets/images/project/nvidia.png';
+// Project icon URLs
+const springbootIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/springboot.png';
+const arduinoIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/arduino.png';
+const lineIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/line.png';
+const openaiIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/openai.png';
+const geminiIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/gemini.png';
+const pythonIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/python.png';
+const tensorflowIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/tensorflow.png';
+const yoloIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/yolo.svg';
+const matlabIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/matlab.png';
+const chatBotIdleImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/chatbot/rb1.png';
+const chatBotHoverImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/chatbot/rb2.png';
+const bootstrapImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/bootstrap.png';
+const aws = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/aws.png';
+const nvidiaIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/nvidia.png';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
