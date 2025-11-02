@@ -19,6 +19,7 @@
   border-radius: 999px;
   transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   will-change: transform, box-shadow;
+  cursor: pointer;
 }
 
 .nav-link::after {
