@@ -399,9 +399,9 @@
       tabindex="0"
       aria-label="Open AI Assistant"
       :aria-expanded="isChatOpen"
-      @click="toggleChat"
-      @keyup.enter="toggleChat"
-      @keyup.space.prevent="toggleChat"
+      @click="handleChatFabClick"
+      @keyup.enter="handleChatFabClick"
+      @keyup.space.prevent="handleChatFabClick"
       @mouseenter="setChatFabVisualState(true)"
       @mouseleave="setChatFabVisualState(false)"
       @focus="setChatFabVisualState(true)"
@@ -409,6 +409,16 @@
       @touchstart="setChatFabVisualState(true)"
       @touchend="setChatFabVisualState(false)"
     >
+      <!-- Idle message bubble -->
+      <div 
+        v-if="showIdleMessage && !isChatOpen" 
+        class="chat-idle-message"
+      >
+        <div class="chat-idle-message__bubble">
+          <span>Ask me any questions !</span>
+        </div>
+        <div class="chat-idle-message__tail"></div>
+      </div>
       <img :src="chatFabImage" alt="AI Assistant" class="chat-fab__image" />
     </div>
   </div>
@@ -519,6 +529,7 @@ const chatBody = ref(null);
 const chatInput = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
 const chatWidget = ref(null);
+const showIdleMessage = ref(true);
 
 // Persist chat history whenever messages change
 watch(chatMessages, persistHistory, { deep: true });
@@ -533,6 +544,12 @@ function toggleChat() {
             text: 'Hello, I\'m Chris. You can ask me questions about my resume!'
         });
     }
+}
+
+function handleChatFabClick() {
+    // Hide idle message when chat is clicked
+    showIdleMessage.value = false;
+    toggleChat();
 }
 
 const setChatFabVisualState = (isActive) => {
@@ -697,7 +714,7 @@ const skills = ref([
     },
     { 
         title: 'Frameworks / Tools', 
-        items: ['Spring Boot', 'Flask', 'Vue.js', 'AWS EC2', 'AWS Lambda', 'AWS S3', 'Redis', 'RabbitMQ', 'PyTorch','OpenCV', 'Docker', 'Git'] 
+        items: ['Spring Boot', 'Flask', 'Vue.js', 'AWS EC2', 'AWS Lambda', 'AWS S3', 'Redis', 'RabbitMQ', 'PyTorch','OpenCV', 'Git'] 
     } 
 ]);
 
