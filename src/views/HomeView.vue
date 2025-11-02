@@ -133,7 +133,34 @@
           class="col-lg-4 col-md-6 mb-2"
           v-reveal="{ animation: 'fade-up', duration: 650 }"
         >
+          <RouterLink
+            v-if="isInternalRoute(project.link)"
+            class="card card-link-override h-100"
+            :to="project.link"
+            :aria-label="`Open project: ${project.name}`"
+          >
+            <div class="card-body text-center d-flex flex-column h-100">
+              <h5 class="card-title fw-bold project-card-title">
+                <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                <span class="project-title-text">{{ project.name }}</span>
+              </h5>
+              <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
+                <span>{{ project.role }}</span>
+                <small v-if="project.period" class="text-muted">{{ project.period }}</small>
+              </div>
+              <p class="card-text project-card-desc">{{ project.description }}</p>
+              <div class="d-flex flex-wrap justify-content-center gap-2 mt-auto pt-2">
+                <span
+                  v-for="tech in project.technologies"
+                  :key="tech"
+                  class="badge bg-info text-dark m-1"
+                  >{{ tech }}</span
+                >
+              </div>
+            </div>
+          </RouterLink>
           <a
+            v-else
             class="card card-link-override h-100"
             :href="project.link"
             target="_blank"
@@ -170,7 +197,34 @@
             :key="project.name"
             class="col-lg-4 col-md-6 mb-2"
           >
+            <RouterLink
+              v-if="isInternalRoute(project.link)"
+              class="card card-link-override h-100"
+              :to="project.link"
+              :aria-label="`Open project: ${project.name}`"
+            >
+              <div class="card-body text-center d-flex flex-column h-100">
+                <h5 class="card-title fw-bold project-card-title">
+                  <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                  <span class="project-title-text">{{ project.name }}</span>
+                </h5>
+                <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
+                  <span>{{ project.role }}</span>
+                  <small v-if="project.period" class="text-muted">{{ project.period }}</small>
+                </div>
+                <p class="card-text project-card-desc">{{ project.description }}</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-auto pt-2">
+                  <span
+                    v-for="tech in project.technologies"
+                    :key="tech"
+                    class="badge bg-info text-dark m-1"
+                    >{{ tech }}</span
+                  >
+                </div>
+              </div>
+            </RouterLink>
             <a
+              v-else
               class="card card-link-override h-100"
               :href="project.link"
               target="_blank"
@@ -416,6 +470,12 @@ function isBootcamp(name) {
   ].includes(name);
 }
 
+// Check if a link is an internal route (starts with / and not an external URL)
+function isInternalRoute(link) {
+  if (!link) return false;
+  return link.startsWith('/') && !link.startsWith('//');
+}
+
 // --- Chat history persistence ---
 const HISTORY_KEY = 'chatHistory.v1';
 const MAX_TURNS = 12; // keep ~12 user/ai pairs (~24 msgs)
@@ -649,7 +709,7 @@ const projects = ref([
     period: 'May 2025 - June 2025',
     description: 'Relies on Spring Boot and SQLite, featuring P2P routing, gossip-based node discovery and sharding between multiple SQLite instances', 
     technologies: ['Spring Boot', 'SQLite', 'RabbitMQ', 'P2P', "Gossip Protocol", "Sharding"], 
-    link: 'https://github.com/chrisluo5311/ShardingJH' 
+    link: '/projects/distributed-sharding-db' 
   },
   { 
     name: 'arXiv-Copilot: AI Research Assistant', 
@@ -658,7 +718,7 @@ const projects = ref([
     period: 'May 2025 - June 2025',
     description: 'Interactive tool for searching, downloading, parsing, and Q&A with arXiv papers, using OpenAI models and FAISS vector database.', 
     technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
-    link: 'https://github.com/chrisluo5311/arxiv-copilot' 
+    link: '/projects/arxiv-copilot' 
   },
   { 
     name: 'Automated Detection and Blurring of Sensitive Information', 
