@@ -1,7 +1,10 @@
 <template>
-  <NavBar />
-  
-  <HeroSection />
+  <LoadingOverlay :isLoading="isPageLoading" />
+
+  <div v-show="!isPageLoading">
+    <NavBar />
+    
+    <HeroSection />
 
   <!-- About Section -->
   <section id="about" class="section" v-reveal>
@@ -422,6 +425,7 @@
       <img :src="chatFabImage" alt="AI Assistant" class="chat-fab__image" />
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -435,6 +439,7 @@ import { renderMarkdown } from '@/utils/markdown';
 import NavBar from '@/components/NavBar.vue';
 import HeroSection from '@/components/HeroSection.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
+import LoadingOverlay from '@/components/LoadingOverlay.vue';
 
 // Project icon URLs
 const springbootIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/springboot.png';
@@ -519,6 +524,12 @@ function stripHtml(html) {
   d.innerHTML = html;
   return d.textContent || d.innerText || '';
 }
+
+// PAGE LOADING STATE
+// Check if this is the first visit in this session
+const FIRST_VISIT_KEY = 'homePageFirstVisit';
+const isFirstVisit = !sessionStorage.getItem(FIRST_VISIT_KEY);
+const isPageLoading = ref(isFirstVisit);
 
 // AI CHAT STATE
 const isChatOpen = ref(false);
@@ -859,8 +870,57 @@ function handleClickOutside(event) {
   }
 }
 
+// Preload key images before showing page (only on first visit)
+async function preloadImages() {
+  // If not first visit, skip loading overlay
+  if (!isFirstVisit) {
+    return;
+  }
+
+  const imagesToPreload = [
+    springbootIcon,
+    arduinoIcon,
+    lineIcon,
+    openaiIcon,
+    geminiIcon,
+    pythonIcon,
+    tensorflowIcon,
+    yoloIcon,
+    matlabIcon,
+    chatBotIdleImage,
+    chatBotHoverImage,
+    bootstrapImage,
+    aws,
+    nvidiaIcon,
+    ...posts.value.map(post => post.image).filter(Boolean)
+  ];
+
+  const imagePromises = imagesToPreload.map(src => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve(); // Still resolve on error to not block page
+      img.src = src;
+    });
+  });
+
+  // Minimum display time to ensure percentage animation completes
+  const minDisplayTime = new Promise(resolve => setTimeout(resolve, 1000));
+
+  try {
+    // Wait for both images to load AND minimum display time
+    await Promise.all([Promise.all(imagePromises), minDisplayTime]);
+  } catch (error) {
+    console.error('Error preloading images:', error);
+  } finally {
+    isPageLoading.value = false;
+    // Mark as visited in this session
+    sessionStorage.setItem(FIRST_VISIT_KEY, 'true');
+  }
+}
+
 // LIFECYCLE HOOK
-onMounted(() => {
+onMounted(async () => {
   // Initialize ScrollSpy using the imported bootstrap object.
   new bootstrap.ScrollSpy(document.body, {
     target: '#navbar-main',
@@ -870,6 +930,9 @@ onMounted(() => {
   
   // Add click outside listener for chat widget
   document.addEventListener('click', handleClickOutside);
+  
+  // Preload images
+  await preloadImages();
 });
 
 onBeforeUnmount(() => {
