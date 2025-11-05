@@ -905,7 +905,7 @@ async function preloadImages() {
   });
 
   // Minimum display time to ensure percentage animation completes
-  const minDisplayTime = new Promise(resolve => setTimeout(resolve, 1300));
+  const minDisplayTime = new Promise(resolve => setTimeout(resolve, 1100));
 
   try {
     // Wait for both images to load AND minimum display time

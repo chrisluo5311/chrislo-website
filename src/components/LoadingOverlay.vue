@@ -60,11 +60,11 @@ watch(() => props.isLoading, (newVal) => {
     clearInterval(intervalId);
     displayPercentage.value = 100;
     
-    // Wait 350ms to show 100%, then start reveal animation
+    // Wait 300ms to show 100%, then start reveal animation
     setTimeout(() => {
       showOverlay.value = false;
       enableScroll();
-    }, 350);
+    }, 300);
   }
 });
 
