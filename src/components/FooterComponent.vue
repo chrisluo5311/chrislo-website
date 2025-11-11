@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="container text-center">
-      <div class="social-icons mb-3">
+      <div class="social-icons mb-2">
         <a :href="personalInfo.socials.linkedin" target="_blank" rel="noopener noreferrer"
           ><i class="bi bi-linkedin"></i
         ></a>

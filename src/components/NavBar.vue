@@ -80,7 +80,7 @@
           <li class="nav-item">
             <a 
               class="nav-link" 
-              :href="resumePdf" 
+              href="#" 
               aria-label="Download Resume"
               @click.prevent="downloadResume"
             >

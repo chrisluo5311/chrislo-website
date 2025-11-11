@@ -84,3 +84,57 @@
   from, to { border-color: transparent; }
   50% { border-color: #ffffff; }
 }
+
+// Book a meeting button
+.btn-book-meeting {
+  background-color: var(--egg-yellow);
+  color: var(--dark);
+  border: 2px solid var(--egg-yellow);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    background-color: var(--egg-yellow-hover);
+    border-color: var(--egg-yellow-hover);
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 199, 69, 0.08);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  
+  .btn-calendar-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    vertical-align: middle;
+  }
+  
+  &:hover .btn-calendar-icon {
+    transform: scale(1.1);
+  }
+}

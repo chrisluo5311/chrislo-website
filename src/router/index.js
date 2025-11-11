@@ -25,6 +25,12 @@ const routes = [
     component: () => import('@/views/ArxivCopilot.vue'),
     meta: { title: 'arXiv Copilot' }
   },
+  {
+    path: '/book-meeting',
+    name: 'BookMeeting',
+    component: () => import('@/views/BookMeeting.vue'),
+    meta: { title: 'Book a Meeting' }
+  },
   { 
     // temporary fallback
     path: '/:pathMatch(.*)*', 

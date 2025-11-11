@@ -29,12 +29,19 @@
           ><i class="bi bi-envelope-fill"></i
         ></a>
       </div>
+      <div class="mt-4">
+        <RouterLink to="/book-meeting" class="btn btn-book-meeting rounded-pill px-4 py-2">
+          <img src="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/Google_Calendar_icon.svg.png" alt="Calendar" class="btn-calendar-icon me-2" />
+          Book a meeting
+        </RouterLink>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const personalInfo = ref({
   name: 'JI DUNG LO',
