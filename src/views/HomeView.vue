@@ -844,7 +844,7 @@ const projects = ref([
     role: 'Developer', 
     period: 'Sep 2025 - Oct 2025',
     description: 'Personal website built with Vue.js and an AI Resume Assistant backed by Python backend. The full stack is deployed on AWS EC2, with Nginx reverse proxy and SSL (Certbot) for HTTPS support.', 
-    technologies: ['AWS EC2', 'AWS Lambda', 'AWS S3', 'Gemini', 'FastAPI', 'Nginx', 'SSL'], 
+    technologies: ['AWS EC2', 'AWS Lambda', 'AWS S3', 'Nginx', 'SSL'], 
     link: 'https://github.com/chrisluo5311/chrislo-website' 
   },
   { 

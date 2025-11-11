@@ -35,7 +35,7 @@
   display: grid;
   grid-template-columns: 20px 1fr; /* fixed 20px column for icon, rest for text */
   align-items: center;
-  gap: 8px;
+  gap: 12px; /* Increased gap between icon and project name */
   text-align: left;
   min-height: 3.2rem; /* reserve space for two lines of text */
   border-bottom: 1px solid #060606;
