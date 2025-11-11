@@ -80,7 +80,7 @@
       </div>
       <figure class="img-card clickable-img">
         <img 
-          :src="deploymentImage" 
+          v-lazy="deploymentImage" 
           alt="Deployment diagram"
           @click="openImageModal(deploymentImage, 'Deployment across EC2 nodes with RabbitMQ (from report Appendix).')"
         >
@@ -147,7 +147,7 @@
         <div class="sequence-diagrams">
           <figure class="img-card clickable-img">
             <img 
-              :src="productSeqImage" 
+              v-lazy="productSeqImage" 
               alt="Product Sequence Diagram"
               @click="openImageModal(productSeqImage, 'Product Update Sequence (RabbitMQ)')"
             >
@@ -155,7 +155,7 @@
           </figure>
           <figure class="img-card clickable-img">
             <img 
-              :src="orderSeqImage" 
+              v-lazy="orderSeqImage" 
               alt="Order Sequence Diagram"
               @click="openImageModal(orderSeqImage, 'Order Sequence (Sharding + MVCC)')"
             >
@@ -166,7 +166,7 @@
 
       <figure class="img-card clickable-img architecture-component">
         <img 
-          :src="componentsImage" 
+          v-lazy="componentsImage" 
           alt="Component Diagram"
           @click="openImageModal(componentsImage, 'Component Diagram')"
         >
@@ -187,7 +187,7 @@
         <figure class="img-card clickable-img sharding-figure">
           <img
             class="sharding-image"
-            :src="hashImage"
+            v-lazy="hashImage"
             alt="Hash strategy"
             @click="openImageModal(hashImage, 'Hash sharding strategy for members')"
           >
@@ -204,7 +204,7 @@
         <figure class="img-card clickable-img sharding-figure">
           <img
             class="sharding-image"
-            :src="rangeImage"
+            v-lazy="rangeImage"
             alt="Range strategy"
             @click="openImageModal(rangeImage, 'Range sharding strategy for orders')"
           >
@@ -339,7 +339,7 @@
       </div>
       <figure class="img-card clickable-img eval-figure">
         <img
-          :src="staticImage"
+          v-lazy="staticImage"
           alt="Static File Communication Diagram"
           @click="openImageModal(staticImage, 'Static file forwarding & neighbor replication.')"
         >
@@ -375,7 +375,7 @@
         <button class="modal-close-btn" @click="closeImageModal" aria-label="Close">
           <i class="bi bi-x-lg"></i>
         </button>
-        <img :src="modalImageSrc" :alt="modalImageCaption">
+        <img v-lazy="modalImageSrc" :alt="modalImageCaption">
         <p v-if="modalImageCaption" class="modal-caption">{{ modalImageCaption }}</p>
       </div>
     </div>

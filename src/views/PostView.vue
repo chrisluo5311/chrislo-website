@@ -57,7 +57,7 @@
             v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
           >
             <div class="card h-100">
-              <img :src="post.image" class="card-img-top" :alt="post.title" />
+              <img v-lazy="post.image" class="card-img-top" :alt="post.title" />
               <div class="card-body d-flex flex-column">
                 <div class="mb-2">
                   <span class="badge bg-category">{{ post.category }}</span>
@@ -148,7 +148,7 @@
           <div class="modal-body">
             <img
               v-if="selectedPost?.image"
-              :src="selectedPost.image"
+              v-lazy="selectedPost.image"
               :alt="selectedPost.title"
               class="img-fluid rounded mb-3 post-modal-image"
             />

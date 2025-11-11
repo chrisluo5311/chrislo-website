@@ -144,7 +144,7 @@
           >
             <div class="card-body text-center d-flex flex-column h-100">
               <h5 class="card-title fw-bold project-card-title">
-                <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                <img v-if="project.icon" v-lazy="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
                 <span class="project-title-text">{{ project.name }}</span>
               </h5>
               <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
@@ -172,7 +172,7 @@
           >
             <div class="card-body text-center d-flex flex-column h-100">
               <h5 class="card-title fw-bold project-card-title">
-                <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                <img v-if="project.icon" v-lazy="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
                 <span class="project-title-text">{{ project.name }}</span>
               </h5>
               <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
@@ -208,7 +208,7 @@
             >
               <div class="card-body text-center d-flex flex-column h-100">
                 <h5 class="card-title fw-bold project-card-title">
-                  <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                  <img v-if="project.icon" v-lazy="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
                   <span class="project-title-text">{{ project.name }}</span>
                 </h5>
                 <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
@@ -236,7 +236,7 @@
             >
               <div class="card-body text-center d-flex flex-column h-100">
                 <h5 class="card-title fw-bold project-card-title">
-                  <img v-if="project.icon" :src="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
+                  <img v-if="project.icon" v-lazy="project.icon" alt="" class="project-lang-icon" @error="onIconError" />
                   <span class="project-title-text">{{ project.name }}</span>
                 </h5>
                 <div class="card-subtitle mb-2 text-muted project-card-subtitle d-flex justify-content-between align-items-center">
@@ -285,7 +285,7 @@
           v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
         >
           <div class="card h-100">
-            <img :src="post.image" class="card-img-top" :alt="post.title" />
+            <img v-lazy="post.image" class="card-img-top" :alt="post.title" />
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ post.title }}</h5>
               <p class="card-text flex-grow-1">{{ post.snippet }}</p>
@@ -336,7 +336,7 @@
         <div class="modal-body">
           <img
             v-if="selectedPost?.image"
-            :src="selectedPost.image"
+            v-lazy="selectedPost.image"
             :alt="selectedPost.title"
             class="img-fluid rounded mb-3 post-modal-image"
           />

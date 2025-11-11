@@ -78,7 +78,7 @@
       </div>
       <figure class="arxiv-img-card arxiv-clickable-img">
         <img 
-          :src="arXivRagImage" 
+          v-lazy="arXivRagImage" 
           alt="arXiv Copilot Architecture"
           @click="openImageModal(arXivRagImage, 'arXiv Copilot RAG Architecture Overview')"
         >
@@ -158,7 +158,7 @@
         <figure class="arxiv-img-card arxiv-clickable-img arxiv-implementation-figure">
           <img
             class="arxiv-implementation-image"
-            :src="pdfPipelineImage"
+            v-lazy="pdfPipelineImage"
             alt="PDF Processing Pipeline"
             @click="openImageModal(pdfPipelineImage, 'PDF Processing and Embedding Pipeline')"
           >
@@ -177,7 +177,7 @@
         <figure class="arxiv-img-card arxiv-clickable-img arxiv-implementation-figure">
           <img
             class="arxiv-implementation-image"
-            :src="vectorSearchImage"
+            v-lazy="vectorSearchImage"
             alt="Vector Search Process"
             @click="openImageModal(vectorSearchImage, 'Vector Search and Retrieval Process')"
           >
@@ -284,7 +284,7 @@
         </div>
         <figure class="arxiv-img-card arxiv-clickable-img">
           <img 
-            :src="textOnlyImage" 
+            v-lazy="textOnlyImage" 
             alt="Text-Only QA Evaluation Results"
             @click="openImageModal(textOnlyImage, 'Figure 4. Evaluation metrics for text-only QA (thresholded at cosine similarity 0.7 for correctness)')"
           >
@@ -296,7 +296,7 @@
       <div class="arxiv-eval-item arxiv-eval-item-reverse">
         <figure class="arxiv-img-card arxiv-clickable-img">
           <img 
-            :src="multiModalImage" 
+            v-lazy="multiModalImage" 
             alt="Multimodal QA Evaluation Results"
             @click="openImageModal(multiModalImage, 'Figure 6. Evaluation metrics for multimodal QA')"
           >
@@ -324,7 +324,7 @@
         </div>
         <figure class="arxiv-img-card arxiv-clickable-img">
           <img 
-            :src="multiModalCotImage" 
+            v-lazy="multiModalCotImage" 
             alt="Multimodal CoT Evaluation Results"
             @click="openImageModal(multiModalCotImage, 'Figure 8. Evaluation metrics for multimodal CoT. RAG and Vanilla GPT')"
           >
@@ -361,7 +361,7 @@
         <button class="modal-close-btn" @click="closeImageModal" aria-label="Close">
           <i class="bi bi-x-lg"></i>
         </button>
-        <img :src="modalImageSrc" :alt="modalImageCaption">
+        <img v-lazy="modalImageSrc" :alt="modalImageCaption">
         <p v-if="modalImageCaption" class="modal-caption">{{ modalImageCaption }}</p>
       </div>
     </div>
