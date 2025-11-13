@@ -3,6 +3,8 @@ import hierarchicalSoftMaxArticle from '@/assets/articles/hierarchical-softmax.m
 import rnnLanguageModelArticle from '@/assets/articles/RNN-language-model.md';
 import rearterArticle from '@/assets/articles/ReARTeR.md';
 import llmVerificationArticle from '@/assets/articles/llm_verification.md';
+import nginxNamespaceFailArticle from '@/assets/articles/nginx_reload_fail.md';
+import whatIsANamespaceArticle from '@/assets/articles/what_is_a_namespace.md';
 
 const posts = [
   {
@@ -60,6 +62,28 @@ const posts = [
     category: 'AI Agents',
     tags: ['Workflow', 'Verification', 'Multi-tool', 'Thesis Review']
   },
+  {
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/nginx_namespace_fail.jpg',
+    title: 'Nginx Reload Fail',
+    snippet:
+      'Nginx reload fail is due to the PrivateTmp=true in the nginx.service file.',
+    lastUpdated: 'November 13, 2025',
+    link: '#',
+    markdown: nginxNamespaceFailArticle,
+    category: 'Nginx',
+    tags: ['Nginx', 'Namespace']
+  },
+  {
+    image: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/posts/namespace.png',
+    title: 'What is a namespace?',
+    snippet:
+      'A namespace is a way to isolate a part of the system so a process sees only its own private version of it.',
+    lastUpdated: 'November 13, 2025',
+    link: '#',
+    markdown: whatIsANamespaceArticle,
+    category: 'Linux',
+    tags: ['Linux', 'Namespace']
+  }
 ];
 
 export default posts;
