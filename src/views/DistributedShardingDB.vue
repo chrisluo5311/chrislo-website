@@ -13,7 +13,7 @@
       <!-- Hero -->
       <header class="hero">
       <h1>Distributed Sharding Database System (ShardingJH)</h1>
-      <p class="tagline">
+      <p class="tagline mb-3">
         Horizontally scalable, fault-aware, and eventually consistent system across EC2 nodes.
       </p>
       <div class="hero-cta">

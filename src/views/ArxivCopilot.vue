@@ -13,7 +13,7 @@
       <!-- Hero -->
       <header class="hero">
       <h1>arXiv Copilot - A RAG Chatbot for Research Assistance</h1>
-      <p class="tagline">
+      <p class="tagline mb-3">
         An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers using Retrieval-Augmented Generation.
       </p>
       <div class="hero-cta">
@@ -31,6 +31,38 @@
         </a>
       </div>
     </header>
+
+    <!-- Try it now section -->
+    <section class="try-it-section">
+      <h2 class="try-it-title">Try it now !</h2>
+      <div class="iframe-wrapper">
+        <iframe 
+          src="https://chris-luo.me/streamlit/" 
+          frameborder="0"
+          allowfullscreen
+          class="streamlit-iframe"
+        ></iframe>
+      </div>
+      <div class="collapse-note">
+        <button 
+          class="btn btn-link collapse-toggle" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#implementationNote" 
+          aria-expanded="false" 
+          aria-controls="implementationNote"
+        >
+          <i class="bi bi-info-circle"></i>
+          Implementation Note
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="collapse" id="implementationNote">
+          <div class="collapse-content">
+            <p>The current iframe implementation utilizes an <strong>S3 vector database</strong> for storing embeddings and queries, employing OpenAI's <strong>text-embedding-3-small</strong> model for generating text embeddings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Highlight metrics -->
     <section class="arxiv-metrics">
