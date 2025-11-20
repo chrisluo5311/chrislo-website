@@ -36,11 +36,19 @@
     <section class="try-it-section">
       <h2 class="try-it-title">Try it now !</h2>
       <div class="iframe-wrapper">
+        <div v-if="iframeLoading" class="iframe-loading">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="loading-text">Loading arXiv Copilot...</p>
+        </div>
         <iframe 
           src="https://chris-luo.me/streamlit/" 
           frameborder="0"
           allowfullscreen
           class="streamlit-iframe"
+          :class="{ 'iframe-hidden': iframeLoading }"
+          @load="onIframeLoad"
         ></iframe>
       </div>
       <div class="collapse-note">
@@ -58,7 +66,7 @@
         </button>
         <div class="collapse" id="implementationNote">
           <div class="collapse-content">
-            <p>The current iframe implementation utilizes an <strong>S3 vector database</strong> for storing embeddings and queries, employing OpenAI's <strong>text-embedding-3-small</strong> model for generating text embeddings.</p>
+            <p>The iframe implementation utilizes a <strong>S3 vector database</strong> for embeddings storage (currently 55800 vectors) and user queries, employing OpenAI's <strong>text-embedding-3-small</strong> model for text embeddings.</p>
           </div>
         </div>
       </div>
@@ -423,7 +431,8 @@ export default {
       arXivRagImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/arXiv_rag.jpg',
       showImageModal: false,
       modalImageSrc: '',
-      modalImageCaption: ''
+      modalImageCaption: '',
+      iframeLoading: true
     };
   },
   methods: {
@@ -440,6 +449,10 @@ export default {
       this.modalImageCaption = '';
       // 恢復背景滾動
       document.body.style.overflow = '';
+    },
+    onIframeLoad() {
+      // iframe 載入完成後隱藏 loading spinner
+      this.iframeLoading = false;
     }
   },
   mounted() {
