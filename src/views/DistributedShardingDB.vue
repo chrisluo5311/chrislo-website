@@ -19,7 +19,7 @@
       <div class="hero-cta">
         <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/Distributed_Database_Final_Project.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
-          Read the Full Report (PDF)
+          Read the Full Report
         </a>
         <a class="btn btn-github" href="https://github.com/chrisluo5311/ShardingJH" target="_blank" rel="noopener">
           <i class="bi bi-github"></i>

@@ -50,7 +50,7 @@
             <p v-if="edu.details && !edu.courses" class="mt-3">{{ edu.details }}</p>
             <div v-if="edu.courses" class="mt-3">
               <p v-if="edu.details" class="mb-2">{{ edu.details }}</p>
-              <table class="table table-sm table-bordered" style="max-width: 500px; font-size: 0.9rem;">
+              <table class="table table-sm table-bordered course-table" style="max-width: 500px; font-size: 0.9rem;">
                 <thead class="table-light">
                   <tr>
                     <th scope="col">Course</th>
@@ -59,8 +59,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="(course, idx) in edu.courses" :key="idx">
-                    <td>{{ course.name }}</td>
-                    <td class="text-center">{{ course.grade }}</td>
+                    <td><strong>{{ course.name }}</strong></td>
+                    <td class="text-center"><strong>{{ course.grade }}</strong></td>
                   </tr>
                 </tbody>
               </table>
@@ -552,7 +552,7 @@ function toggleChat() {
         chatMessages.value.push({
             id: Date.now(),
             sender: 'assistant',
-            text: 'Hello, I\'m Chris. You can ask me questions about my resume!'
+            text: 'Hello, I\'m Chris. You can ask me questions about my resume !'
         });
     }
 }
@@ -745,7 +745,7 @@ const projects = ref([
     role: 'Developer', 
     period: 'May 2025 - June 2025',
     description: 'Interactive tool for searching, downloading, parsing, and Q&A with arXiv papers, using OpenAI models and FAISS vector database.', 
-    technologies: ['Python', 'OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
+    technologies: ['S3 vector database','OpenAI', 'LlamaParse', 'FAISS', 'Streamlit'], 
     link: '/projects/arxiv-copilot' 
   },
   { 
@@ -818,7 +818,7 @@ const projects = ref([
     period: 'Aug 2024 - Aug 2024',
     description: 'A responsive web app built with Bootstrap 5, Sass, HTML, CSS, and JavaScript, ensuring seamless display across devices.',
     technologies: ['Bootstrap 5', 'Sass', 'HTML', 'CSS', 'JavaScript'],
-    link: 'https://github.com/chrisluo5311/FurBaby?tab=readme-ov-file'
+    link: 'https://chrisluo5311.github.io/FurBaby/index.html'
   },
   { 
     name: 'Subpixel Motion Estimation Without Interpolation', 

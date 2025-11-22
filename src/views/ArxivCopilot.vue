@@ -12,14 +12,14 @@
       <section class="page-wrap">
       <!-- Hero -->
       <header class="hero">
-      <h1>arXiv Copilot - A RAG Chatbot for Research Assistance</h1>
+      <h1>arXiv Copilot<br>A RAG Chatbot for Research Assistance</h1>
       <p class="tagline mb-3">
         An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers using Retrieval-Augmented Generation.
       </p>
       <div class="hero-cta">
         <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/arXiv_Copilot.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
-          Read the Full Report (PDF)
+          Read the Full Report
         </a>
         <a class="btn btn-github" href="https://github.com/chrisluo5311/arxiv-copilot" target="_blank" rel="noopener">
           <i class="bi bi-github"></i>

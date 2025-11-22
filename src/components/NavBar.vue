@@ -1,94 +1,92 @@
 <template>
-  <nav id="navbar-main" class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#" @click.prevent="handleNavigation('home')">{{ personalInfo.name }}</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('home')">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('about')">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('education')">Education</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('experience')">Experience</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('skills')">Skills</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              @click.prevent
-            >
-              Projects <i :class="isDropdownOpen ? 'bi bi-caret-up-fill' : 'bi bi-caret-down-fill'" style="font-size: 0.7rem; margin-left: 0.15rem;"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-header">Explore Highlights</li>
-              <li>
-                <button class="dropdown-item dropdown-item-rich" type="button" @click="handleNavigation('projects')">
-                  <span class="dropdown-item-title">Projects Overview</span>
-                  <small class="dropdown-item-subtitle">Back to Projects</small>
-                </button>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <router-link
-                  class="dropdown-item dropdown-item-rich"
-                  to="/projects/distributed-sharding-db"
-                  exact-active-class="active"
-                  @click="closeNavbar"
-                >
-                  <span class="dropdown-item-title">Distributed Database</span>
-                  <small class="dropdown-item-subtitle">Distributed database design and optimization</small>
-                </router-link>
-              </li>
-              <li>
-                <router-link
-                  class="dropdown-item dropdown-item-rich arxiv-copilot-item"
-                  to="/projects/arxiv-copilot"
-                  exact-active-class="active"
-                  @click="closeNavbar"
-                >
-                  <span class="dropdown-item-title">arXiv Copilot</span>
-                  <small class="dropdown-item-subtitle">RAG chatbot for research assistance</small>
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click.prevent="handleNavigation('posts')">Posts</a>
-          </li>
-          <li class="nav-item">
-            <a 
-              class="nav-link" 
-              href="#" 
-              aria-label="Download Resume"
-              @click.prevent="downloadResume"
-            >
-              Resume<i class="bi bi-download ms-1"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
+  <nav id="navbar-main" class="navbar navbar-expand-lg fixed-top px-4">
+    <a class="navbar-brand" href="#" @click.prevent="handleNavigation('home')">{{ personalInfo.name }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('about')">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('education')">Education</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('experience')">Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('skills')">Skills</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            @click.prevent
+          >
+            Projects <i :class="isDropdownOpen ? 'bi bi-caret-up-fill' : 'bi bi-caret-down-fill'" style="font-size: 0.7rem; margin-left: 0.15rem;"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">Explore Highlights</li>
+            <li>
+              <button class="dropdown-item dropdown-item-rich" type="button" @click="handleNavigation('projects')">
+                <span class="dropdown-item-title">Projects Overview</span>
+                <small class="dropdown-item-subtitle">Back to Projects</small>
+              </button>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <router-link
+                class="dropdown-item dropdown-item-rich"
+                to="/projects/distributed-sharding-db"
+                exact-active-class="active"
+                @click="closeNavbar"
+              >
+                <span class="dropdown-item-title">Distributed Database</span>
+                <small class="dropdown-item-subtitle">Distributed database design and optimization</small>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                class="dropdown-item dropdown-item-rich arxiv-copilot-item"
+                to="/projects/arxiv-copilot"
+                exact-active-class="active"
+                @click="closeNavbar"
+              >
+                <span class="dropdown-item-title">arXiv Copilot</span>
+                <small class="dropdown-item-subtitle">RAG chatbot for research assistance</small>
+              </router-link>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="handleNavigation('posts')">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link" 
+            href="#" 
+            aria-label="Download Resume"
+            @click.prevent="downloadResume"
+          >
+            Resume<i class="bi bi-download ms-1"></i>
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 </template>

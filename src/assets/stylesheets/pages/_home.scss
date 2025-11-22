@@ -47,3 +47,91 @@
     font-size: 1.3125rem; /* ~21px on lg+ */
   }
 }
+
+/* Course Table - Transparent water droplet style */
+.course-table {
+  /* Transparent water droplet style with stronger glassmorphism */
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem; /* Smaller font size */
+  
+  thead {
+    background-color: transparent !important;
+    
+    tr {
+      border-color: rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    th {
+      background-color: rgba(128, 128, 128, 0.15) !important; /* Light gray background */
+      border-color: #000 !important;
+      border-right-color: rgba(0, 0, 0, 0.3) !important; /* Lighter vertical line between columns */
+      border-left-color: rgba(0, 0, 0, 0.3) !important;
+      color: #333 !important;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem; /* Smaller padding */
+      font-size: 0.85rem;
+      
+      &:first-child {
+        border-left-color: #000 !important; /* Keep left border black for first column */
+      }
+      
+      &:last-child {
+        border-right-color: #000 !important; /* Keep right border black for last column */
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      background-color: transparent !important;
+      border-color: rgba(0, 0, 0, 0.3) !important;
+      
+      td {
+        background-color: transparent !important;
+        border-color: #000 !important;
+        border-right-color: rgba(0, 0, 0, 0.3) !important; /* Lighter vertical line between columns */
+        border-left-color: rgba(0, 0, 0, 0.3) !important;
+        color: #333 !important;
+        padding: 0.5rem 0.75rem; /* Smaller padding */
+        font-size: 0.85rem;
+        
+        &:first-child {
+          border-left-color: #000 !important; /* Keep left border black for first column */
+          font-size: 0.9rem; /* Slightly larger font for course names */
+        }
+        
+        &:last-child {
+          border-right-color: #000 !important; /* Keep right border black for last column */
+        }
+      }
+      
+      &:hover {
+        background-color: rgba(255, 212, 59, 0.2) !important;
+        border-color: rgba(0, 0, 0, 0.3) !important; /* Keep border light on hover */
+        
+        td {
+          background-color: transparent !important;
+          border-top-color: #000 !important; /* Keep top border black on hover */
+          border-bottom-color: #000 !important; /* Keep bottom border black on hover */
+          border-right-color: rgba(0, 0, 0, 0.3) !important; /* Keep vertical line light on hover */
+          border-left-color: rgba(0, 0, 0, 0.3) !important;
+          
+          &:first-child {
+            border-left-color: #000 !important;
+          }
+          
+          &:last-child {
+            border-right-color: #000 !important;
+          }
+        }
+      }
+    }
+  }
+}
