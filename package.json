@@ -12,6 +12,7 @@
     "bootstrap-icons": "^1.13.1",
     "core-js": "^3.8.3",
     "dompurify": "^3.2.7",
+    "gsap": "^3.13.0",
     "katex": "^0.16.23",
     "marked": "^16.3.0",
     "marked-katex-extension": "^5.1.5",

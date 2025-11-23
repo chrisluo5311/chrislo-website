@@ -73,22 +73,8 @@
   flex-direction: column;
   align-items: center;
   pointer-events: none;
-  animation: fadeInBounce 0.5s ease-out;
   width: auto;
-}
-
-@keyframes fadeInBounce {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  /* GSAP 会控制动画，移除 CSS animation */
 }
 
 .chat-idle-message__bubble {
@@ -103,6 +89,9 @@
   position: relative;
   max-width: 250px;
   text-align: center;
+  /* 初始隐藏，由 GSAP 控制显示 */
+  opacity: 0;
+  transform: scale(0.8) translateY(10px);
 }
 
 .chat-idle-message__tail {
@@ -116,6 +105,9 @@
   border-right: 10px solid transparent;
   border-top: 10px solid #6d8eff;
   filter: drop-shadow(0 2px 4px rgba(46, 77, 255, 0.2));
+  /* 初始隐藏，由 GSAP 控制显示 */
+  opacity: 0;
+  /* 注意：transform 已经在上面设置了 translateX(-50%)，GSAP 会处理 scale 和 translateY */
 }
 
 .chat-modal {

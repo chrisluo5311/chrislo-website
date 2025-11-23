@@ -6,6 +6,18 @@
   display: block; /* remove inline gap */
 }
 
+/* GSAP动画卡片样式 */
+.post-card-gsap {
+  will-change: transform, opacity; /* 优化性能 */
+  position: relative; /* 确保transform正常 */
+  
+  /* 确保图片容器可以缩放 */
+  .card-img-top {
+    transform-origin: center center; /* 缩放中心点 */
+    will-change: transform; /* 优化图片缩放性能 */
+  }
+}
+
 @media (min-width: 768px) {
   #posts .card-img-top { height: 220px; }
 }

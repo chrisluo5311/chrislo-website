@@ -49,6 +49,17 @@
 }
 
 /* Course Table - Transparent water droplet style */
+/* More Projects Collapse - 优化动画流畅度 */
+#moreProjects {
+  /* 确保Bootstrap collapse transition不会与GSAP冲突 */
+  transition: height 0.35s ease;
+  
+  .card-link-override {
+    /* 在展开过程中暂时隐藏，等GSAP动画开始 */
+    will-change: transform, opacity;
+  }
+}
+
 .course-table {
   /* Transparent water droplet style with stronger glassmorphism */
   background-color: rgba(255, 255, 255, 0.25) !important;

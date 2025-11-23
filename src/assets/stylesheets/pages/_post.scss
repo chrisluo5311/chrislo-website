@@ -185,11 +185,12 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+    // 移除CSS transition，让GSAP控制动画
+    // transition: all 0.3s ease;
 
+    // GSAP会处理hover效果，但保留CSS作为fallback
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      // transform和box-shadow由GSAP控制
     }
 
     .card-img-top {
@@ -197,6 +198,8 @@
       object-fit: cover;
       border-bottom: 1px solid rgba(0, 0, 0, 0.231);
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transform-origin: center center; /* GSAP缩放中心点 */
+      will-change: transform; /* 优化性能 */
     }
 
     .card-body {

@@ -4,12 +4,12 @@
   <div v-show="!isPageLoading">
     <NavBar />
     
-    <HeroSection />
+    <HeroSection ref="heroSection" />
 
   <!-- About Section -->
-  <section id="about" class="section" v-reveal>
+  <section id="about" class="section">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title" ref="aboutTitle">About Me</h2>
       <div class="row justify-content-center">
         <div class="col-md-8 text-center">
           <p class="lead">{{ introduction }}</p>
@@ -21,16 +21,15 @@
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="section bg-white" v-reveal>
+  <section id="education" class="section bg-white">
     <div class="container">
-      <h2 class="section-title">Education</h2>
+      <h2 class="section-title" ref="educationTitle">Education</h2>
       <div class="row">
-        <div class="col-md-10 mx-auto">
+        <div class="col-md-10 mx-auto" ref="educationContainer">
           <div
             v-for="(edu, index) in education"
             :key="index"
-            class="timeline-item mb-5"
-            v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
+            class="timeline-item mb-5 timeline-item-gsap"
           >
             <h4 class="fw-bold d-flex flex-wrap align-items-center gap-2">
               {{ edu.institution }}
@@ -72,16 +71,15 @@
   </section>
 
   <!-- Work Experience Section -->
-  <section id="experience" class="section" v-reveal>
+  <section id="experience" class="section">
     <div class="container">
-      <h2 class="section-title">Work Experience</h2>
+      <h2 class="section-title" ref="experienceTitle">Work Experience</h2>
       <div class="row">
-        <div class="col-md-10 mx-auto">
+        <div class="col-md-10 mx-auto" ref="experienceContainer">
           <div
             v-for="(job, index) in workExperience"
             :key="index"
-            class="timeline-item mb-5"
-            v-reveal="{ animation: 'fade-up', duration: 600 }"
+            class="timeline-item mb-5 timeline-item-gsap"
           >
             <h4 class="fw-bold">{{ job.title }} @ {{ job.company }}</h4>
             <p class="text-muted mb-2">
@@ -100,20 +98,20 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="section bg-white" v-reveal>
+  <section id="skills" class="section bg-white">
     <div class="container">
-      <h2 class="section-title">Skills</h2>
+      <h2 class="section-title" ref="skillsTitle">Skills</h2>
       <div v-for="(category, index) in skills" :key="index" class="mb-4">
         <h3 class="text-center mb-3">{{ category.title }}</h3>
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-3 col-md-2"></div>
             <div class="col-lg-6 col-md-8 col-12">
-              <div class="d-flex flex-wrap justify-content-center" v-reveal="{ animation: 'fade-up', stagger: 60 }">
+              <div class="d-flex flex-wrap justify-content-center skills-container-gsap">
                 <span
                   v-for="skill in category.items"
                   :key="skill"
-                  class="badge bg-secondary skill-badge"
+                  class="badge bg-secondary skill-badge skill-badge-gsap"
                   >{{ skill }}</span
                 >
               </div>
@@ -126,15 +124,14 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="section" v-reveal>
+  <section id="projects" class="section">
     <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="row g-4">
+      <h2 class="section-title" ref="projectsTitle">Projects</h2>
+      <div class="row g-4" ref="projectsContainer">
         <div
           v-for="project in topProjects"
           :key="project.name"
           class="col-lg-4 col-md-6 mb-2"
-          v-reveal="{ animation: 'fade-up', duration: 650 }"
         >
           <RouterLink
             v-if="isInternalRoute(project.link)"
@@ -193,8 +190,8 @@
         </div>
       </div>
 
-      <div class="collapse mt-3" id="moreProjects">
-        <div class="row g-4" v-reveal="{ animation: 'fade-up', stagger: 80 }">
+      <div class="collapse mt-3" id="moreProjects" ref="moreProjectsContainer">
+        <div class="row g-4">
           <div
             v-for="project in restProjects"
             :key="project.name"
@@ -274,17 +271,16 @@
   </section>
 
   <!-- Posts Section -->
-  <section id="posts" class="section bg-white" v-reveal>
+  <section id="posts" class="section bg-white">
     <div class="container">
-      <h2 class="section-title">Posts</h2>
-      <div class="row g-4">
+      <h2 class="section-title" ref="postsTitle">Posts</h2>
+      <div class="row g-4" ref="homePostsContainer">
         <div
           v-for="post in posts"
           :key="post.title"
           class="col-md-6 col-lg-4"
-          v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
         >
-          <div class="card h-100">
+          <div class="card h-100 post-card-gsap">
             <img v-lazy="post.image" class="card-img-top" :alt="post.title" />
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ post.title }}</h5>
@@ -416,11 +412,12 @@
       <div 
         v-if="showIdleMessage && !isChatOpen" 
         class="chat-idle-message"
+        ref="idleMessageRef"
       >
-        <div class="chat-idle-message__bubble">
-          <span>Ask me any questions !</span>
+        <div class="chat-idle-message__bubble" ref="idleBubbleRef">
+          <span ref="idleTextRef">...</span>
         </div>
-        <div class="chat-idle-message__tail"></div>
+        <div class="chat-idle-message__tail" ref="idleTailRef"></div>
       </div>
       <img :src="chatFabImage" alt="AI Assistant" class="chat-fab__image" />
     </div>
@@ -432,8 +429,22 @@
 /* eslint-disable */
 import { ref, onMounted, onBeforeUnmount, computed, nextTick, watch } from 'vue';
 import * as bootstrap from 'bootstrap';
+import { gsap } from 'gsap';
 import postsData from '@/data/posts';
 import { renderMarkdown } from '@/utils/markdown';
+import { 
+  animatePostCards, 
+  setupAllCardHovers, 
+  cleanupScrollTriggers,
+  animateHeroSection,
+  animateSectionTitles,
+  animateTimelineItems,
+  animateSkillBadges,
+  animateProjectCards,
+  animateProjectCardsExpand,
+  setupAllProjectCardHovers,
+  setupProjectCardHover
+} from '@/utils/gsap-animations';
 
 // Import shared components
 import NavBar from '@/components/NavBar.vue';
@@ -541,9 +552,30 @@ const chatInput = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
 const chatWidget = ref(null);
 const showIdleMessage = ref(true);
+const idleMessageRef = ref(null);
+const idleBubbleRef = ref(null);
+const idleTextRef = ref(null);
+const idleTailRef = ref(null);
+let idleMessageAnimation = null;
 
 // Persist chat history whenever messages change
 watch(chatMessages, persistHistory, { deep: true });
+
+// 监听 showIdleMessage 变化，添加打字动画
+watch(showIdleMessage, (newVal) => {
+  if (newVal && !isChatOpen.value) {
+    nextTick(() => {
+      // 模板中已经有 "..."，不需要重复设置
+      animateIdleMessage();
+    });
+  } else {
+    // 隐藏时清理动画
+    if (idleMessageAnimation) {
+      idleMessageAnimation.kill();
+      idleMessageAnimation = null;
+    }
+  }
+});
 
 // ... (toggleChat and other functions remain the same)
 function toggleChat() {
@@ -555,6 +587,106 @@ function toggleChat() {
             text: 'Hello, I\'m Chris. You can ask me questions about my resume !'
         });
     }
+}
+
+// Idle message 打字动画
+function animateIdleMessage() {
+  // 多重检查，确保所有 ref 都存在
+  if (!idleMessageRef.value || !idleBubbleRef.value || !idleTextRef.value || !idleTailRef.value) {
+    return;
+  }
+  
+  const messageText = 'Ask me any questions !';
+  
+  // 清理之前的动画
+  if (idleMessageAnimation) {
+    idleMessageAnimation.kill();
+    idleMessageAnimation = null;
+  }
+  
+  // 再次检查，防止在清理动画期间组件被卸载
+  if (!idleBubbleRef.value || !idleTextRef.value || !idleTailRef.value) {
+    return;
+  }
+  
+  // 先确保文本是 "..."（模板中已有，这里只是确保）
+  if (idleTextRef.value && idleTextRef.value.textContent !== '...') {
+    idleTextRef.value.textContent = '...';
+  }
+  
+  // 设置初始状态（在文本设置之后，避免闪烁）
+  // 使用 immediateRender: false 确保不会立即应用
+  gsap.set([idleBubbleRef.value, idleTailRef.value], {
+    opacity: 0,
+    scale: 0.8,
+    y: 10,
+    immediateRender: true
+  });
+  
+  // 创建时间线
+  const tl = gsap.timeline();
+  
+  // 1. Bubble 和 tail 淡入并弹跳
+  if (idleBubbleRef.value && idleTailRef.value) {
+    // Bubble 使用 scale 和 y
+    tl.to(idleBubbleRef.value, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'back.out(1.4)'
+    });
+    // Tail 需要保留 translateX(-50%)，只添加 scale 和 y
+    tl.to(idleTailRef.value, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'back.out(1.4)'
+    }, '<'); // 与 bubble 同时开始
+  }
+  
+  // 2. "..." 闪烁效果
+  if (idleTextRef.value) {
+    tl.to(idleTextRef.value, {
+      opacity: 0.3,
+      duration: 0.3,
+      repeat: 1,
+      yoyo: true,
+      ease: 'power2.inOut'
+    });
+  }
+  
+  // 3. 清除 "..." 并开始打字动画
+  tl.call(() => {
+    // 检查 ref 是否存在，防止组件已卸载
+    if (!idleTextRef.value) return;
+    
+    idleTextRef.value.textContent = '';
+    // 使用 GSAP timeline 控制打字效果
+    const typeTl = gsap.timeline();
+    messageText.split('').forEach((char, index) => {
+      typeTl.call(() => {
+        // 每次设置前都检查 ref 是否存在
+        if (idleTextRef.value) {
+          idleTextRef.value.textContent = messageText.substring(0, index + 1);
+        }
+      }, null, index * 0.05); // 每个字符间隔 50ms
+    });
+  });
+  
+  // 4. 添加持续的呼吸效果（轻微缩放）
+  if (idleBubbleRef.value) {
+    tl.to(idleBubbleRef.value, {
+      scale: 1.03,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power1.inOut'
+    }, '-=0.3');
+  }
+  
+  idleMessageAnimation = tl;
 }
 
 function handleChatFabClick() {
@@ -919,6 +1051,163 @@ async function preloadImages() {
   }
 }
 
+// 初始化Home页面的GSAP动画
+function initHomeGSAPAnimations() {
+  nextTick(() => {
+    // 1. Hero Section 动画（只在第一次访问时显示）
+    if (heroSection.value) {
+      // 检查是否是第一次访问
+      const HERO_ANIMATION_KEY = 'heroAnimationShown';
+      const hasSeenAnimation = sessionStorage.getItem(HERO_ANIMATION_KEY);
+      
+      // 等待HeroSection组件完全渲染
+      setTimeout(() => {
+        const heroElement = document.getElementById('home');
+        if (heroElement) {
+          // 如果是第一次访问，显示动画并标记
+          if (!hasSeenAnimation) {
+            animateHeroSection(heroElement, true);
+            sessionStorage.setItem(HERO_ANIMATION_KEY, 'true');
+          } else {
+            // 如果不是第一次，直接显示（不动画）
+            animateHeroSection(heroElement, false);
+          }
+        }
+      }, 100);
+    }
+
+    // 2. Section 标题动画
+    const sectionTitles = [
+      aboutTitle.value,
+      educationTitle.value,
+      experienceTitle.value,
+      skillsTitle.value,
+      projectsTitle.value,
+      postsTitle.value
+    ].filter(Boolean);
+    
+    if (sectionTitles.length > 0) {
+      animateSectionTitles(sectionTitles);
+    }
+
+    // 3. Education Timeline 动画
+    if (educationContainer.value) {
+      const educationItems = educationContainer.value.querySelectorAll('.timeline-item-gsap');
+      if (educationItems.length > 0) {
+        animateTimelineItems(educationItems);
+      }
+    }
+
+    // 4. Experience Timeline 动画
+    if (experienceContainer.value) {
+      const experienceItems = experienceContainer.value.querySelectorAll('.timeline-item-gsap');
+      if (experienceItems.length > 0) {
+        animateTimelineItems(experienceItems);
+      }
+    }
+
+    // 5. Skills Badges 动画
+    const skillsContainers = document.querySelectorAll('.skills-container-gsap');
+    skillsContainers.forEach(container => {
+      const skillBadges = container.querySelectorAll('.skill-badge-gsap');
+      if (skillBadges.length > 0) {
+        animateSkillBadges(skillBadges);
+      }
+    });
+
+    // 6. Project Cards 动画
+    if (projectsContainer.value) {
+      const projectCards = projectsContainer.value.querySelectorAll('.card-link-override');
+      if (projectCards.length > 0) {
+        animateProjectCards(projectCards, {
+          stagger: 0.12,
+          duration: 0.7,
+          y: 60,
+          ease: 'power3.out'
+        });
+        setupAllProjectCardHovers('.card-link-override');
+      }
+    }
+
+    // 7. Post Cards 动画
+    if (homePostsContainer.value) {
+      const cards = homePostsContainer.value.querySelectorAll('.post-card-gsap');
+      if (cards.length > 0) {
+        animatePostCards(cards, {
+          stagger: 0.15,
+          duration: 0.7,
+          y: 60,
+          ease: 'power3.out'
+        });
+        setupAllCardHovers('.post-card-gsap');
+      }
+    }
+
+    // 8. 监听 "More Projects" 展开事件
+    const moreProjectsElement = document.getElementById('moreProjects');
+    if (moreProjectsElement) {
+      let isAnimating = false;
+      
+      // 在 collapse 开始展开时设置初始状态（避免闪烁）
+      moreProjectsElement.addEventListener('show.bs.collapse', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // 立即设置初始状态，此时元素还在隐藏状态
+        nextTick(() => {
+          const moreProjectCards = moreProjectsElement.querySelectorAll('.card-link-override');
+          if (moreProjectCards.length > 0) {
+            // 在元素可见之前就设置初始状态
+            gsap.set(moreProjectCards, {
+              opacity: 0,
+              y: 30,
+              scale: 0.95
+            });
+          }
+        });
+      });
+      
+      // 在 collapse 完全展开后运行动画
+      moreProjectsElement.addEventListener('shown.bs.collapse', () => {
+        if (!isAnimating) return; // 确保 show 事件已触发
+        
+        // 等待一个tick确保DOM完全更新
+        nextTick(() => {
+          // Bootstrap collapse 默认 transition 是 350ms，等待更长时间确保完成
+          setTimeout(() => {
+            const moreProjectCards = moreProjectsElement.querySelectorAll('.card-link-override');
+            if (moreProjectCards.length > 0) {
+              // 运行动画（初始状态已在 show 事件中设置）
+              gsap.to(moreProjectCards, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power3.out',
+                onComplete: () => {
+                  isAnimating = false;
+                }
+              });
+              
+              // 只为新展开的卡片设置hover效果（避免重复设置）
+              moreProjectCards.forEach(card => {
+                // 检查是否已经设置过hover
+                if (!card.dataset.hoverSetup) {
+                  setupProjectCardHover(card);
+                  card.dataset.hoverSetup = 'true';
+                }
+              });
+            } else {
+              isAnimating = false;
+            }
+          }, 50); // 只需要等待很短时间，因为初始状态已设置
+        });
+      });
+    }
+  });
+}
+
 // LIFECYCLE HOOK
 onMounted(async () => {
   // Initialize ScrollSpy using the imported bootstrap object.
@@ -933,11 +1222,31 @@ onMounted(async () => {
   
   // Preload images
   await preloadImages();
+  
+  // Initialize GSAP animations after page loads and images are ready
+  // Wait a bit more to ensure all elements are rendered
+  setTimeout(() => {
+    initHomeGSAPAnimations();
+    // 初始化 idle message 动画
+    if (showIdleMessage.value && !isChatOpen.value) {
+      // 模板中已经有 "..."，不需要重复设置
+      nextTick(() => {
+        animateIdleMessage();
+      });
+    }
+  }, 200);
 });
 
 onBeforeUnmount(() => {
   // Clean up click outside listener
   document.removeEventListener('click', handleClickOutside);
+  // Clean up GSAP ScrollTriggers
+  cleanupScrollTriggers();
+  // 清理 idle message 动画
+  if (idleMessageAnimation) {
+    idleMessageAnimation.kill();
+    idleMessageAnimation = null;
+  }
 });
 
 // computed helpers for Projects collapse
@@ -948,7 +1257,21 @@ const hasMoreProjects = computed(() => projects.value.length > 3);
 // POSTS MODAL STATE & ACTIONS
 const selectedPost = ref(null);
 const postModal = ref(null);
+const homePostsContainer = ref(null);
 let postModalInstance = null;
+
+// Refs for GSAP animations
+const heroSection = ref(null);
+const aboutTitle = ref(null);
+const educationTitle = ref(null);
+const educationContainer = ref(null);
+const experienceTitle = ref(null);
+const experienceContainer = ref(null);
+const skillsTitle = ref(null);
+const projectsTitle = ref(null);
+const projectsContainer = ref(null);
+const postsTitle = ref(null);
+const moreProjectsContainer = ref(null);
 
 // Computed property to render markdown content
 const renderedMarkdown = computed(() => {

@@ -36,11 +36,13 @@
     <section class="try-it-section">
       <h2 class="try-it-title">Try it now !</h2>
       <div class="iframe-wrapper">
-        <div v-if="iframeLoading" class="iframe-loading">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div v-if="iframeLoading" class="iframe-loading" ref="iframeLoadingRef">
+          <div class="gsap-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
           </div>
-          <p class="loading-text">Loading arXiv Copilot...</p>
+          <p class="loading-text" ref="loadingTextRef">Loading arXiv Copilot...</p>
         </div>
         <iframe 
           src="https://chris-luo.me/streamlit/" 
@@ -412,6 +414,7 @@
 </template>
 
 <script>
+import { gsap } from 'gsap';
 import NavBar from '@/components/NavBar.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 
@@ -432,8 +435,26 @@ export default {
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: '',
-      iframeLoading: true
+      iframeLoading: true,
+      spinnerAnimations: [] // 存储动画实例以便清理
     };
+  },
+  watch: {
+    iframeLoading(newVal) {
+      if (newVal) {
+        // 当 iframeLoading 变为 true 时，初始化动画
+        this.$nextTick(() => {
+          this.initLoadingSpinner();
+        });
+      }
+    }
+  },
+  mounted() {
+    // Optional: basic scroll-to-top on route enter
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    // 初始化 GSAP loading spinner 动画
+    this.initLoadingSpinner();
   },
   methods: {
     openImageModal(imageSrc, caption = '') {
@@ -452,16 +473,131 @@ export default {
     },
     onIframeLoad() {
       // iframe 載入完成後隱藏 loading spinner
-      this.iframeLoading = false;
+      this.animateLoadingOut(() => {
+        this.iframeLoading = false;
+      });
+    },
+    initLoadingSpinner() {
+      this.$nextTick(() => {
+        if (this.$refs.iframeLoadingRef && this.iframeLoading) {
+          const spinnerRings = this.$refs.iframeLoadingRef.querySelectorAll('.spinner-ring');
+          const loadingText = this.$refs.loadingTextRef;
+          
+          // 清理之前的动画
+          this.spinnerAnimations.forEach(anim => anim.kill());
+          this.spinnerAnimations = [];
+          
+          if (spinnerRings.length > 0) {
+            // 设置初始状态
+            gsap.set(spinnerRings, {
+              rotation: 0,
+              scale: 0.8,
+              opacity: 0.6
+            });
+            
+            // 创建旋转动画
+            spinnerRings.forEach((ring, index) => {
+              const rotateAnim = gsap.to(ring, {
+                rotation: 360,
+                duration: 1.5 + index * 0.3,
+                repeat: -1,
+                ease: 'none'
+              });
+              
+              // 添加脉冲效果
+              const pulseAnim = gsap.to(ring, {
+                scale: 1.1,
+                opacity: 1,
+                duration: 0.8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power2.inOut',
+                delay: index * 0.2
+              });
+              
+              this.spinnerAnimations.push(rotateAnim, pulseAnim);
+            });
+          }
+          
+          // 文字淡入淡出动画
+          if (loadingText) {
+            const textFadeIn = gsap.fromTo(loadingText,
+              {
+                opacity: 0,
+                y: 10
+              },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: 'power3.out',
+                delay: 0.3
+              }
+            );
+            
+            // 文字脉冲效果
+            const textPulse = gsap.to(loadingText, {
+              opacity: 0.7,
+              duration: 1.5,
+              repeat: -1,
+              yoyo: true,
+              ease: 'power1.inOut'
+            });
+            
+            this.spinnerAnimations.push(textFadeIn, textPulse);
+          }
+        }
+      });
+    },
+    animateLoadingOut(callback) {
+      if (this.$refs.iframeLoadingRef) {
+        const spinnerRings = this.$refs.iframeLoadingRef.querySelectorAll('.spinner-ring');
+        const loadingText = this.$refs.loadingTextRef;
+        
+        const tl = gsap.timeline({
+          onComplete: callback
+        });
+        
+        // 先淡出文字
+        if (loadingText) {
+          tl.to(loadingText, {
+            opacity: 0,
+            y: -10,
+            duration: 0.3,
+            ease: 'power2.in'
+          });
+        }
+        
+        // 然后淡出 spinner 并缩放
+        if (spinnerRings.length > 0) {
+          tl.to(spinnerRings, {
+            opacity: 0,
+            scale: 0.5,
+            rotation: '+=180',
+            duration: 0.4,
+            stagger: 0.05,
+            ease: 'power2.in'
+          }, '-=0.1');
+        }
+        
+        // 最后淡出整个容器
+        tl.to(this.$refs.iframeLoadingRef, {
+          opacity: 0,
+          duration: 0.2,
+          ease: 'power2.in'
+        });
+      } else {
+        if (callback) callback();
+      }
     }
-  },
-  mounted() {
-    // Optional: basic scroll-to-top on route enter
-    window.scrollTo({ top: 0, behavior: "smooth" });
   },
   beforeUnmount() {
     // 確保離開頁面時恢復滾動
     document.body.style.overflow = '';
+    
+    // 清理所有 GSAP 动画
+    this.spinnerAnimations.forEach(anim => anim.kill());
+    this.spinnerAnimations = [];
   }
 };
 </script>

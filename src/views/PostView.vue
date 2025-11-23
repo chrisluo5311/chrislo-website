@@ -49,14 +49,13 @@
         </div>
 
         <!-- Articles Grid -->
-        <div class="row g-4 mb-4">
+        <div class="row g-4 mb-4" ref="postsContainer">
           <div
             v-for="post in paginatedPosts"
             :key="post.title"
             class="col-md-6"
-            v-reveal="{ animation: 'fade-up', duration: 600, delay: 50 }"
           >
-            <div class="card h-100">
+            <div class="card h-100 post-card-gsap">
               <img v-lazy="post.image" class="card-img-top" :alt="post.title" />
               <div class="card-body d-flex flex-column">
                 <div class="mb-2">
@@ -167,10 +166,12 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import * as bootstrap from 'bootstrap';
+import { gsap } from 'gsap';
 import postsData from '@/data/posts';
 import { renderMarkdown } from '@/utils/markdown';
+import { animatePostCards, setupAllCardHovers, cleanupScrollTriggers } from '@/utils/gsap-animations';
 import NavBar from '@/components/NavBar.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import SearchArticle from '@/components/SearchArticle.vue';
@@ -182,9 +183,11 @@ import PaginationComponent from '@/components/PaginationComponent.vue';
 const posts = postsData;
 const selectedPost = ref(null);
 const postModal = ref(null);
+const postsContainer = ref(null);
 const modalId = 'postsModalPage';
 const modalLabelId = 'postsModalPageLabel';
 let postModalInstance = null;
+let modalAnimationsSetup = false;
 
 // Filter states
 const searchQuery = ref('');
@@ -360,23 +363,113 @@ function handleSortChange() {
   currentPage.value = 1; // Reset to first page when sort order changes
 }
 
-async function openPost(post) {
-  selectedPost.value = post;
-  if (!postModalInstance && postModal.value) {
-    postModalInstance = new bootstrap.Modal(postModal.value, { backdrop: true });
-  }
+// 设置 Modal 动画（只设置一次）
+function setupModalAnimations() {
+  if (!postModal.value || modalAnimationsSetup) return;
+  modalAnimationsSetup = true;
+  
+  // 在 Modal 开始显示时立即设置初始状态并开始动画
+  postModal.value.addEventListener('show.bs.modal', () => {
+    const modalContent = postModal.value?.querySelector('.modal-content');
+    if (modalContent) {
+      // 禁用 Bootstrap 的 transition，让 GSAP 完全控制
+      modalContent.style.transition = 'none';
+      // 设置初始状态
+      gsap.set(modalContent, {
+        opacity: 0,
+        scale: 0.8,
+        y: 50
+      });
+      // 立即开始动画，不等待 shown 事件
+      gsap.to(modalContent, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.35,
+        ease: 'back.out(1.2)'
+      });
+    }
+  });
+  
+  // 在 Modal 开始隐藏时运行动画
+  postModal.value.addEventListener('hide.bs.modal', () => {
+    const modalContent = postModal.value?.querySelector('.modal-content');
+    if (modalContent) {
+      // 确保 transition 已禁用
+      modalContent.style.transition = 'none';
+      gsap.to(modalContent, {
+        opacity: 0,
+        scale: 0.8,
+        y: -30,
+        duration: 0.25,
+        ease: 'power2.in'
+      });
+    }
+  });
+}
 
+function openPost(post) {
+  selectedPost.value = post;
+  
+  // 确保 Modal 实例存在
   if (!postModalInstance) {
-    await nextTick();
-    if (!postModalInstance && postModal.value) {
+    if (postModal.value) {
       postModalInstance = new bootstrap.Modal(postModal.value, { backdrop: true });
+      // 设置 Modal 动画（只设置一次）
+      setupModalAnimations();
+    } else {
+      // 如果 Modal 还没挂载，等待 nextTick
+      nextTick(() => {
+        if (!postModalInstance && postModal.value) {
+          postModalInstance = new bootstrap.Modal(postModal.value, { backdrop: true });
+          setupModalAnimations();
+          postModalInstance.show();
+        }
+      });
+      return;
     }
   }
 
-  postModalInstance?.show();
+  // 立即显示 Modal，不等待
+  postModalInstance.show();
 }
+
+// 初始化GSAP动画
+function initGSAPAnimations() {
+  nextTick(() => {
+    if (postsContainer.value) {
+      const cards = postsContainer.value.querySelectorAll('.post-card-gsap');
+      if (cards.length > 0) {
+        animatePostCards(cards, {
+          stagger: 0.1,
+          duration: 0.6,
+          y: 50,
+          ease: 'power3.out'
+        });
+        setupAllCardHovers('.post-card-gsap');
+      }
+    }
+  });
+}
+
+// 监听分页变化，重新初始化动画
+watch(paginatedPosts, () => {
+  cleanupScrollTriggers();
+  initGSAPAnimations();
+}, { flush: 'post' });
 
 onMounted(() => {
   document.title = 'Posts | JI DUNG LO';
+  initGSAPAnimations();
+  // 如果 Modal 已经存在，设置动画
+  nextTick(() => {
+    if (postModal.value) {
+      setupModalAnimations();
+    }
+  });
+});
+
+onBeforeUnmount(() => {
+  cleanupScrollTriggers();
 });
 </script>

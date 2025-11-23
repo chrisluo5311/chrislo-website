@@ -1,5 +1,5 @@
 <template>
-  <section id="home" v-reveal="{ animation: 'zoom-in', duration: 700 }">
+  <section id="home">
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
