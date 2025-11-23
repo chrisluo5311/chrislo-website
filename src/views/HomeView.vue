@@ -1009,7 +1009,15 @@ async function preloadImages() {
     return;
   }
 
+  // Hero section background images - critical for carousel, load with high priority
+  const heroBg1 = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg1.jpg';
+  const heroBg2 = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg2.jpg';
+  
   const imagesToPreload = [
+    // Hero carousel backgrounds - load first (highest priority)
+    heroBg1,
+    heroBg2,
+    // Other images
     springbootIcon,
     arduinoIcon,
     lineIcon,

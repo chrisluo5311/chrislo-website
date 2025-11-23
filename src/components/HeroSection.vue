@@ -64,7 +64,6 @@ const bg1Loaded = ref(false);
 const bg2Loaded = ref(false);
 const bg1Ref = ref(null);
 const bg2Ref = ref(null);
-let bg2Observer = null;
 
 const typedText = ref('');
 const titlesToType = ['Backend Java Engineer', 'I love AI Agent', 'I work on interesting projects'];
@@ -97,37 +96,30 @@ function startTypingLoop(titleIndex = 0) {
   });
 }
 
-// Lazy load background images
+// Preload both background images immediately
 function setupBackgroundLazyLoad() {
-  // Load first background image immediately (it's visible)
+  // Preload both images simultaneously to ensure they're ready before carousel animation
   const img1 = new Image();
+  const img2 = new Image();
+  
+  // Load first background image
   img1.onload = () => {
     bg1Loaded.value = true;
   };
+  img1.onerror = () => {
+    console.warn('Failed to load bg1 image');
+  };
   img1.src = bg1Url;
 
-  // Lazy load second background image when it's about to be visible
-  if (bg2Ref.value) {
-    bg2Observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !bg2Loaded.value) {
-            const img2 = new Image();
-            img2.onload = () => {
-              bg2Loaded.value = true;
-            };
-            img2.src = bg2Url;
-            bg2Observer?.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        rootMargin: '100px', // Start loading 100px before it becomes visible
-        threshold: 0.01,
-      }
-    );
-    bg2Observer.observe(bg2Ref.value);
-  }
+  // Preload second background image immediately (not lazy load)
+  // This ensures it's ready when carousel switches
+  img2.onload = () => {
+    bg2Loaded.value = true;
+  };
+  img2.onerror = () => {
+    console.warn('Failed to load bg2 image');
+  };
+  img2.src = bg2Url;
 }
 
 onMounted(() => {
@@ -136,8 +128,6 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  if (bg2Observer) {
-    bg2Observer.disconnect();
-  }
+  // Cleanup is no longer needed since we removed IntersectionObserver
 });
 </script>
