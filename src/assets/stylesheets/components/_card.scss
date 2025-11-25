@@ -3,18 +3,18 @@
   border: none;
   border-top: 4px solid var(--egg-yellow); 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  /* 移除 transform 和 box-shadow transition，让 GSAP 控制动画 */
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s; */
-  transition: border-color 0.3s; /* 只保留 border-color transition */
+  /* box-shadow transition 与 GSAP 动画时间一致（0.4s），确保流畅 */
+  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
   border-radius: 16px;
   height: 100%;
-  background-color: #ffffff; 
+  background-color: #ffffff;
+  /* 优化动画性能 */
+  will-change: transform, box-shadow;
+  transform: translateZ(0); /* 启用硬件加速 */
+  /* 设置 transform-origin 为底部中心，避免 hover 时文字向上移位 */
+  transform-origin: center bottom;
 }
-/* GSAP 会处理 hover 效果，移除 CSS hover */
-/* .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12); 
-} */
+/* GSAP 会处理 transform 动画，CSS 只处理 box-shadow transition */
 
 .card-header {
   background-color: var(--primary-color);

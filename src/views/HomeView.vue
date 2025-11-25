@@ -131,7 +131,7 @@
         <div
           v-for="project in topProjects"
           :key="project.name"
-          class="col-lg-4 col-md-6 mb-2"
+          class="col-lg-4 col-md-6 mb-3"
         >
           <RouterLink
             v-if="isInternalRoute(project.link)"

@@ -324,30 +324,58 @@ export function animateSkillBadges(badges) {
     ? Array.from(badges)
     : [badges];
 
-  badgesArray.forEach((badge, index) => {
-    if (!badge) return;
+  if (badgesArray.length === 0) return;
 
-    gsap.fromTo(badge,
-      {
-        opacity: 0,
-        scale: 0,
-        rotation: -180
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 0.5,
-        delay: index * 0.05,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: badge.closest('.section'),
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        }
-      }
-    );
+  // 找到共同的容器（skills section）
+  const container = badgesArray[0].closest('.section') || badgesArray[0].closest('.skills-container-gsap')?.parentElement;
+  if (!container) return;
+
+  // 预先设置初始状态，避免闪烁
+  gsap.set(badgesArray, {
+    opacity: 0,
+    scale: 0.8,
+    y: 20,
+    rotation: 0, // 移除旋转，使用更流畅的动画
+    force3D: false // 禁用 force3D，避免文字模糊
   });
+
+  // 使用单个 ScrollTrigger 和 timeline，性能更好
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      start: 'top 80%',
+      toggleActions: 'play none none none',
+      once: true // 只播放一次，提升性能
+    }
+  });
+
+  // 使用 stagger 创建流畅的连续动画
+  tl.to(badgesArray, {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    duration: 0.5,
+    stagger: {
+      amount: 0.6, // 总 stagger 时间
+      from: 'start' // 从第一个开始
+    },
+    ease: 'power2.out', // 更流畅的缓动函数
+    force3D: false, // 禁用 force3D，避免文字模糊
+    onComplete: () => {
+      // 动画完成后，清除所有 transform 相关的内联样式
+      // 让 CSS hover 的 transform 可以正常工作
+      badgesArray.forEach(badge => {
+        if (badge) {
+          // 清除所有 transform 相关的内联样式，避免与 CSS hover 冲突
+          gsap.set(badge, { 
+            clearProps: 'y,opacity,scale,transform'
+          });
+        }
+      });
+    }
+  });
+
+  return tl;
 }
 
 /**
@@ -389,7 +417,20 @@ export function animateProjectCards(cards, options = {}) {
     scale: 1,
     duration: duration,
     stagger: stagger,
-    ease: ease
+    ease: ease,
+    force3D: true, // 启用硬件加速
+    onComplete: () => {
+      // 动画完成后，清除 y 和 opacity 的内联样式，保留 scale
+      // 这样 hover 动画可以正常工作
+      cardsArray.forEach(card => {
+        if (card) {
+          gsap.set(card, { 
+            clearProps: 'y,opacity',
+            transform: 'scale(1) translateZ(0)' // 确保最终状态正确
+          });
+        }
+      });
+    }
   });
 
   return tl;
@@ -447,62 +488,99 @@ export function setupProjectCardHover(card) {
   const cardIcon = card.querySelector('.project-lang-icon');
   const cardBadges = card.querySelectorAll('.badge.bg-info.text-dark');
 
+  // 使用 timeline 确保所有动画同步
+  let hoverTimeline = null;
+
   card.addEventListener('mouseenter', () => {
-    gsap.to(card, {
+    // 如果之前的动画还在运行，先杀死它
+    if (hoverTimeline) {
+      hoverTimeline.kill();
+    }
+
+    // 创建新的 timeline 确保所有动画同步
+    hoverTimeline = gsap.timeline();
+
+    // 主卡片动画：使用统一的 duration 和 ease
+    // 设置 transform-origin 为底部中心，避免文字向上移位
+    gsap.set(card, { transformOrigin: 'center bottom' });
+    hoverTimeline.to(card, {
       y: -10,
       scale: 1.03,
       duration: 0.4,
-      ease: 'power2.out'
-    });
+      ease: 'power2.out',
+      force3D: true, // 启用硬件加速
+      immediateRender: false
+    }, 0);
+
+    // 使用 CSS transition 来动画 box-shadow（通过添加类或直接设置）
+    // 设置 box-shadow，CSS transition 会自动处理动画
     card.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.15)';
 
+    // Icon 动画：与卡片同步
     if (cardIcon) {
-      gsap.to(cardIcon, {
+      hoverTimeline.to(cardIcon, {
         scale: 1.2,
         rotation: 5,
         duration: 0.4,
-        ease: 'power2.out'
-      });
+        ease: 'power2.out',
+        force3D: true
+      }, 0);
     }
 
+    // Badges 动画：使用 CSS transition 处理，避免 GSAP transform 导致文字模糊
+    // CSS 会通过 :hover 状态自动处理 transform，这里不需要 GSAP 动画
+    // 如果需要 stagger 效果，可以通过 CSS 的 transition-delay 实现
     if (cardBadges.length > 0) {
-      gsap.to(cardBadges, {
-        scale: 1.1,
-        y: -2,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: 'power2.out'
+      // 为每个 badge 设置不同的 transition-delay，创建 stagger 效果
+      cardBadges.forEach((badge, index) => {
+        if (badge) {
+          badge.style.transitionDelay = `${0.05 + index * 0.03}s`;
+        }
       });
     }
   });
 
   card.addEventListener('mouseleave', () => {
-    gsap.to(card, {
+    // 如果之前的动画还在运行，先杀死它
+    if (hoverTimeline) {
+      hoverTimeline.kill();
+    }
+
+    // 创建新的 timeline 确保所有动画同步
+    hoverTimeline = gsap.timeline();
+
+    // 主卡片动画：恢复初始状态
+    // 确保 transform-origin 保持为底部中心
+    gsap.set(card, { transformOrigin: 'center bottom' });
+    hoverTimeline.to(card, {
       y: 0,
       scale: 1,
       duration: 0.4,
       ease: 'power2.out',
-      onComplete: () => {
-        card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-      }
-    });
+      force3D: true,
+      immediateRender: false
+    }, 0);
 
+    // 恢复 box-shadow，CSS transition 会自动处理动画
+    card.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+
+    // Icon 动画：与卡片同步恢复
     if (cardIcon) {
-      gsap.to(cardIcon, {
+      hoverTimeline.to(cardIcon, {
         scale: 1,
         rotation: 0,
         duration: 0.4,
-        ease: 'power2.out'
-      });
+        ease: 'power2.out',
+        force3D: true
+      }, 0);
     }
 
+    // Badges 动画：恢复 transition-delay，让 CSS transition 处理恢复动画
     if (cardBadges.length > 0) {
-      gsap.to(cardBadges, {
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        stagger: 0.03,
-        ease: 'power2.out'
+      cardBadges.forEach((badge, index) => {
+        if (badge) {
+          badge.style.transitionDelay = `${index * 0.02}s`;
+        }
       });
     }
   });

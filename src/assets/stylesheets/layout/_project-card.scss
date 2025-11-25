@@ -24,11 +24,20 @@
 
 /* Project tech badges: turn yellow when hovering the card */
 #projects .card .badge.bg-info.text-dark {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, 
+              color 0.3s ease,
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); /* 使用 CSS transition 处理移动，避免文字模糊 */
+  /* 优化文字渲染，确保清晰 - 使用 subpixel antialiasing 获得最佳清晰度 */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto; /* Firefox 使用默认渲染 */
+  /* 完全避免使用 translateZ、will-change 和 scale，避免文字模糊 */
 }
 #projects .card:hover .badge.bg-info.text-dark {
   background-color: #ffc107 !important; /* bootstrap warning yellow */
   color: #212529 !important; /* dark text for contrast */
+  /* 只使用 translateY，不使用 translateZ 或 scale，避免文字模糊 */
+  transform: translateY(-3px);
 }
 
 /* --- Project card normalization for horizontal alignment --- */
@@ -47,6 +56,9 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  /* 优化动画性能 */
+  will-change: transform;
+  transform: translateZ(0); /* 启用硬件加速 */
 }
 
 /* Only clamp the text, not the whole title grid */
