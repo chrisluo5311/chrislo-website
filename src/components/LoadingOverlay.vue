@@ -285,7 +285,7 @@ watch(() => props.isLoading, (newVal) => {
     setTimeout(() => {
       showOverlay.value = false;
       enableScroll();
-    }, 300);
+    }, 220);
   }
 });
 
