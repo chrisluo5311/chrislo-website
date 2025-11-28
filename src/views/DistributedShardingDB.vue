@@ -17,7 +17,7 @@
         Horizontally scalable, fault-aware, and eventually consistent system across EC2 nodes.
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/Distributed_Database_Final_Project.pdf" target="_blank" rel="noopener">
+        <a class="btn primary" href="https://images.chris-luo.me/PublicDocs/Distributed_Database_Final_Project.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
           Read the Full Report
         </a>
@@ -397,13 +397,13 @@ export default {
   },
   data() {
     return {
-      staticImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/diagram-comm-static.png',
-      componentsImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/diagram-components.png',
-      deploymentImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/diagram-deployment.png',
-      orderSeqImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/diagram-sequence-order.png',
-      productSeqImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/diagram-sequence-product.png',
-      hashImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/strategy-hash.png',
-      rangeImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/sharding/strategy-range.png',
+      staticImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-comm-static.png',
+      componentsImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-components.png',
+      deploymentImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-deployment.png',
+      orderSeqImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-sequence-order.png',
+      productSeqImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-sequence-product.png',
+      hashImage: 'https://images.chris-luo.me/PublicImg/sharding/strategy-hash.png',
+      rangeImage: 'https://images.chris-luo.me/PublicImg/sharding/strategy-range.png',
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: ''

@@ -17,7 +17,7 @@
         An interactive tool for searching, downloading, parsing, and Q&A with arXiv papers using Retrieval-Augmented Generation.
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/arXiv_Copilot.pdf" target="_blank" rel="noopener">
+        <a class="btn primary" href="https://images.chris-luo.me/PublicDocs/arXiv_Copilot.pdf" target="_blank" rel="noopener">
           <i class="bi bi-file-earmark-pdf"></i>
           Read the Full Report
         </a>
@@ -426,12 +426,12 @@ export default {
   },
   data() {
     return {
-      pdfPipelineImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/pdf_pipeline.png',
-      vectorSearchImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/vectorsearch.png',
-      multiModalImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/multi_modal.jpg',
-      multiModalCotImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/multi_modal_CoT.jpg',
-      textOnlyImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/text_only.jpg',
-      arXivRagImage: 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/arXiv/arXiv_rag.jpg',
+      pdfPipelineImage: 'https://images.chris-luo.me/PublicImg/arXiv/pdf_pipeline.png',
+      vectorSearchImage: 'https://images.chris-luo.me/PublicImg/arXiv/vectorsearch.png',
+      multiModalImage: 'https://images.chris-luo.me/PublicImg/arXiv/multi_modal.jpg',
+      multiModalCotImage: 'https://images.chris-luo.me/PublicImg/arXiv/multi_modal_CoT.jpg',
+      textOnlyImage: 'https://images.chris-luo.me/PublicImg/arXiv/text_only.jpg',
+      arXivRagImage: 'https://images.chris-luo.me/PublicImg/arXiv/arXiv_rag.jpg',
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: '',

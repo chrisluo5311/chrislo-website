@@ -453,20 +453,20 @@ import FooterComponent from '@/components/FooterComponent.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 
 // Project icon URLs
-const springbootIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/springboot.png';
-const arduinoIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/arduino.png';
-const lineIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/line.png';
-const openaiIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/openai.png';
-const geminiIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/gemini.png';
-const pythonIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/python.png';
-const tensorflowIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/tensorflow.png';
-const yoloIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/yolo.svg';
-const matlabIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/matlab.png';
-const chatBotIdleImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/chatbot/rb1.png';
-const chatBotHoverImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/chatbot/rb2.png';
-const bootstrapImage = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/bootstrap.png';
-const aws = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/aws.png';
-const nvidiaIcon = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/project/nvidia.png';
+const springbootIcon = 'https://images.chris-luo.me/PublicImg/project/springboot.png';
+const arduinoIcon = 'https://images.chris-luo.me/PublicImg/project/arduino.png';
+const lineIcon = 'https://images.chris-luo.me/PublicImg/project/line.png';
+const openaiIcon = 'https://images.chris-luo.me/PublicImg/project/openai.png';
+const geminiIcon = 'https://images.chris-luo.me/PublicImg/project/gemini.png';
+const pythonIcon = 'https://images.chris-luo.me/PublicImg/project/python.png';
+const tensorflowIcon = 'https://images.chris-luo.me/PublicImg/project/tensorflow.png';
+const yoloIcon = 'https://images.chris-luo.me/PublicImg/project/yolo.svg';
+const matlabIcon = 'https://images.chris-luo.me/PublicImg/project/matlab.png';
+const chatBotIdleImage = 'https://images.chris-luo.me/PublicImg/chatbot/rb1.png';
+const chatBotHoverImage = 'https://images.chris-luo.me/PublicImg/chatbot/rb2.png';
+const bootstrapImage = 'https://images.chris-luo.me/PublicImg/project/bootstrap.png';
+const aws = 'https://images.chris-luo.me/PublicImg/project/aws.png';
+const nvidiaIcon = 'https://images.chris-luo.me/PublicImg/project/nvidia.png';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -1010,8 +1010,8 @@ async function preloadImages() {
   }
 
   // Hero section background images - critical for carousel, load with high priority
-  const heroBg1 = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg1.jpg';
-  const heroBg2 = 'https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicImg/index/bg2.jpg';
+  const heroBg1 = 'https://images.chris-luo.me/PublicImg/index/bg1.jpg';
+  const heroBg2 = 'https://images.chris-luo.me/PublicImg/index/bg2.jpg';
   
   const imagesToPreload = [
     // Hero carousel backgrounds - load first (highest priority)

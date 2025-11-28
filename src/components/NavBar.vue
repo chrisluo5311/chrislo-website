@@ -119,7 +119,7 @@ const closeNavbar = () => {
 
 const downloadResume = async () => {
   try {
-    const resumeUrl = "https://jidunglo-resume-bucket.s3.us-east-2.amazonaws.com/PublicDocs/ChrisLo_Resume.pdf"
+    const resumeUrl = "https://images.chris-luo.me/PublicDocs/ChrisLo_Resume.pdf"
     const response = await fetch(resumeUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch resume: ${response.status}`);
