@@ -71,6 +71,18 @@
                 <small class="dropdown-item-subtitle">RAG chatbot for research assistance</small>
               </router-link>
             </li>
+            <li>
+              <a
+                class="dropdown-item dropdown-item-rich"
+                href="https://moodfm.chris-luo.me/"
+                target="_blank"
+                rel="noopener noreferrer"
+                @click="closeNavbar"
+              >
+                <span class="dropdown-item-title">MoodFM</span>
+                <small class="dropdown-item-subtitle">Music streaming platform based on mood</small>
+              </a>
+            </li>
           </ul>
         </li>
         <li class="nav-item">

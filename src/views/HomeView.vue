@@ -467,6 +467,7 @@ const chatBotHoverImage = 'https://images.chris-luo.me/PublicImg/chatbot/rb2.png
 const bootstrapImage = 'https://images.chris-luo.me/PublicImg/project/bootstrap.png';
 const aws = 'https://images.chris-luo.me/PublicImg/project/aws.png';
 const nvidiaIcon = 'https://images.chris-luo.me/PublicImg/project/nvidia.png';
+const moodFMIcon = 'https://images.chris-luo.me/PublicImg/project/fm_icon.svg';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
@@ -906,6 +907,15 @@ const projects = ref([
     description: 'Builds a persona from my resume, routes chats through Google’s Gemini AI, and collects visitor info or unanswered questions for follow-up.', 
     technologies: ['AWS Lambda', 'AWS S3', 'Gemini', 'FastAPI', 'OpenAI', 'Pushover'], 
     link: 'https://github.com/chrisluo5311/ResumeAssistant' 
+  },
+  {
+    name: 'MoodFM',
+    icon: openaiIcon,
+    role: 'Developer',
+    period: 'Nov 2025 - Nov 2025',
+    description: 'A mood-based music streaming service that recommends songs based on the user\'s mood.',
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Flask', 'OpenAI', 'Pushover'],
+    link: 'https://moodfm.chris-luo.me/'
   },
   { 
     name: 'VisionFlow AI', 
