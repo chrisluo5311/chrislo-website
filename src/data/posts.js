@@ -41,7 +41,7 @@ const posts = [
     tags: ['RNN', 'Deep Learning']
   },
   {
-    image: 'https://images.chris-luo.me/PublicImg/posts/ReARTeR.png',
+    image: 'https://images.chris-luo.me/PublicImg/posts/ReARTeR.webp',
     title: 'Thesis Review - ReARTeR',
     snippet:
       'ReARTeR combines Trustworthy Process Rewarding (TPR) and Step-Level Offline Reinforcement Learning to enhance reasoning ability and interpretability.',
