@@ -426,12 +426,12 @@ export default {
   },
   data() {
     return {
-      pdfPipelineImage: 'https://images.chris-luo.me/PublicImg/arXiv/pdf_pipeline.png',
-      vectorSearchImage: 'https://images.chris-luo.me/PublicImg/arXiv/vectorsearch.png',
+      pdfPipelineImage: 'https://images.chris-luo.me/PublicImg/arXiv/pdf_pipeline.webp',
+      vectorSearchImage: 'https://images.chris-luo.me/PublicImg/arXiv/vectorsearch.webp',
       multiModalImage: 'https://images.chris-luo.me/PublicImg/arXiv/multi_modal.jpg',
       multiModalCotImage: 'https://images.chris-luo.me/PublicImg/arXiv/multi_modal_CoT.jpg',
       textOnlyImage: 'https://images.chris-luo.me/PublicImg/arXiv/text_only.jpg',
-      arXivRagImage: 'https://images.chris-luo.me/PublicImg/arXiv/arXiv_rag.jpg',
+      arXivRagImage: 'https://images.chris-luo.me/PublicImg/arXiv/arXiv_rag.webp',
       showImageModal: false,
       modalImageSrc: '',
       modalImageCaption: '',
