@@ -62,7 +62,7 @@
             </li>
             <li>
               <router-link
-                class="dropdown-item dropdown-item-rich arxiv-copilot-item"
+                class="dropdown-item dropdown-item-rich mt-2"
                 to="/projects/arxiv-copilot"
                 exact-active-class="active"
                 @click="closeNavbar"
@@ -73,7 +73,7 @@
             </li>
             <li>
               <a
-                class="dropdown-item dropdown-item-rich"
+                class="dropdown-item dropdown-item-rich mt-2"
                 href="https://moodfm.chris-luo.me/"
                 target="_blank"
                 rel="noopener noreferrer"

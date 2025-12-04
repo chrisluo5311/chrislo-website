@@ -74,6 +74,8 @@
 
 .navbar .dropdown-menu {
   min-width: 18rem;
+  max-height: 385px;
+  overflow: auto;
   border-radius: 1rem;
   padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -175,10 +177,6 @@
 
 .navbar .dropdown-item.active .dropdown-item-subtitle {
   color: rgba(255, 255, 255, 0.6);
-}
-
-.navbar .dropdown-item.arxiv-copilot-item {
-  margin-top: 0.55rem;
 }
 
 .navbar .dropdown-item:focus {
