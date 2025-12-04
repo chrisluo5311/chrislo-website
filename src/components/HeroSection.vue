@@ -54,8 +54,8 @@ const personalInfo = ref({
 });
 
 // Image URLs
-const bg1Url = 'https://images.chris-luo.me/PublicImg/index/bg1.jpg';
-const bg2Url = 'https://images.chris-luo.me/PublicImg/index/bg2.jpg';
+const bg1Url = 'https://images.chris-luo.me/PublicImg/index/bg1.webp';
+const bg2Url = 'https://images.chris-luo.me/PublicImg/index/bg2.webp';
 const avatarUrl = 'https://images.chris-luo.me/PublicImg/index/avatar.jpg';
 const calendarIconUrl = 'https://images.chris-luo.me/PublicImg/index/Google_Calendar_icon.svg.png';
 

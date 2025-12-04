@@ -467,7 +467,6 @@ const chatBotHoverImage = 'https://images.chris-luo.me/PublicImg/chatbot/rb2.png
 const bootstrapImage = 'https://images.chris-luo.me/PublicImg/project/bootstrap.png';
 const aws = 'https://images.chris-luo.me/PublicImg/project/aws.png';
 const nvidiaIcon = 'https://images.chris-luo.me/PublicImg/project/nvidia.png';
-const moodFMIcon = 'https://images.chris-luo.me/PublicImg/project/fm_icon.svg';
 
 // Hide broken icon images gracefully
 function onIconError(event) {
