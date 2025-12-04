@@ -398,8 +398,8 @@ export default {
   data() {
     return {
       staticImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-comm-static.png',
-      componentsImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-components.png',
-      deploymentImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-deployment.png',
+      componentsImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-components.webp',
+      deploymentImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-deployment.webp',
       orderSeqImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-sequence-order.png',
       productSeqImage: 'https://images.chris-luo.me/PublicImg/sharding/diagram-sequence-product.png',
       hashImage: 'https://images.chris-luo.me/PublicImg/sharding/strategy-hash.png',
