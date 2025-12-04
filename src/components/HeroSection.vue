@@ -56,7 +56,7 @@ const personalInfo = ref({
 // Image URLs
 const bg1Url = 'https://images.chris-luo.me/PublicImg/index/bg1.webp';
 const bg2Url = 'https://images.chris-luo.me/PublicImg/index/bg2.webp';
-const avatarUrl = 'https://images.chris-luo.me/PublicImg/index/avatar.jpg';
+const avatarUrl = 'https://images.chris-luo.me/PublicImg/index/avatar.webp';
 const calendarIconUrl = 'https://images.chris-luo.me/PublicImg/index/Google_Calendar_icon.svg.png';
 
 // Background image loading states
