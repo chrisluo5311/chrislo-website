@@ -34,10 +34,10 @@
             <h4 class="fw-bold d-flex flex-wrap align-items-center gap-2">
               {{ edu.institution }}
               <span
-                v-if="isBootcamp(edu.institution)"
+                v-if="edu.badge"
                 class="badge bg-warning text-dark badge-compact"
-                title="Bootcamp"
-              >Bootcamp</span>
+                :title="edu.badge"
+              >{{ edu.badge }}</span>
             </h4>
             <p class="text-muted mb-1" v-for="(deg, i) in edu.degree" :key="i">{{ deg }}</p>
             <p class="text-muted mb-2">
@@ -63,6 +63,27 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <!-- Certificate/Transcript Image Boxes -->
+            <div v-if="edu.certificates && edu.certificates.length > 0" class="certificate-boxes mt-4">
+              <a
+                v-for="(cert, certIdx) in edu.certificates" 
+                :key="certIdx"
+                :href="getCertificatePdfUrl(cert)"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="certificate-box"
+              >
+                <img 
+                  v-lazy="getCertificateImageUrl(cert)" 
+                  :alt="`Certificate ${certIdx + 1}`"
+                  class="certificate-image"
+                />
+                <div class="certificate-overlay">
+                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                  <span>View PDF</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -487,19 +508,32 @@ function highlightTech(text) {
   return text.replace(regex, '<span class="hl-underline-yellow">$1</span>');
 }
 
-// Identify bootcamp-type institutions to show a small badge in Education
-function isBootcamp(name) {
-  if (!name) return false;
-  return [
-    'National Yang Ming Chiao Tung University',
-    'Institute for Information Industry'
-  ].includes(name);
-}
-
 // Check if a link is an internal route (starts with / and not an external URL)
 function isInternalRoute(link) {
   if (!link) return false;
   return link.startsWith('/') && !link.startsWith('//');
+}
+
+// Get certificate image URL (supports both string and object format)
+function getCertificateImageUrl(cert) {
+  if (!cert) return '';
+  // If cert is an object with image property
+  if (typeof cert === 'object' && cert.image) {
+    return cert.image;
+  }
+  // If cert is a string, assume it's an image URL
+  return cert;
+}
+
+// Get certificate PDF URL (supports both string and object format)
+function getCertificatePdfUrl(cert) {
+  if (!cert) return '';
+  // If cert is an object with pdf property
+  if (typeof cert === 'object' && cert.pdf) {
+    return cert.pdf;
+  }
+  // If cert is a string, assume it's a PDF URL
+  return cert;
 }
 
 // --- Chat history persistence ---
@@ -801,7 +835,7 @@ const education = ref([
         institution: 'Santa Clara University', 
         degree: ['MS in Computer Science and Engineering'], 
         location: 'Santa Clara, CA', 
-        date: 'Expected March 2026', 
+        date: 'March 2024 - Expected March 2026', 
         details: 'Concentration: LLM',
         courses: [
             { name: 'Machine Learning', grade: 'A' },
@@ -814,21 +848,47 @@ const education = ref([
         degree: ['BA in English Language and Literature', 'BA in Business Administration'], 
         location: 'Taipei, Taiwan', 
         date: 'Sep 2015 - Jan 2020', 
-        details: 'GPA: 3.7 / 4.0' 
+        details: 'GPA: 3.7 / 4.0',
+        certificates: [
+          {
+            image: 'https://images.chris-luo.me/PublicImg/certificate/undergrad_transcript.jpg',
+            pdf:'https://images.chris-luo.me/PublicImg/certificate/undergrad_transcript.pdf'
+          },
+          {
+            image: 'https://images.chris-luo.me/PublicImg/certificate/undergrad_deploma.jpg',
+            pdf:'https://images.chris-luo.me/PublicImg/certificate/undergrad_deploma.pdf'
+          }
+        ]
     },
     { 
         institution: 'National Yang Ming Chiao Tung University', 
-        degree: ['Semiconductor AI and ChatGPT Academy (108 hours)'], 
+        degree: ['Semiconductor AI Academy (108 hours)'], 
         location: 'Taipei, Taiwan', 
         date: 'Aug 2023 - Nov 2023', 
-        details: 'Learned Deep Learning, Machine Learning, TensorFlow, Keras, OpenCV' 
+        details: 'Learned Deep Learning, Machine Learning, TensorFlow, Keras, OpenCV',
+        badge: 'Bootcamp',
+        certificates: [
+          {
+
+            image: 'https://images.chris-luo.me/PublicImg/certificate/SemiconductorAIAcademy.jpg',
+            pdf:'https://images.chris-luo.me/PublicImg/certificate/SemiconductorAIAcademy.pdf'
+          }
+          
+        ]
     },
     { 
         institution: 'Institute for Information Industry', 
         degree: ['Java Backend Engineering Training Program (576 hours)'], 
         location: 'Taipei, Taiwan', 
         date: 'Dec 2020 - May 2021', 
-        details: 'Learned Java, Spring Boot, MSSQL Server, RESTful API, JavaScript' 
+        details: 'Learned Java, Spring Boot, MSSQL Server, RESTful API, JavaScript',
+        badge: 'Bootcamp',
+        certificates: [
+          {
+            image: 'https://images.chris-luo.me/PublicImg/certificate/JavaBackendEngineerAcademy.jpg',
+            pdf:'https://images.chris-luo.me/PublicImg/certificate/JavaBackendEngineerAcademy.pdf'
+          }
+        ]
     } 
 ]);
 
