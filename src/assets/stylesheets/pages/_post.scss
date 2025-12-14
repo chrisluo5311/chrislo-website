@@ -179,6 +179,11 @@
 
 // Card styles for posts
 .posts-main {
+  // Slightly increase vertical spacing so hover lift doesn't crowd the row above
+  .posts-grid {
+    --bs-gutter-y: 2rem;
+  }
+
   .card {
     border: none;
     border-top: 4px solid var(--egg-yellow);
@@ -187,11 +192,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     // 移除CSS transition，让GSAP控制动画
     // transition: all 0.3s ease;
-
-    // GSAP会处理hover效果，但保留CSS作为fallback
-    &:hover {
-      // transform和box-shadow由GSAP控制
-    }
 
     .card-img-top {
       height: 200px;

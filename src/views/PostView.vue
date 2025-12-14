@@ -49,7 +49,7 @@
         </div>
 
         <!-- Articles Grid -->
-        <div class="row g-4 mb-4" ref="postsContainer">
+        <div class="row g-4 mb-4 posts-grid" ref="postsContainer">
           <div
             v-for="post in paginatedPosts"
             :key="post.title"
