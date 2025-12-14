@@ -473,7 +473,6 @@ import {
   animateTimelineItems,
   animateSkillBadges,
   animateProjectCards,
-  animateProjectCardsExpand,
   setupAllProjectCardHovers,
   setupProjectCardHover
 } from '@/utils/gsap-animations';
