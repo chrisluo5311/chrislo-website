@@ -433,6 +433,7 @@
       <div 
         v-if="showIdleMessage && !isChatOpen" 
         class="chat-idle-message"
+        :class="{ 'is-dots': isIdleDots }"
         ref="idleMessageRef"
       >
         <div class="chat-idle-message__bubble" ref="idleBubbleRef">
@@ -590,6 +591,7 @@ const idleMessageRef = ref(null);
 const idleBubbleRef = ref(null);
 const idleTextRef = ref(null);
 const idleTailRef = ref(null);
+const isIdleDots = ref(true);
 let idleMessageAnimation = null;
 
 // Persist chat history whenever messages change
@@ -600,6 +602,7 @@ watch(showIdleMessage, (newVal) => {
   if (newVal && !isChatOpen.value) {
     nextTick(() => {
       // 模板中已经有 "..."，不需要重复设置
+      isIdleDots.value = true;
       animateIdleMessage();
     });
   } else {
@@ -631,6 +634,8 @@ function animateIdleMessage() {
   }
   
   const messageText = 'Ask me any questions !';
+  // Ensure we start in the "..." phase for styling
+  isIdleDots.value = true;
   
   // 清理之前的动画
   if (idleMessageAnimation) {
@@ -696,6 +701,8 @@ function animateIdleMessage() {
     // 检查 ref 是否存在，防止组件已卸载
     if (!idleTextRef.value) return;
     
+    // Switch styling from dots-mode -> typing-mode
+    isIdleDots.value = false;
     idleTextRef.value.textContent = '';
     // 使用 GSAP timeline 控制打字效果
     const typeTl = gsap.timeline();
