@@ -21,6 +21,26 @@
   background-color: var(--primary-color) !important;
 }
 
+/* Work Experience company link */
+.company-link {
+  color: var(--bs-link-color, var(--primary-color));
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out;
+}
+
+.company-link:hover {
+  color: var(--bs-link-hover-color, var(--primary-color));
+}
+
+.company-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Compact badge for small labels (e.g., Bootcamp) */
 .badge-compact {
   font-size: 0.7rem;

@@ -102,7 +102,17 @@
             :key="index"
             class="timeline-item mb-5 timeline-item-gsap"
           >
-            <h4 class="fw-bold">{{ job.title }} @ {{ job.company }}</h4>
+            <h4 class="fw-bold">
+              {{ job.title }} @
+              <a
+                v-if="job.companyUrl"
+                :href="job.companyUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="company-link"
+              >{{ job.company }}</a>
+              <span v-else>{{ job.company }}</span>
+            </h4>
             <p class="text-muted mb-2">
               <i class="bi bi-geo-alt-fill"></i> {{ job.location }}
             </p>
@@ -899,7 +909,18 @@ const education = ref([
     } 
 ]);
 
-const workExperience = ref([ 
+const workExperience = ref([
+    {
+      company: 'Settlyfe Inc.',
+      companyUrl: 'https://settlyfe.com/',
+      title: 'Full Stack/AI Engineer Intern',
+      location: 'Remote',
+      date: 'Nov 20 - exptected Feb 2026',
+      description: [
+        'Iteratively develop and maintain full-stack web and mobile applications using React, React Native, Node.js, Java Spring Boot, and Supabase.',
+        'Integrate LLM-based functionalities and fine-tune models to meet the application’s specific requirements.'
+      ]
+    },
     { 
         company: 'JY Globe Company', 
         title: 'Java Backend Engineer', 
