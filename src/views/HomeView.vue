@@ -407,6 +407,8 @@
       <form @submit.prevent="sendMessage" class="d-flex">
         <input
           type="text"
+          id="ai-chat-input"
+          name="aiChatMessage"
           class="form-control"
           ref="chatInput"
           v-model="userMessage"
