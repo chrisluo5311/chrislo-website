@@ -918,8 +918,10 @@ const workExperience = ref([
       location: 'Remote',
       date: 'Nov 20 - exptected Feb 2026',
       description: [
-        'Iteratively develop and maintain full-stack web and mobile applications using React, React Native, Node.js, Java Spring Boot, and Supabase.',
-        'Integrate LLM-based functionalities and fine-tune models to meet the application’s specific requirements.'
+        'Architect and optimize MySQL database schemas for scalable features and data integrity.',
+        'Develop and maintain RESTful APIs using Java Spring Boot for web and mobile integration.',
+        'Implement CI/CD pipelines with GitHub Actions to deploy Spring Boot applications to Alibaba Cloud.',
+        'Build a recommendation system for housing and furniture using collaborative and item-based filtering algorithms.'
       ]
     },
     { 
