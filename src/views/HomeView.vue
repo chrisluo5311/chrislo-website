@@ -513,7 +513,7 @@ function onIconError(event) {
 // Highlight key tech terms with a yellow underline effect
 function highlightTech(text) {
   if (!text) return '';
-  const terms = ['Spring Boot', 'Spring Security', 'MySQL', 'RabbitMQ'];
+  const terms = ['Spring Boot', 'Spring Security', 'MySQL', 'RabbitMQ', 'recommendation system'];
   // Escape regex special characters in terms and build a single regex (case-sensitive as requested)
   const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'g');
@@ -596,7 +596,6 @@ const isLoading = ref(false);
 const chatBody = ref(null);
 const chatInput = ref(null);
 const chatFabImage = ref(chatBotIdleImage);
-const chatWidget = ref(null);
 const showIdleMessage = ref(true);
 const idleMessageRef = ref(null);
 const idleBubbleRef = ref(null);
@@ -920,21 +919,21 @@ const workExperience = ref([
       description: [
         'Architect and optimize MySQL database schemas for scalable features and data integrity.',
         'Develop and maintain RESTful APIs using Java Spring Boot for web and mobile integration.',
-        'Implement CI/CD pipelines with GitHub Actions to deploy Spring Boot applications to Alibaba Cloud.',
+        'Implement CI/CD pipelines with GitHub Actions to deploy web applications to Alibaba Cloud.',
         'Build a recommendation system for housing and furniture using collaborative and item-based filtering algorithms.'
       ]
     },
     { 
-        company: 'JY Globe Company', 
-        title: 'Java Backend Engineer', 
-        location: 'Taipei, Taiwan', 
-        date: 'Sep 2021 - Apr 2022', 
-        description: [
-            'Built a cryptocurrency trading application with Spring Boot, featuring membership, order, and product systems.',
-            'Utilized Spring Security, RESTful API, and unit testing, capable of supporting 100,000+ active users and processing 50,000+ orders daily.',
-            'Improved MySQL database query performance by 150% to 200% through indexing and data sharding.',
-            'Developed an ordering system capable of processing 100,000 orders per hour using RabbitMQ.'
-        ]
+      company: 'JY Globe Company', 
+      title: 'Java Backend Engineer', 
+      location: 'Taipei, Taiwan', 
+      date: 'Sep 2021 - Apr 2022', 
+      description: [
+          'Built a cryptocurrency trading application with Spring Boot, featuring membership, order, and product systems.',
+          'Utilized Spring Security, RESTful API, and unit testing, capable of supporting 100,000+ active users and processing 50,000+ orders daily.',
+          'Improved MySQL database query performance by 150% to 200% through indexing and data sharding.',
+          'Developed an ordering system capable of processing 100,000 orders per hour using RabbitMQ.'
+      ]
     }
 ]);
 const skills = ref([ 
