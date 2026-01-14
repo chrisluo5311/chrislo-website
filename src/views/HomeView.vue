@@ -913,7 +913,7 @@ const workExperience = ref([
     {
       company: 'Settlyfe Inc.',
       companyUrl: 'https://settlyfe.com/',
-      title: 'Full Stack/AI Engineer Intern',
+      title: 'Java backend Engineer Intern',
       location: 'Remote',
       date: 'Nov 20 - exptected Feb 2026',
       description: [
