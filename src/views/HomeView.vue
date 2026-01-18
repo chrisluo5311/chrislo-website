@@ -844,7 +844,7 @@ const introduction = ref(
 );
 
 const careerObjective = ref(
-  'Seeking a full-time job as an AI Engineer or Software role to develop scalable and efficient AI-driven applications.'
+  'Computer Science graduate focus on AI/ML with practical experience in machine learning systems, RAG pipeline, and reinforcement learning for LLM reasoning, combined with robust backend engineering skills in Java Spring Boot and RESTful APIs. Seeking to take on a full-time role building data-driven, high-performance applications that integrate advanced machine learning models with scalable backend infrastructure'
 );
 
 const education = ref([ 
@@ -853,7 +853,7 @@ const education = ref([
         degree: ['MS in Computer Science and Engineering'], 
         location: 'Santa Clara, CA', 
         date: 'March 2024 - Expected March 2026', 
-        details: 'Concentration: LLM',
+        details: 'GPA: 3.7 / 4.0',
         courses: [
             { name: 'Machine Learning', grade: 'A' },
             { name: 'Information Retrieval and Recommendation System', grade: 'A' },
@@ -913,7 +913,7 @@ const workExperience = ref([
     {
       company: 'Settlyfe Inc.',
       companyUrl: 'https://settlyfe.com/',
-      title: 'Java backend Engineer Intern',
+      title: 'Full Stack/AI Engineer Intern',
       location: 'Remote',
       date: 'Nov 20 - exptected Feb 2026',
       description: [
