@@ -24,7 +24,7 @@
 import { ref } from 'vue';
 
 const personalInfo = ref({
-  name: 'JI DUNG LO',
+  name: 'Chris Lo',
   email: 'chrislo5311@gmail.com',
   phone: '((408) 387-4040)',
   socials: {

@@ -44,11 +44,11 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const personalInfo = ref({
-  name: 'JI DUNG LO',
+  name: 'Chris LO',
   email: 'chrislo5311@gmail.com',
   phone: '((408) 387-4040)',
   socials: {
-    linkedin: 'https://www.linkedin.com/in/ji-dung-lo-b4b350189/',
+    linkedin: 'https://www.linkedin.com/in/chris-lo-cs/',
     github: 'https://github.com/chrisluo5311'
   }
 });

@@ -459,7 +459,7 @@ watch(paginatedPosts, () => {
 }, { flush: 'post' });
 
 onMounted(() => {
-  document.title = 'Posts | JI DUNG LO';
+  document.title = 'Posts | Chris LO';
   initGSAPAnimations();
   // 如果 Modal 已经存在，设置动画
   nextTick(() => {
