@@ -66,7 +66,7 @@ const bg1Ref = ref(null);
 const bg2Ref = ref(null);
 
 const typedText = ref('');
-const titlesToType = ['AI Engineer Intern', 'I love AI Agent', 'I work on interesting projects', 'I train LLM models'];
+const titlesToType = ['AI Engineer', 'I love AI Agent', 'I work on interesting projects', 'I train LLM models'];
 
 function typeWriter(text, i, callback) {
   if (i < text.length) {
